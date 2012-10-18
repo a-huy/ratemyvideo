@@ -7,3 +7,6 @@ from django.template import RequestContext
 def login_page(request):
     return render(request, 'login_page.html', { })
 
+def channel(request):
+    return render(request, 'channel.html', { })
+
