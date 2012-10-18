@@ -16,11 +16,14 @@
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 // connected
+                console.log('You are logged in!');
             } else if (response.status === 'not_authorized') {
                 // not_authorized
+                console.log('You are not authorized');
                 login();
             } else {
                 // not_logged_in
+                console.log('You are not logged in');
                 login();
             }
         });
