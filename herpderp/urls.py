@@ -5,6 +5,10 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+
+    url(r'^videos/', include('videos.urls')),
+    url(r'^login/', include('accounts.urls')),
+    
     # Examples:
     # url(r'^$', 'herpderp.views.home', name='home'),
     # url(r'^herpderp/', include('herpderp.foo.urls')),
@@ -15,3 +19,4 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+

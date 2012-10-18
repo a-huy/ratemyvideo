@@ -1,1 +1,9 @@
-# Create your views here.
+from django.conf import settings
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
+    HttpResponse
+from django.template import RequestContext
+
+def login_page(request):
+    return render(request, 'login_page.html', { })
+
