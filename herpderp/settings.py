@@ -162,5 +162,8 @@ if SETTINGS_PATH != '/home/andy/code/heroku/herpderp/herpderp':
 
 # CONSTANTS
 URL_MAX_LENGTH = 2048
+FB_ID_MAX_LENGTH = 100
+REAL_NAME_MAX_LENGTH = 200
+YT_ID_MAX_LENGTH = 11
 
 

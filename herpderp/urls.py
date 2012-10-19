@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^videos/', include('videos.urls')),
     url(r'^login/', include('accounts.urls')),
+    url(r'^api/', include('base.urls')),
     
     # Examples:
     # url(r'^$', 'herpderp.views.home', name='home'),

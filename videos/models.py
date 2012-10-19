@@ -1,13 +1,15 @@
 from django.db import models
 from django.conf import settings
 
+import base.models as base_models
 import accounts.models as accounts_models
 
-class Video(models.Model):
-    url = models.URLField(max_length=settings.URL_MAX_LENGTH)
+class Video(base_models.Base):
+    yt_id = models.CharField(max_length=settings.YT_ID_MAX_LENGTH)
     
-class Rating(models.Model):
+class Rating(base_models.Base):
     video = models.ForeignKey(Video)
     user = models.ForeignKey(accounts_models.User)
     rating = models.IntegerField()
+    
 
