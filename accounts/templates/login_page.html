@@ -17,6 +17,8 @@
             if (response.status === 'connected') {
                 // connected
                 console.log('You are logged in!');
+                var status = document.getElementById('login_status');
+                status.innerText = 'Good to see you, ' + response.name + '!';
             } else if (response.status === 'not_authorized') {
                 // not_authorized
                 console.log('You are not authorized');
