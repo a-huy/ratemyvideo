@@ -44,6 +44,8 @@
             if (response.authResponse) {
                 // connected
                 testAPI();
+                var status = document.getElementById('login_status');
+                status.innerText = 'Good to see you, ' + response.name + '!';
             } else {
                 // cancelled
             }
@@ -58,6 +60,8 @@
     }
 
 </script>
-ahoy hoy!
+<div id="login_status">
+    You have not yet logged in via Facebook.
+</div>
 {% endblock body %}
 
