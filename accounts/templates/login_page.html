@@ -17,8 +17,7 @@
             if (response.status === 'connected') {
                 // connected
                 console.log('You are logged in!');
-                var status = document.getElementById('login_status');
-                status.innerText = 'Good to see you, ' + response.name + '!';
+                testAPI();
             } else if (response.status === 'not_authorized') {
                 // not_authorized
                 console.log('You are not authorized');
@@ -46,8 +45,6 @@
             if (response.authResponse) {
                 // connected
                 testAPI();
-                var status = document.getElementById('login_status');
-                status.innerText = 'Good to see you, ' + response.name + '!';
             } else {
                 // cancelled
             }
@@ -58,6 +55,8 @@
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
             console.log('Good to see you, ' + response.name + '.');
+            var status = document.getElementById('login_status');
+            status.innerText = 'Good to see you, ' + response.name + '!';
         });
     }
 
