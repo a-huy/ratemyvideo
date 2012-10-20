@@ -5,7 +5,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 class RestView(object):
     
     def __new__(cls, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
         view = cls.new(request, *args, **kwargs)
         return view.dispatch(request, *args, **kwargs)
         
