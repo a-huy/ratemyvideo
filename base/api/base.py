@@ -1,9 +1,11 @@
-from django.http import Http404, HttpRequest, HttpResponse, HttpResonseNotAllowed, \
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed, \
     HttpResponseBadRequest, HttpResponseForbidden
+from django.core.serializers.json import DjangoJSONEncoder
     
 class RestView(object):
     
     def __new__(cls, request, *args, **kwargs):
+        import pdb; pdb.set_trace()
         view = cls.new(request, *args, **kwargs)
         return view.dispatch(request, *args, **kwargs)
         
@@ -12,7 +14,7 @@ class RestView(object):
         
         _METHODS = ('GET', 'PUT', 'DELETE', 'UNDELETE')
         if not method in _METHODS:
-            return HttpResponseBadRequest()g
+            return HttpResponseBadRequest()
         try:
             return getattr(self, method)(request, *args, **kwargs)
         except NotImplementedError:
@@ -20,6 +22,7 @@ class RestView(object):
             methods = [m.__name__ for m in methods if getattr(m, '_impl', True)]
             return HttpResponseNotAllowed(methods)
 
+    @classmethod
     def new(cls, *args, **kwargs):
         obj = object.__new__(cls)
         obj.__init__(*args, **kwargs)
@@ -49,8 +52,8 @@ class RestView(object):
     DELETE._impl = False
     UNDELETE._impl = False
     
-def APIResponse(data, status_code=200, response_type='json', cookie=None)
-    mimetypes = 
+def APIResponse(data, status_code=200, response_type='json', cookie=None):
+    mimetypes = \
     {
         'json': 'application/json'
     }

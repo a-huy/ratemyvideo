@@ -12,7 +12,7 @@ class UserCreateApi(base.RestView):
     def POST(self, request, *args, **kwargs):
         return HttpResponse()
         
-class UserApi(base.RestView):
+class UserUpdateApi(base.RestView):
 
     model = accounts_models.User
     form = accounts_forms.UserUpdateForm
