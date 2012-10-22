@@ -7,6 +7,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+ADMIN_MEDIA_PREFIX = '/admin-media/'
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -89,6 +91,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = {
+    'django.core.context_processors.media',
+}
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

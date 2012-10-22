@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
@@ -9,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^videos/', include('videos.urls')),
     url(r'^login/', include('accounts.urls')),
     url(r'^api/', include('base.urls')),
+    url(r'^content/(.*)$', 'django.views.static.serve', 
+        {'document_root': os.path.join(settings.PROJECT_PATH, 'content')}),
     
     # Examples:
     # url(r'^$', 'herpderp.views.home', name='home'),
