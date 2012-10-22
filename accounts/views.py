@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
 from django.template import RequestContext
 
 def login_page(request):
-    return render(request, 'login_page.html', { })
+    return render_to_response('login_page.html', { },
+        context_instance=RequestContext(request))
 
 def channel(request):
     return render(request, 'channel.html', { })
