@@ -52,8 +52,7 @@ class RestView(object):
     UNDELETE._impl = False
     
 def APIResponse(data, status_code=200, response_type='json', cookie=None):
-    mimetypes = \
-    {
+    mimetypes = {
         'json': 'application/json'
     }
     content = json.dumps(data, cls=DjangoJSONEncoder)
@@ -62,4 +61,4 @@ def APIResponse(data, status_code=200, response_type='json', cookie=None):
         response.set_cookie(cookie['key'], value=cookie['value'])
         
     return response
-
+b

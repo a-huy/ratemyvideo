@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.conf import settings
 
@@ -11,4 +13,11 @@ class User(base_models.Base):
     liked = models.IntegerField()
     commented = models.IntegerField()
     
-    
+    def to_json(self):
+        return json.dumps(self.json_safe())
+        
+    def json_safe(self):
+        data = {
+
+        }
+

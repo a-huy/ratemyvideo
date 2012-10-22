@@ -10,7 +10,27 @@ class UserCreateApi(base.RestView):
     form = accounts_forms.UserCreateForm
 
     def POST(self, request, *args, **kwargs):
-        return HttpResponse()
+        if 'fb_id' not in request.POST or not request.POST['fb_id']:
+            return HttpResponseBadRequest('A Facebook ID is required')
+        if 'real_name' not in request.POST or not request.POST['real_name']:
+            return HttpResponseBadRequest('User\'s real name is required')
+        form = accounts_forms.UserCreateForm(request.POST)
+        if not form.is_valid():
+            return HttpResponseBadRequest('{%s}: {%s}' % 
+                (form.fields[form.errors.keys()[0].label, 
+                 form.errors.values()[0][0]))
+        
+        fields = form.cleaned_data
+        
+        try:
+            account = accounts_models.User.get(fb_id=fields['fb_id'])
+            # return video queue
+            return HttpResponse() 
+        except accounts_models.User.DoesNotExist:
+            new_user = accounts_models.User(**fields)
+            new_user.save()   
+            
+        # return video queue
         
 class UserUpdateApi(base.RestView):
 
