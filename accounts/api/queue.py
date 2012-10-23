@@ -19,5 +19,5 @@ class QueueApi(base.RestView):
             'vid_ids': [vid.yt_id for vid in videos]
         }
         
-        return base.APIResponse(data)
+        return base.APIResponse(data, request=request)
 

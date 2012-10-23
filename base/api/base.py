@@ -3,6 +3,8 @@ import json
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed, \
     HttpResponseBadRequest, HttpResponseForbidden
 from django.core.serializers.json import DjangoJSONEncoder
+from django.shortcuts import render_to_response
+from django.template import RequestContext
     
 class RestView(object):
     
@@ -53,12 +55,17 @@ class RestView(object):
     DELETE._impl = False
     UNDELETE._impl = False
     
-def APIResponse(data, status_code=200, response_type='json', cookie=None):
+def APIResponse(data, request=None, status_code=200, response_type='json',
+                cookie=None):
     mimetypes = {
-        'json': 'application/json'
+        'json': 'application/json',
+    }
+    context_vars = {
+        'data': data,
     }
     content = json.dumps(data, cls=DjangoJSONEncoder)
-    response = HttpResponse(content, mimetype=mimetypes[response_type])
+    response = render_to_response('api_page.html', context_vars, context_instance=RequestContext(request))
+    #response = HttpResponse(content, mimetype=mimetypes[response_type])
     if cookie:
         response.set_cookie(cookie['key'], value=cookie['value'])
         
