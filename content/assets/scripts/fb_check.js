@@ -12,10 +12,10 @@ window.fbAsyncInit = function() {
             // connected
         } else if (response.status === 'not_authorized') {
             // not_authorized
-            document.location = '/login/';
+            window.location = '/login/';
         } else {
             // not_logged_in
-            document.location = '/login/';
+            window.location = '/login/';
         }
     });
 
