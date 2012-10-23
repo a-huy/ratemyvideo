@@ -55,7 +55,7 @@ class RestView(object):
     DELETE._impl = False
     UNDELETE._impl = False
     
-def APIResponse(data, request=None, status_code=200, response_type='json',
+def APIResponse(data, status_code=200, response_type='json',
                 cookie=None):
     mimetypes = {
         'json': 'application/json',
@@ -64,8 +64,8 @@ def APIResponse(data, request=None, status_code=200, response_type='json',
         'data': data,
     }
     content = json.dumps(data, cls=DjangoJSONEncoder)
-    response = render_to_response('api_page.html', context_vars, context_instance=RequestContext(request))
-    #response = HttpResponse(content, mimetype=mimetypes[response_type])
+    #response = render_to_response('api_page.html', context_vars, mimetype=mimetypes[response_type])
+    response = HttpResponse(content, mimetype=mimetypes[response_type])
     if cookie:
         response.set_cookie(cookie['key'], value=cookie['value'])
         
