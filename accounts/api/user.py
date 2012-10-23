@@ -17,8 +17,7 @@ class UserCreateApi(base.RestView):
         form = accounts_forms.UserCreateForm(request.POST)
         if not form.is_valid():
             return HttpResponseBadRequest('{%s}: {%s}' % 
-                (form.fields[form.errors.keys()[0].label, 
-                 form.errors.values()[0][0]))
+                (form.fields[form.errors.keys()[0]].label, form.errors.values()[0][0]))
         
         fields = form.cleaned_data
         
@@ -37,9 +36,9 @@ class UserUpdateApi(base.RestView):
     model = accounts_models.User
     form = accounts_forms.UserUpdateForm
 
-    def PUT(self, request, user_id, *args, **kwargs):
+    def PUT(self, request, fb_id, *args, **kwargs):
         return HttpReponse()
     
-    def DELETE(self, request, user_id, *args, **kwargs):
+    def DELETE(self, request, fb_id, *args, **kwargs):
         return HttpResponse()
 

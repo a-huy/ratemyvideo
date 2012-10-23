@@ -1,3 +1,5 @@
+import json
+
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed, \
     HttpResponseBadRequest, HttpResponseForbidden
 from django.core.serializers.json import DjangoJSONEncoder
@@ -61,4 +63,4 @@ def APIResponse(data, status_code=200, response_type='json', cookie=None):
         response.set_cookie(cookie['key'], value=cookie['value'])
         
     return response
-b
+

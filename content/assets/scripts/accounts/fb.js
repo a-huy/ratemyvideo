@@ -55,3 +55,17 @@ function testAPI() {
     });
 }
 
+function getVidList() {
+    console.log('Fetching Video List...');
+    FB.api('/me', function(response) {
+        $.ajax({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-HTTP-Method-Override', 'PUT');
+            },
+            type: "POST",
+            async: false,
+            
+        });
+    });
+}
+

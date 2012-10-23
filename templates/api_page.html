@@ -1,13 +1,10 @@
-{% extends "page_base.html" %}
+{% extends base_page.html %}
 
 {% block body %}
 <div id="fb-root"></div>
 <script src="{{ MEDIA_URL }}scripts/accounts/fb.js"></script>
-<div id="login_status">
-    You have not yet logged in via Facebook.
-</div>
+<div id="data">{{ data }}</div>
 {% endblock body %}
-
 {% block scripts %}
     {{ block.super }}
 {% endblock scripts %}
