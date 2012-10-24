@@ -16,7 +16,8 @@ class QueueApi(base.RestView):
         videos = videos_models.Video.objects.all()
         
         data = {
-            'vid_ids': [vid.yt_id for vid in videos]
+            'vid_ids': [vid.yt_id for vid in videos],
+            'host': request.get_host()
         }
         
         return base.APIResponse(data)

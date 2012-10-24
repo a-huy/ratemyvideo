@@ -12,12 +12,21 @@ class User(base_models.Base):
     rated = models.IntegerField()
     liked = models.IntegerField()
     commented = models.IntegerField()
+    location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
+    age = models.IntegerField()
     
     def to_json(self):
         return json.dumps(self.json_safe())
         
     def json_safe(self):
         data = {
-
+            'fb_id': self.fb_id,
+            'real_name': self.real_name,
+            'earned': self.earned,
+            'rated': self.rated,
+            'liked': self.liked,
+            'commented': self.commented,
+            'location': self.location,
+            'age': self.age
         }
 
