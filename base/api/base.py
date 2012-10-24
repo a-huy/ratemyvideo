@@ -15,7 +15,7 @@ class RestView(object):
     def dispatch(self, request, *args, **kwargs):
         method = request.META.get('HTTP_X_HTTP_METHOD_OVERRIDE', request.method)
         
-        _METHODS = ('GET', 'PUT', 'DELETE', 'UNDELETE')
+        _METHODS = ('GET', 'PUT', 'POST', 'DELETE', 'UNDELETE')
         if not method in _METHODS:
             return HttpResponseBadRequest()
         try:
