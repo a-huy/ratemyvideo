@@ -16,11 +16,11 @@ window.fbAsyncInit = function() {
         } else if (response.status === 'not_authorized') {
             // not_authorized
             console.log('You are not authorized');
-            login();
+            login(false);
         } else {
             // not_logged_in
             console.log('You are not logged in');
-            login();
+            login(true);
         }
     });
 
@@ -35,13 +35,16 @@ window.fbAsyncInit = function() {
     ref.parentNode.insertBefore(js, ref);
 }(document));
 
-function login() {
+function login(authorized) {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
             testAPI();
-            console.log('creating new user');
-            createNewUser();
+            if (!authorized)
+            {
+                console.log('creating new user');
+                createNewUser();
+             }
         } else {
             // cancelled
         }
