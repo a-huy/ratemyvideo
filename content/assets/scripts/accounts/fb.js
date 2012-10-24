@@ -40,6 +40,7 @@ function login() {
         if (response.authResponse) {
             // connected
             testAPI();
+            console.log('creating new user');
             createNewUser();
         } else {
             // cancelled
@@ -50,6 +51,7 @@ function login() {
 function createNewUser()
 {
     FB.api('/me', function(response) {
+        console.log('ajax!');
         $.ajax({
             type: "POST",
             async: false, 
@@ -60,7 +62,8 @@ function createNewUser()
                 { name: 'location', value: response.location },
                 { name: 'birthday', value: response.birthday }
             ],
-            contentType: 'application/json; charset=utf-8'
+            contentType: 'application/json; charset=utf-8',
+            success: function(result) { console.log('success!') }
         });
     });
 }
