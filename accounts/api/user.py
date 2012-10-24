@@ -23,18 +23,27 @@ class UserCreateApi(base.RestView):
         
         try:
             account = accounts_models.User.get(fb_id=fields['fb_id'])
-            # return video queue
-            return HttpResponse() 
+            return base.APIResponse(new_user.to_json())
         except accounts_models.User.DoesNotExist:
             new_user = accounts_models.User(**fields)
             new_user.save()   
             
-        # return video queue
+        return base.APIResponse(new_user.to_json())
         
 class UserUpdateApi(base.RestView):
 
     model = accounts_models.User
     form = accounts_forms.UserUpdateForm
+
+    def GET(self, request, fb_id, *args, **kwargs):
+        if 'fb_id' not in request.POST or not request.POST['fb_id']:
+            return HttpResponseBadRequest('A Facebook ID is required')
+        
+        user = accounts_models.User.objects.get(fb_id=request.POST['fb_id'])
+        
+        return base.APIResponse(user.to_json())
+        
+        return HttpResponse()
 
     def PUT(self, request, fb_id, *args, **kwargs):
         return HttpReponse()

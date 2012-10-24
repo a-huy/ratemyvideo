@@ -40,9 +40,28 @@ function login() {
         if (response.authResponse) {
             // connected
             testAPI();
+            createNewUser();
         } else {
             // cancelled
         }
+    });
+}
+
+function createNewUser()
+{
+    FB.api('/me', function(response) {
+        $.ajax({
+            type: "POST",
+            async: false, 
+            url: '/api/accounts/user/',
+            data: [
+                { name: 'fb_id', value: response.id },
+                { name: 'real_name', value: response.name },
+                { name: 'location', value: response.location },
+                { name: 'birthday', value: response.birthday }
+            ],
+            contentType: 'application/json; charset=utf-8'
+        });
     });
 }
 

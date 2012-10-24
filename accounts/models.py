@@ -8,12 +8,12 @@ import base.models as base_models
 class User(base_models.Base):
     fb_id = models.CharField(max_length=settings.FB_ID_MAX_LENGTH)
     real_name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
-    earned = models.DecimalField(max_digits=5, decimal_places=2)
-    rated = models.IntegerField()
-    liked = models.IntegerField()
-    commented = models.IntegerField()
+    earned = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    rated = models.IntegerField(default=0)
+    liked = models.IntegerField(default=0)
+    commented = models.IntegerField(default=0)
     location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
-    age = models.IntegerField()
+    age = models.IntegerField(default=0)
     
     def to_json(self):
         return json.dumps(self.json_safe())

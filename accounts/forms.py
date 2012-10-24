@@ -5,6 +5,12 @@ import accounts.models as accounts_models
 
 class UserCreateForm(forms.ModelForm):
     
+    earned = forms.DecimalField(required=False)
+    rated = forms.IntegerField(required=False)
+    liked = forms.IntegerField(required=False)
+    commented = forms.IntegerField(required=False)
+    age = forms.IntegerField(required=False)
+    
     class Meta:
         model = accounts_models.User
 
