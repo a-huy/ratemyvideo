@@ -34,11 +34,14 @@ class UserCreateApi(base.RestView):
             new_user.rated = 0
             new_user.liked = 0
             new_user.commented = 0
-            birthday = request.POST['birthday'].split('/')
-            today = datetime.datetime.today()
-            new_user.age = today.year - int(birthday[2])
-            if (today.month, today.day) < (int(birthday[0]), int(birthday[1])):
-                new_user.age -= 1
+            if request.POST['birthday'] == 'undefined':
+                new_user.age = 0
+            else:
+                birthday = request.POST['birthday'].split('/')
+                today = datetime.datetime.today()
+                new_user.age = today.year - int(birthday[2])
+                if (today.month, today.day) < (int(birthday[0]), int(birthday[1])):
+                    new_user.age -= 1
             new_user.save()
         return base.APIResponse(new_user.to_json())
         
