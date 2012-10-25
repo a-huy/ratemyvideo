@@ -22,11 +22,11 @@ class User(base_models.Base):
         data = {
             'fb_id': self.fb_id,
             'real_name': self.real_name,
-            'earned': self.earned,
+            'earned': str(self.earned),
             'rated': self.rated,
             'liked': self.liked,
             'commented': self.commented,
             'location': self.location,
             'age': self.age
         }
-
+        return data
