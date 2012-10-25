@@ -27,6 +27,7 @@ class UserCreateApi(base.RestView):
         
         try:
             account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
+            request.session['fb_id'] = account.fb_id
             return base.APIResponse(new_user.to_json())
         except accounts_models.User.DoesNotExist:
             new_user = accounts_models.User(**fields)
