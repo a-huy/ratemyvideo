@@ -68,6 +68,8 @@ function createNewUser()
             ],
             contentType: 'application/json; charset=utf-8',
             success: function(result) { console.log('success!') }
+            error: function(error) { console.log(error.responseText); }
+            
         });
     });
 }
