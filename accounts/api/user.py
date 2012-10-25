@@ -43,6 +43,7 @@ class UserCreateApi(base.RestView):
                 if (today.month, today.day) < (int(birthday[0]), int(birthday[1])):
                     new_user.age -= 1
             new_user.save()
+            request.session['fb_id'] = new_user.fb_id
         return base.APIResponse(new_user.to_json())
         
 class UserUpdateApi(base.RestView):

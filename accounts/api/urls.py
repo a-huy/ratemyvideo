@@ -8,3 +8,8 @@ urlpatterns = patterns('accounts.api.user',
 urlpatterns += patterns('accounts.api.queue',
     (r'^queue/(?P<fb_id>[0-9]+)/$', 'QueueApi'),
 )
+
+urlpatterns += patterns('accounts.api.session',
+    (r'^session/$', 'SessionApi'),
+)
+
