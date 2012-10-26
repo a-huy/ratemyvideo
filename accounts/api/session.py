@@ -6,7 +6,7 @@ class SessionApi(base.RestView):
 
     def GET(self, request, *args, **kwargs):
         
-        if not request.session['fb_id']:
+        if 'fb_id' not in request.session:
             return HttpResponseBadRequest('User not signed in');
         data = {
             'fb_id': request.session['fb_id']
