@@ -13,7 +13,11 @@ class QueueApi(base.RestView):
         #except accounts_models.User.DoesNotExist:
         #gh    return HttpResponseBadRequest('User ID invalid')
         
-        videos = videos_models.Video.objects.all()
+        uid = accounts_models.User.objects.get(fb_id=fb_id)
+        vid_ids = [v.video_id for v in 
+                   videos_models.Rating.objects.filter(user_id=uid)]
+        videos = list(videos_models.Video.objects.all())
+        videos = filter(lambda x: x.id not in vid_ids, videos)
         
         data = {
             'vid_ids': [vid.yt_id for vid in videos],

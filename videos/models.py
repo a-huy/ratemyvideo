@@ -17,7 +17,7 @@ class Rating(base_models.Base):
     rating = models.IntegerField()
     
     def __unicode__(self):
-        return self.video + self.rating
+        return self.video + '|' + str(self.rating)
     
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)

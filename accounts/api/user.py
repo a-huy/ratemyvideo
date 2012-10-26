@@ -53,12 +53,10 @@ class UserUpdateApi(base.RestView):
     form = accounts_forms.UserUpdateForm
 
     def GET(self, request, fb_id, *args, **kwargs):
-       # if 'fb_id' not in request.POST or not request.POST['fb_id']:
-       #     return HttpResponseBadRequest('A Facebook ID is required')
         
         try:
             user = accounts_models.User.objects.get(fb_id=fb_id)
-        except accounts_models.DoesNotExist:
+        except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid id')
         
         return base.APIResponse(user.to_json())
