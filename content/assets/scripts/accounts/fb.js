@@ -14,6 +14,7 @@ window.fbAsyncInit = function() {
             // connected
             console.log('You are logged in!');
             testAPI();
+            login();
         } else if (response.status === 'not_authorized') {
             // not_authorized
             console.log('You are not authorized');
