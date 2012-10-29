@@ -16,10 +16,7 @@ class RatingCreateApi(base.RestView):
             return HttpResponseBadRequest('A YouTube Video ID is required')
         if 'rating' not in request.POST or not request.POST['rating']:
             return HttpResponseBadRequest('A numeric rating is required')
-        import pdb; pdb.set_trace()
         fields = request.POST
-        
-        print 'lolol'
         
         try:
             account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
