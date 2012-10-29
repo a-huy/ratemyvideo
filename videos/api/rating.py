@@ -35,8 +35,8 @@ class RatingCreateApi(base.RestView):
             return HttpResponseBadRequest('Invalid YouTube Video ID')
         except videos_models.Rating.DoesNotExist:
             new_rating = videos_models.Rating()
-            new_rating.video = video.id
-            new_rating.user = account.id
+            new_rating.video_id = video.id
+            new_rating.user_id = account.id
             new_rating.rating = fields['rating']
             new_rating.save()
         return base.APIResponse(new_rating.to_json())
