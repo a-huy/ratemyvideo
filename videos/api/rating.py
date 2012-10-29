@@ -17,7 +17,6 @@ class RatingCreateApi(base.RestView):
         if 'rating' not in request.POST or not request.POST['rating']:
             return HttpResponseBadRequest('A numeric rating is required')
         fields = request.POST
-        
         try:
             account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
             video = videos_models.Video.objects.get(yt_id=fields['yt_id'])
@@ -34,6 +33,9 @@ class RatingCreateApi(base.RestView):
             new_rating.user_id = account.id
             new_rating.rating = fields['rating']
             new_rating.save()
+            account.rated += 1
+            account.earned += video.reward
+            account.save()
         return base.APIResponse(new_rating.to_json())
 
 class RatingUpdateApi(base.RestView):
