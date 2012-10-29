@@ -1,0 +1,50 @@
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+
+import base.api.base as base
+import accounts.models as accounts_models
+import videos.models as videos_models
+import videos.forms as videos_forms
+
+class RatingCreateApi(base.RestView):
+    
+    model = videos_models.Rating
+    form = videos_forms.RatingCreateForm
+    
+    def POST(self, request, *args, **kwargs):
+        if 'fb_id' not in request.POST or not request.POST['fb_id']:
+            return HttpResponseBadRequest('A Facebook ID is required')
+        if 'yt_id' not in request.POST or not request.POST['yt_id']:
+            return HttpResponseBadRequest('A YouTube Video ID is required')
+        if 'rating' not in request.POST or not request.POST['rating']:
+            return HttpResponseBadRequest('A numeric rating is required')
+        form = videos_forms.RatingCreateForm(request.POST)
+        if not form.is_valid():
+            return HttpResponseBadRequest('{%s}: {%s}' % 
+                (form.fields[form.errors.keys()[0]].label, form.errors.values()[0][0]))
+        fields = form.cleaned_data
+        
+        try:
+            account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
+            video = videos_models.Video.objects.get(fb_id=fields['yt_id'])
+            rating = videos_models.Rating.objects.get(fb_id=fields['fb_id'], 
+                                                      yt_id=fields['yt_id'])
+            return HttpResponseBadRequest('Users cannot rate a video more than once')
+        except accounts_models.User.DoesNotExist:
+            return HttpResponseBadRequest('Invalid Facebook ID')
+        except videos_models.Video.DoesNotExist:
+            return HttpResponseBadRequest('Invalid YouTube Video ID')
+        except videos_models.Rating.DoesNotExist:
+            new_rating = videos_models.Rating()
+            new_rating.video = video.id
+            new_rating.user = account.id
+            new_rating.rating = fields['rating']
+            new_rating.save()
+        return base.APIResponse(new_rating.to_json())
+
+class RatingUpdateApi(base.RestView):
+    
+    model = videos_models.Rating
+    
+    def GET(self, request, fb_id, *args, **kwargs):
+        return HttpResponse()
+        

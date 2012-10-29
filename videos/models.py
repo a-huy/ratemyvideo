@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.conf import settings
 
@@ -18,6 +20,15 @@ class Rating(base_models.Base):
     
     def __unicode__(self):
         return self.video + '|' + str(self.rating)
+        
+    def to_json(self):
+        return json.dumps(self.json_safe())
+        
+    def json_safe(self):
+        data = {
+            'rating': self.rating
+        }
+        return data
     
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)
