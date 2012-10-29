@@ -59,7 +59,7 @@ class UserUpdateApi(base.RestView):
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid id')
         
-        return base.APIResponse(user.to_json())
+        return base.APIResponse(user.json_safe())
         
     def PUT(self, request, fb_id, *args, **kwargs):
         return HttpReponse()
