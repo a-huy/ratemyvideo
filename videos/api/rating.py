@@ -8,7 +8,6 @@ import videos.forms as videos_forms
 class RatingCreateApi(base.RestView):
     
     model = videos_models.Rating
-    form = videos_forms.RatingCreateForm
     
     def POST(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
@@ -17,17 +16,16 @@ class RatingCreateApi(base.RestView):
             return HttpResponseBadRequest('A YouTube Video ID is required')
         if 'rating' not in request.POST or not request.POST['rating']:
             return HttpResponseBadRequest('A numeric rating is required')
-        form = videos_forms.RatingCreateForm(request.POST)
-        if not form.is_valid():
-            return HttpResponseBadRequest('{%s}: {%s}' % 
-                (form.fields[form.errors.keys()[0]].label, form.errors.values()[0][0]))
-        fields = form.cleaned_data
+        import pdb; pdb.set_trace()
+        fields = request.POST
+        
+        print 'lolol'
         
         try:
             account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
-            video = videos_models.Video.objects.get(fb_id=fields['yt_id'])
-            rating = videos_models.Rating.objects.get(fb_id=fields['fb_id'], 
-                                                      yt_id=fields['yt_id'])
+            video = videos_models.Video.objects.get(yt_id=fields['yt_id'])
+            rating = videos_models.Rating.objects.get(user_id=account.id, 
+                                                      video_id=video.id)
             return HttpResponseBadRequest('Users cannot rate a video more than once')
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid Facebook ID')
