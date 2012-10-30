@@ -44,7 +44,6 @@ function login() {
             testAPI();
             console.log('creating new user');
             createNewUser();
-            window.location = document.URL
         } else {
             // cancelled
         }
