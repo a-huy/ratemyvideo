@@ -43,7 +43,7 @@ function login() {
             // connected
             testAPI();
             console.log('creating new user');
-            createNewUser();
+            createNewUser(); 
         } else {
             // cancelled
         }
