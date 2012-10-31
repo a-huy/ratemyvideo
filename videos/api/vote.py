@@ -18,7 +18,7 @@ class VoteCreateApi(base.RestView):
             return HttpResponseBadRequest('A like status is required')
         fields = request.POST
         try:
-            account = accounts_models.User.objets.get(fb_id=fields['fb_id'])
+            account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
             video = videos_models.Video.objects.get(yt_id=fields['yt_id'])
             vote = videos_models.Vote.objects.get(user_id=account.id, 
                                                   video_id=video.id)
