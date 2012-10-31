@@ -22,7 +22,7 @@ class VoteCreateApi(base.RestView):
             video = videos_models.Video.objects.get(yt_id=fields['yt_id'])
             vote = videos_models.Vote.objects.get(user_id=account.id, 
                                                   video_id=video.id)
-            return HttpResponseBadRequest('Users cannot vote on a video more than once')
+            return HttpResponseBadRequest('You cannot vote on a video more than once.')
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid Facebook ID')
         except videos_models.Video.DoesNotExist:
