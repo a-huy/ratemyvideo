@@ -29,6 +29,14 @@ class Rating(base_models.Base):
             'rating': self.rating
         }
         return data
+        
+class Vote(base_models.Base):
+    video = models.ForeignKey(Video)
+    user = models.ForeignKey(accounts_models.User)
+    like = models.BooleanField()
+    
+    def __unicode__(self):
+        return self.video + '|' + self.user + '|' + ('like' if self.like else 'dislike')
     
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)
