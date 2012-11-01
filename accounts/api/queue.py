@@ -20,7 +20,11 @@ class QueueApi(base.RestView):
         
         vids = []
         for vid in videos:
-            vids.append({'yt_id': vid.yt_id, 'reward': vid.reward})
+            vids.append({
+                'yt_id': vid.yt_id, 
+                'reward': vid.reward, 
+                'title': vid.title
+            })
         
         data = {
             'vids': vids,
