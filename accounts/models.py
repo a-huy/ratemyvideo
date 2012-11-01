@@ -12,8 +12,10 @@ class User(base_models.Base):
     rated = models.IntegerField(default=0)
     liked = models.IntegerField(default=0)
     commented = models.IntegerField(default=0)
+    subscribed = models.IntegerField(default=0)
     location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
     age = models.IntegerField(default=0)
+    karma = models.IntegerField(default=0)
     
     def to_json(self):
         return json.dumps(self.json_safe())
@@ -28,5 +30,6 @@ class User(base_models.Base):
             'commented': self.commented,
             'location': self.location,
             'age': self.age
+            'karma': self.karma
         }
         return data
