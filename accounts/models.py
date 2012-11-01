@@ -29,7 +29,7 @@ class User(base_models.Base):
             'liked': self.liked,
             'commented': self.commented,
             'location': self.location,
-            'age': self.age
+            'age': self.age,
             'karma': self.karma
         }
         return data
