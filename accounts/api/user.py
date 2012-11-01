@@ -35,6 +35,8 @@ class UserCreateApi(base.RestView):
             new_user.rated = 0
             new_user.liked = 0
             new_user.commented = 0
+            new_user.karma = 0
+            new_user.subscribed = 0
             if request.POST['birthday'] == 'undefined':
                 new_user.age = 0
             else:

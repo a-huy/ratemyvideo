@@ -10,6 +10,8 @@ class UserCreateForm(forms.ModelForm):
     liked = forms.IntegerField(required=False)
     commented = forms.IntegerField(required=False)
     age = forms.IntegerField(required=False)
+    karma = forms.IntegerField(required=False)
+    subscribed = forms.IntegerField(required=False)
     
     class Meta:
         model = accounts_models.User

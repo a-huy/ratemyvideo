@@ -12,7 +12,7 @@ class Video(base_models.Base):
     reward = models.DecimalField(max_digits=3, decimal_places=2)
     
     def __unicode__(self):
-        return self.yt_id
+        return self.yt_id + ' | ' + self.title
     
 class Rating(base_models.Base):
     video = models.ForeignKey(Video)
@@ -20,7 +20,7 @@ class Rating(base_models.Base):
     rating = models.IntegerField()
     
     def __unicode__(self):
-        return self.video + '|' + str(self.rating)
+        return self.video + ' | ' + self.user + ' | ' + str(self.rating)
         
     def to_json(self):
         return json.dumps(self.json_safe())
@@ -37,7 +37,7 @@ class Vote(base_models.Base):
     like = models.BooleanField()
     
     def __unicode__(self):
-        return self.video + '|' + self.user + '|' + ('like' if self.like else 'dislike')
+        return self.video + ' | ' + self.user + ' | ' + ('like' if self.like else 'dislike')
     
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)
