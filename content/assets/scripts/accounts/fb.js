@@ -41,9 +41,9 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            testAPI();
             console.log('creating new user');
-            createNewUser(); 
+            createNewUser();
+            testAPI();
         } else {
             // cancelled
         }
