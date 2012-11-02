@@ -13,3 +13,6 @@ urlpatterns += patterns('accounts.api.session',
     (r'^session/$', 'SessionApi'),
 )
 
+urlpatterns += patterns('accounts.api.rating',
+    (r'^ratings/(?P<fb_id>[0-9]+)/$', 'RatingHistoryApi'),
+)
