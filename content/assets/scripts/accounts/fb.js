@@ -47,7 +47,7 @@ function login() {
         } else {
             // cancelled
         }
-    });
+    }, {scope: 'email,user_birthday,user_location'});
 }
 
 function createNewUser()
