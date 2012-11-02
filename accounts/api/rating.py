@@ -16,7 +16,7 @@ class RatingHistoryApi(base.RestView):
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid FB ID')
         ratings = videos_models.Rating.objects.filter(user_id=user.id).order_by('created_date')
-        videos = videos_models.Video.objects.filter(pk in [r.video_id for r in ratings])
+        videos = videos_models.Video.objects.filter(id__in=[r.video_id for r in ratings])
         
         ratings_list = []
         for rating in ratings:
