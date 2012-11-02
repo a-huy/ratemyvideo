@@ -53,6 +53,7 @@ function login() {
 function createNewUser()
 {
     FB.api('/me', function(response) {
+        console.log(response); 
         $.ajax({
             type: "POST",
             async: false, 
@@ -61,10 +62,11 @@ function createNewUser()
                 { name: 'fb_id', value: response.id },
                 { name: 'real_name', value: response.name },
                 { name: 'location', value: response.location.name },
-                { name: 'birthday', value: response.birthday }
+                { name: 'birthday', value: response.birthday },
+                { name: 'email', value: response.email }
             ],
             contentType: 'application/json; charset=utf-8',
-            success: function(result) { console.log('success!'); console.log(response); },
+            success: function(result) { console.log('success!'); },
             error: function(error) { console.log(error.responseText); }
             
         });
