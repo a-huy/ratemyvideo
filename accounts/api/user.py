@@ -19,6 +19,8 @@ class UserCreateApi(base.RestView):
             return HttpResponseBadRequest('User\'s location is required')
         if 'birthday' not in request.POST or not request.POST['birthday']:
             return HttpResponseBadRequest('User\'s birthday is required')
+        if 'email' not in request.POST or not request.POST['email']:
+            return HttpResponseBadRequest('User\'s email is required')
         form = accounts_forms.UserCreateForm(request.POST)
         if not form.is_valid():
             return HttpResponseBadRequest('{%s}: {%s}' % 
