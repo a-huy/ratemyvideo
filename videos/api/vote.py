@@ -34,6 +34,7 @@ class VoteCreateApi(base.RestView):
             new_vote.like = True if fields['like'] == 'True' else False
             new_vote.save()
             account.liked += 1 if fields['like'] == 'True' else 0
+            account.karma += 1
             account.save()
         return base.APIResponse('voting successful');
 

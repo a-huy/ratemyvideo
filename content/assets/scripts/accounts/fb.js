@@ -41,7 +41,6 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            console.log('creating new user');
             createNewUser();
             testAPI();
         } else {
@@ -63,7 +62,8 @@ function createNewUser()
                 { name: 'real_name', value: response.name },
                 { name: 'location', value: response.location.name },
                 { name: 'birthday', value: response.birthday },
-                { name: 'email', value: response.email }
+                { name: 'email', value: response.email },
+                { name: 'gender', value: response.gender }
             ],
             contentType: 'application/json; charset=utf-8',
             success: function(result) { console.log('success!'); },

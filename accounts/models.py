@@ -17,6 +17,7 @@ class User(base_models.Base):
     location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
     age = models.IntegerField(default=0)
     karma = models.IntegerField(default=0)
+    gender = models.CharField(max_length=settings.GENDER_MAX_LENGTHb)
     
     def to_json(self):
         return json.dumps(self.json_safe())
@@ -33,6 +34,7 @@ class User(base_models.Base):
             'age': self.age,
             'karma': self.karma,
             'email': self.email,
-            'subscribed': self.subscribed
+            'subscribed': self.subscribed,
+            'gender': self.gender
         }
         return data
