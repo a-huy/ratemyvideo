@@ -31,6 +31,8 @@ class User(base_models.Base):
             'commented': self.commented,
             'location': self.location,
             'age': self.age,
-            'karma': self.karma
+            'karma': self.karma,
+            'email': self.email,
+            'subscribed': self.subscribed
         }
         return data
