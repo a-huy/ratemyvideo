@@ -22,7 +22,15 @@ class RatingHistoryApi(base.RestView):
         for rating in ratings:
             video = filter(lambda x:rating.video_id == x.id, videos)[0]
             ratings_list.append({
-                'date': rating.created_date,
+                'date': {
+                    'year':rating.created_date.year,
+                    'month':rating.created_date.month,
+                    'day':rating.created_date.day,
+                    'hour':rating.created_date.hour,
+                    'minute':rating.created_date.minute,
+                    'second':rating.created_date.second,
+                    'microsecond':rating.created_date.microsecond
+                },
                 'rating': rating.rating,
                 'title': video.title,
                 'reward': video.reward
