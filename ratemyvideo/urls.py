@@ -8,7 +8,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
+    url(r'^$', include('homepage.urls')),
     url(r'^videos/', include('videos.urls')),
     url(r'^login/', include('accounts.urls')),
     url(r'^api/', include('base.urls')),
