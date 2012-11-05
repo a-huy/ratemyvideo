@@ -18,7 +18,7 @@ class User(base_models.Base):
     age = models.IntegerField(default=0)
     karma = models.IntegerField(default=0)
     gender = models.CharField(max_length=settings.GENDER_MAX_LENGTH)
-    
+
     def to_json(self):
         return json.dumps(self.json_safe())
         
@@ -38,3 +38,8 @@ class User(base_models.Base):
             'gender': self.gender
         }
         return data
+
+class InviteRequest(base_models.Base):
+    name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
+    email = models.EmailField(max_length=settings.EMAIL_MAX_LENGTH)
+

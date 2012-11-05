@@ -7,15 +7,17 @@
 {% block body %}
 <h1> Rate My Video </h1>
 <div id="description">
-Rate My Video is a site that pays you to watch YouTube videos!
+Rate My Video is a site that pays you to watch YouTube videos!<br /><br />
 </div>
 
 <div id="signup">
-Unfortunately, Rate My Video is invite only. If you would like to sign up and start rating videos, fill out the form below!
-<br /><br />
-<div id="full_name">Full Name: <input type="text" name="full_name_input"><br /></div>
-<div id="email">Email: <input type="text" name="email_input"><br /><div>
-<div id="invite_submit"><input type="submit" value="Submit"></div>
+Unfortunately, Rate My Video is currently invite-only. If you would like to sign up and start rating videos, fill out the form below!
+    <div id="full_name">Full Name: 
+        <input id="full_name_input" type="text" name="full_name_input"><br />
+    </div>
+    <div id="email">Email: <input id="email_input" type="text" name="email_input"><br /><div>
+    <div id="invite_submit"><input id="invite_submit_button" type="submit" value="Submit"></div>
+    <div class="notify"></div>
 </div>
 
 {% endblock body %}
@@ -23,5 +25,6 @@ Unfortunately, Rate My Video is invite only. If you would like to sign up and st
     {{ block.super }}
 {% endblock styles %}
 {% block scripts %}
+    <script src="{{ MEDIA_URL }}scripts/homepage/homepage.js"></script>
     {{ block.super }}
 {% endblock scripts %}

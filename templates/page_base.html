@@ -11,9 +11,9 @@
     {% endblock body %}
     </body>
     {% block styles %}
-    
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL}}styles/base.css" media="screen" />
     {% endblock styles %}
     {% block scripts %}
-    
+        <script src="{{ MEDIA_URL }}scripts/base.js"></script>
     {% endblock scripts %}
 </html>

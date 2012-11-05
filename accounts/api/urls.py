@@ -16,3 +16,7 @@ urlpatterns += patterns('accounts.api.session',
 urlpatterns += patterns('accounts.api.rating',
     (r'^ratings/(?P<fb_id>[0-9]+)/$', 'RatingHistoryApi'),
 )
+
+urlpatterns += patterns('accounts.api.invite',
+    (r'^request/invite/$', 'InviteCreateApi'),
+)

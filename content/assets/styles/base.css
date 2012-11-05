@@ -1,0 +1,7 @@
+/* Notify */
+.notify { display: none; margin-bottom: 10px; padding: 5px 10px; max-height: 35px;
+          overflow: hidden; *zoom: 1; text-align: center;}
+.error { background: #B92D2D; color: #fff; padding: 5px 15px; }
+.alert { background: #fdffcc; border: 1px solid yellow; }
+.success { background: #50a045; color: #fff; }
+

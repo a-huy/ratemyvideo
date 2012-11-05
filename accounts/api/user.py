@@ -28,7 +28,7 @@ class UserCreateApi(base.RestView):
             return HttpResponseBadRequest('{%s}: {%s}' % 
                 (form.fields[form.errors.keys()[0]].label, form.errors.values()[0][0]))
         fields = form.cleaned_data
-        
+
         try:
             account = accounts_models.User.objects.get(fb_id=fields['fb_id'])
             request.session['fb_id'] = account.fb_id
@@ -52,24 +52,24 @@ class UserCreateApi(base.RestView):
             new_user.save()
             request.session['fb_id'] = new_user.fb_id
         return base.APIResponse(new_user.to_json())
-        
+
 class UserUpdateApi(base.RestView):
 
     model = accounts_models.User
     form = accounts_forms.UserUpdateForm
 
     def GET(self, request, fb_id, *args, **kwargs):
-        
+
         try:
             user = accounts_models.User.objects.get(fb_id=fb_id)
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid id')
-        
+
         return base.APIResponse(user.json_safe())
-        
+
     def PUT(self, request, fb_id, *args, **kwargs):
         return HttpReponse()
-    
+
     def DELETE(self, request, fb_id, *args, **kwargs):
         return HttpResponse()
 
