@@ -2,7 +2,7 @@
 <html>
     <head>
     {% block head %}
-        <script src="{{ MEDIA_URL }}scripts/jquery-1.2.6.min.js"></script>
+        <script src="{{ MEDIA_URL }}scripts/jquery-1.8.2.min.js"></script>
     {% endblock head %}
     </head>
     <body>
@@ -10,6 +10,9 @@
     
     {% endblock body %}
     </body>
+    {% block styles %}
+    
+    {% endblock styles %}
     {% block scripts %}
     
     {% endblock scripts %}
