@@ -25,7 +25,7 @@ class UserCreateApi(base.RestView):
             return HttpResponseBadRequest('User\'s gender is required')
         form = accounts_forms.UserCreateForm(request.POST)
         if not form.is_valid():
-            return HttpResponseBadRequest('{%s}: {%s}' % 
+            return HttpResponseBadRequest('{%s}: {%s}' %
                 (form.fields[form.errors.keys()[0]].label, form.errors.values()[0][0]))
         fields = form.cleaned_data
 

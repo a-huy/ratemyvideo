@@ -42,4 +42,5 @@ class User(base_models.Base):
 class InviteRequest(base_models.Base):
     name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
     email = models.EmailField(max_length=settings.EMAIL_MAX_LENGTH)
+    description = models.CharField(max_length=settings.DESC_MAX_LENGTH)
 
