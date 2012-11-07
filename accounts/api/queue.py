@@ -19,7 +19,7 @@ class QueueApi(base.RestView):
         videos = filter(lambda x: x.id not in vid_ids, videos)
         
         vids = []
-        for vid in videos:
+        for vid in videos[:10]:
             vids.append({
                 'yt_id': vid.yt_id, 
                 'reward': vid.reward, 

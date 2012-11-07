@@ -7,7 +7,7 @@ import base.models as base_models
 import accounts.models as accounts_models
 
 class Video(base_models.Base):
-    yt_id = models.CharField(max_length=settings.YT_ID_MAX_LENGTH)
+    yt_id = models.CharField(max_length=settings.YT_ID_MAX_LENGTH, unique=True)
     title = models.CharField(max_length=settings.YT_TITLE_MAX_LENGTH)
     reward = models.DecimalField(max_digits=3, decimal_places=2)
     
