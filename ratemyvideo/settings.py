@@ -165,6 +165,14 @@ LOGGING = {
     }
 }
 
+# Email settings
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+
+# Configure Django to use Heroku's Postgres db
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
