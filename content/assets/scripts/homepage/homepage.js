@@ -32,7 +32,6 @@ function onSubmitInviteRequest()
                 'Please authorize the Facebook app to send an invite request.', false);
         }
     }, {scope: 'email,user_birthday,user_location,read_stream'});
-    return;
 
     var real_name = $('#full_name_input').val();
     var email = $('#email_input').val();
@@ -50,11 +49,24 @@ function onSubmitInviteRequest()
         return;
     }
 
-    $.ajax({
+    FB.login(function(response) {
+        if (response.authResponse) {
+            sendInviteRequest(response.id);
+        } else {
+            singnup_notify('error', 
+                'Please authorize the Facebook app to send an invite request.', false);
+        }
+    }, {scope: 'email,user_birthday,user_location,read_stream'});
+}
+
+function sendInviteRequest(fb_id)
+{
+     $.ajax({
         type: 'POST',
         async: true,
         url: '/api/accounts/request/invite/',
         data: [
+            { name: 'fb_id', value: fb_id },
             { name: 'name', value: real_name },
             { name: 'email', value: email },
             { name: 'description', value: desc }
@@ -63,13 +75,6 @@ function onSubmitInviteRequest()
         success: function(result) { signup_notify('success', 'Thank you for your interest in Rate My Video!', false); },
         error: function(error) { signup_notify('error', error.responseText, false); }
     });
-
-    signup_notify('success', 'Thank you for your interest in Rate My Video!', false);
-}
-
-function sendInviteRequest()
-{
-    
 }
 
 function signup_notify(type, msg, refresh)

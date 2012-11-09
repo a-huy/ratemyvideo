@@ -24,6 +24,7 @@ DATABASES = {
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
+DOMAIN = 'http://warm-ocean-6030.herokuapp.com/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -181,6 +182,10 @@ if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
 
 # Login Redirect
 LOGIN_URL = '/rmvadmin/login'
+
+# Facebook App Info
+FACEBOOK_APP_ID = '397851696951181'
+FACEBOOK_APP_SECRET = 'c4edd2b230320164c5aee64c3a10bb4d'
 
 # CONSTANTS
 URL_MAX_LENGTH = 2048

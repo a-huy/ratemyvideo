@@ -18,5 +18,5 @@ urlpatterns += patterns('accounts.api.rating',
 )
 
 urlpatterns += patterns('accounts.api.invite',
-    (r'^request/invite/$', 'InviteCreateApi'),
+    (r'^request/invite/$', 'InviteApi'),
 )
