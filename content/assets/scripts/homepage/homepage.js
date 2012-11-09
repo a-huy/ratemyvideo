@@ -17,7 +17,7 @@ window.fbAsyncInit = function() {
 };
 
 $(document).ready(function() {
-    $('#invite_submit_button').click(function() { 
+    $('#invite_submit_button').click(function() {
         onSubmitInviteRequest();
     });
 });
