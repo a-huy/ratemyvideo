@@ -48,17 +48,17 @@ class InviteApi(base.RestView):
         }
         if 'code' not in request.GET or not request.GET['code']:
             args['scope'] = 'email,user_birthday,user_location,read_stream'
-            return redirect('https://graph.facebook.com/oauth/authorize?' + \
-                urllib.urlencode(args)
+            return redirect('https://graph.facebook.com/oauth/authorize?' +
+                urllib.urlencode(args))
         else:
             args['client_secret'] = settings.FACEBOOK_APP_SECRET
             args['code'] = request.GET.get('code')
             response = cgi.parse_qs(urllib.urlopen(
-                'https://graph.facebook.com/oauth/access_token?' + \
+                'https://graph.facebook.com/oauth/access_token?' +
                 urllib.urlencode(args)).read())
             access_token = response['access_token'][-1]
                 if 'access_token' in response else None
-            profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' + \
+            profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
                 urllib.urlencode(dict(access_token=access_token))))
             print profile
         return HttpResponse()
