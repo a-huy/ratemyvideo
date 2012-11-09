@@ -56,7 +56,7 @@ class InviteApi(base.RestView):
             response = cgi.parse_qs(urllib.urlopen(
                 'https://graph.facebook.com/oauth/access_token?' +
                 urllib.urlencode(args)).read())
-            access_token = response['access_token'][-1]
+            access_token = response['access_token'][-1] \
                 if 'access_token' in response else None
             profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
                 urllib.urlencode(dict(access_token=access_token))))
