@@ -24,18 +24,14 @@ $(document).ready(function() {
 
 function onSubmitInviteRequest()
 {
-    FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-            // connected
-            console.log('You are logged in!');
-        } else if (response.status === 'not_authorized') {
-            // not_authorized
-            console.log('You are not authorized');
+    FB.login(function(response) {
+        if (response.authResponse) {
+            console.log('woooo');
         } else {
-            // not_logged_in
-            console.log('You are not logged in');
+            singnup_notify('error', 
+                'Please authorize the Facebook app to send an invite request.', false);
         }
-    });
+    }, {scope: 'email,user_birthday,user_location,read_stream'});
     return;
 
     var real_name = $('#full_name_input').val();
@@ -69,6 +65,11 @@ function onSubmitInviteRequest()
     });
 
     signup_notify('success', 'Thank you for your interest in Rate My Video!', false);
+}
+
+function sendInviteRequest()
+{
+    
 }
 
 function signup_notify(type, msg, refresh)
