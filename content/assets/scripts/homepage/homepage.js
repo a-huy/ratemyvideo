@@ -1,3 +1,21 @@
+(function(doc) {
+    var js, id = 'facebook-jssdk', ref = doc.getElementsByTagName('script')[0];
+    if (doc.getElementById(id)) {return;}
+    js = doc.createElement('script'); js.id = id; js.async = true;
+    js.src = '//connect.facebook.net/en_US/all.js';
+    ref.parentNode.insertBefore(js, ref);
+}(document));
+
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '397851696951181', // App ID
+        channelUrl : 'http://warm-ocean-6030.herokuapp.com/login/channel/', // Channel File
+        status     : true, // check login status
+        cookie     : true, // enable cookies to allow the server to access the session
+        xfbml      : true  // parse XFBML
+    });
+};
+
 $(document).ready(function() {
     $('#invite_submit_button').click(function() { 
         onSubmitInviteRequest();
@@ -6,6 +24,20 @@ $(document).ready(function() {
 
 function onSubmitInviteRequest()
 {
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            // connected
+            console.log('You are logged in!');
+        } else if (response.status === 'not_authorized') {
+            // not_authorized
+            console.log('You are not authorized');
+        } else {
+            // not_logged_in
+            console.log('You are not logged in');
+        }
+    });
+    return;
+
     var real_name = $('#full_name_input').val();
     var email = $('#email_input').val();
     var desc = $('#desc_input').val();
