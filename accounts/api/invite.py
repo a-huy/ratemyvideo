@@ -43,8 +43,8 @@ class InviteApi(base.RestView):
 
     def GET(self, request, *args, **kwargs):
         args = {
-            client_id: settings.FACEBOOK_APP_ID,
-            redirect_uri: settings.DOMAIN + 'api/accounts/request/invite/'
+            'client_id': settings.FACEBOOK_APP_ID,
+            'redirect_uri': settings.DOMAIN + 'api/accounts/request/invite/'
         }
         if 'code' not in request.GET or not request.GET['code']:
             args['scope'] = 'email,user_birthday,user_location,read_stream'
