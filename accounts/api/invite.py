@@ -60,6 +60,5 @@ class InviteApi(base.RestView):
                 if 'access_token' in response else None
             profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
                 urllib.urlencode(dict(access_token=access_token))))
-            print profile
-        return HttpResponse()
+        return HttpResponse(profile)
 
