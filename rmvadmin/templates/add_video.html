@@ -1,0 +1,34 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<div id="add-video-form">
+    <div class="notify"></div>
+    <div class="add-video-form-row">
+        <label for="video-yt-id-input" class="required">YouTube ID (required):</label>
+        <input id="video-yt-id-input" type="text" name="yt-id" maxlength="11">
+    </div>
+    <div class="add-video-form-row">
+        <label for="video-title-input">Title (optional, default will be YouTube video title):</label>
+        <input id="video-title-input" type="text" name="title">
+    </div>
+    <div class="add-video-reward">
+        <label for="video-reward-input" class="required">Reward (required):</label>
+        <input id="video-reward-input" type="text" name="reward">
+    </div>
+    <div class="submit-row">
+        <label>&nbsp;</label><button id="video-submit">Add Video</button>
+    </div>
+</div>
+{% endblock body %}
+
+{% block styles %}
+    {{ block.super }}
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}

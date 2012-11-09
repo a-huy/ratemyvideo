@@ -1,0 +1,19 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+This is the RMV Admin!
+<br />
+<a href="{% url list_videos %}">List Videos</a><br />
+<a href="{% url add_video %}">Add Video</a><br />
+<a href="{% url edit_whitelist %}">Edit Whitelist</a><br />
+
+{% endblock body %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}
+

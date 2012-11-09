@@ -1,0 +1,61 @@
+{% extends "page_base.html" %}
+{% load dict_value %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<table id="video_table">
+    <tr class="header center">
+        <td>YouTube ID</td>
+        <td>Title</td>
+        <td>Reward</td>
+        <td># Ratings</td>
+        <td>Avg Rating</td>
+    </tr>
+    {% for vid in videos %}
+    <tr>
+        <td class="vid-yt-id">{{ vid.yt_id }}</td>
+        <td class="vid-title">
+            <a href="http://www.youtube.com/watch?v={{ vid.yt_id }}" 
+                target="_blank">{{ vid.title }}</a>
+        </td>
+        <td class="vid-reward">${{ vid.reward }}</td>
+        <td class="vid-num-ratings{% if vid.yt_id not in counts %} unrated{% else %} rated{% endif %}">
+            {% if vid.yt_id not in counts %}0{% else %}
+            {% with ytid=vid.yt_id %}{{ counts|dict_value:ytid }}{% endwith %}{% endif %}
+        </td>
+        <td class="vid-avg-rating{% if vid.yt_id not in counts %} unrated{% else %} rated{% endif %}">
+            {% if vid.yt_id not in avg_ratings %}0{% else %}
+                {% with ytid=vid.yt_id %}{{ avg_ratings|dict_value:ytid }}{% endwith %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br />
+<div class="pagination">
+    <span class="step-links">
+        {% if videos.has_previous %}
+            <a href="?page={{ videos.previous_page_number }}&num={{ videos.paginator.per_page }}"><</a>
+        {% endif %}
+        <span class="current-page">
+            {{ videos.number }} of {{ videos.paginator.num_pages }}
+        </span>
+        {% if videos.has_next %}
+            <a href="?page={{ videos.next_page_number }}&num={{ videos.paginator.per_page }}">></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock body %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" 
+        href="{{ MEDIA_URL }}styles/rmvadmin/list_videos.css" />
+    {{ block.super }}
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}

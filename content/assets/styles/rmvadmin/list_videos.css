@@ -1,0 +1,8 @@
+.header { font-weight: bold; background-color: #E8EEFF; padding: 2px 6px 2px 6px; 
+          text-align: center; }
+
+.vid-reward { text-align: center; }
+.vid-num-ratings { text-align: center; }
+.vid-avg-rating { text-align: center; }
+.unrated { background-color: #C6C6C6; }
+.rated { background-color: #2ABB1F; }

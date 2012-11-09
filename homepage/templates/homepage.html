@@ -5,6 +5,8 @@
 {% endblock head %}
 
 {% block body %}
+<div id="fb-root"></div>
+<script src="{{ MEDIA_URL }}scripts/homepage/homepage.js"></script>
 <h1> Rate My Video </h1>
 <div id="description">
 Rate My Video is a site that pays you to watch YouTube videos!<br /><br />
@@ -26,6 +28,5 @@ Unfortunately, Rate My Video is currently invite-only. If you would like to sign
     {{ block.super }}
 {% endblock styles %}
 {% block scripts %}
-    <script src="{{ MEDIA_URL }}scripts/homepage/homepage.js"></script>
     {{ block.super }}
 {% endblock scripts %}

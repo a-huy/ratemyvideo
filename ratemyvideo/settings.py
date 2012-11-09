@@ -131,9 +131,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'base',
     'accounts',
     'videos',
     'homepage',
+    'rmvadmin',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -176,6 +178,9 @@ EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
+
+# Login Redirect
+LOGIN_URL = '/rmvadmin/login'
 
 # CONSTANTS
 URL_MAX_LENGTH = 2048
