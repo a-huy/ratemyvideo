@@ -43,7 +43,7 @@ def account_is_eligible(user):
             is_eligible : account is eligibile to use the extension
             reason : if is_eligibile is false, this is the error message
     """
-    access_token = user['access_token']b
+    access_token = user['access_token']
     perms = json.load(urllib.urlopen(
         'https://graph.facebook.com/' + user['fb_id'] + '/permissions?' + 
         urllib.urlencode(access_token)))
