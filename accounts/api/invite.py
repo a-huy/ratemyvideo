@@ -61,5 +61,5 @@ class InviteApi(base.RestView):
             return HttpResponseBadRequest('You have already submitted an invite request.')
         except accounts_models.InviteRequest.DoesNotExist:
             pass
-        create_request(user)
+        invite_lib.create_request(user)
         return HttpResponse('Request received!')
