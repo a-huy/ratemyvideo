@@ -53,7 +53,7 @@ def account_is_eligible(user):
         return (False, 'Location permission not granted')
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
-    area = user['location'].split(',').strip()[-1]
+    area = user['location'].split(',')[-1].strip()
     if area not in states_whitelist: return (False, 'User location not in authorized area')
     seconds_in_year = 60 * 60 * 24 * 365
     limit = int(round(time.time() - seconds_in_year))
