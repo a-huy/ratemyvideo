@@ -71,6 +71,7 @@ def create_request(user):
     del user['access_token']
     new_req = accounts_models.InviteRequest(**user)
     new_req.age = calc_age(user['birthday'])
+    del user['birthday']
     new_req.save()
 
 def calc_age(birthday):
