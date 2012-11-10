@@ -48,7 +48,8 @@ def account_is_eligible(user):
     perms = json.load(urllib.urlopen(
         'https://graph.facebook.com/' + user['fb_id'] + '/permissions?' + 
         urllib.urlencode(access_token)))
-    if 'location' not in perms['data']: return (False, 'Location permission not granted')
+    if 'user_location' not in perms['data']: 
+        return (False, 'Location permission not granted')
     if 'read_stream' not in perms['data']: 
         return (False, 'Reading user stream permission not granted')
     area = user['location'].split(',').strip()[-1]
