@@ -39,7 +39,7 @@ class User(base_models.Base):
         }
         return data
 
-class InviteRequest(User):
+class InviteRequest(base_models.Base):
     fb_id = models.CharField(max_length=settings.FB_ID_MAX_LENGTH)
     real_name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
     email = models.EmailField(max_length=settings.EMAIL_MAX_LENGTH)
