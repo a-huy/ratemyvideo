@@ -17,7 +17,7 @@ states_whitelist = [
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ]
 
-def get_user_data(code, args):
+def get_user_data(args):
     args['client_secret'] = settings.FACEBOOK_APP_SECRET
     response = cgi.parse_qs(urllib.urlopen(
         'https://graph.facebook.com/oauth/access_token?' +
