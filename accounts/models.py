@@ -48,4 +48,4 @@ class InviteRequest(base_models.Base):
     gender = models.CharField(max_length=settings.GENDER_MAX_LENGTH)
 
 class UserWhitelist(base_models.Base):
-    key = models.CharField(max_length=KEY_MAX_LENGTH)
+    key = models.CharField(max_length=settings.KEY_MAX_LENGTH)
