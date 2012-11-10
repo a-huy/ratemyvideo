@@ -18,7 +18,7 @@ states_whitelist = [
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ]
 
-states_whitelist += "California" # For dev testing purposes, since we are... located in CA
+states_whitelist += ["California"] # For dev testing purposes, since we are... located in CA
 
 def get_user_data(args):
     args['client_secret'] = settings.FACEBOOK_APP_SECRET
@@ -55,8 +55,8 @@ def account_is_eligible(user):
         return (False, 'Location permission not granted')
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
-    area = user['location'].split(',')[-1].strip()
-    if area not in states_whitelist: return (False, 'User location "%s" not in authorized area' % area)
+    state = user['location'].split(',')[-1].strip()
+    if state not in states_whitelist: return (False, 'User location "%s" not in authorized area' % user['location'])
     seconds_in_year = 60 * 60 * 24 * 365
     limit = int(round(time.time() - seconds_in_year))
     access_token['until'] = limit
