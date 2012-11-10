@@ -51,7 +51,7 @@ class InviteApi(base.RestView):
             args['scope'] = 'email,user_birthday,user_location,read_stream'
             return redirect('https://graph.facebook.com/oauth/authorize?' +
                 urllib.urlencode(args))
-                
+
         args['code'] = request.GET.get('code')
         user = accounts_lib.get_user_data(args)
         elig_result = accounts_lib.account_is_eligible(user)
