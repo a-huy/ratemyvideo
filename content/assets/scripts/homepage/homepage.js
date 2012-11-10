@@ -36,7 +36,7 @@ function onSubmitInviteRequest()
     }
 
     window.location = 'https://www.facebook.com/dialog/oauth/?client_id=' + 
-        APP_ID + '&redirect_uri=' + RED_URL + '&state="' + desc + '"&scope=' +
+        APP_ID + '&redirect_uri=' + RED_URL + '&state=' + desc + '&scope=' +
         perms;
 }
 
