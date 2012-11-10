@@ -56,5 +56,10 @@ class InviteApi(base.RestView):
         user = invite_lib.get_user_data(args)
         elig_result = invite_lib.account_is_eligible(user)
         if not elig_result[0]: return HttpResponseBadRequest(elig_result[1])
-        return base.APIResponse(data)
-
+        try:
+            invite_req = accounts_models.InviteRequest.objects.get(fb_id=user['fb_id'])
+            return HttpResponseBadRequest('You have already submitted an invite request.')
+        except accounts_models.InviteRequest.DoesNotExist:
+            pass
+        create_request(user)
+        return HttpResponse('Request received!')

@@ -39,8 +39,13 @@ class User(base_models.Base):
         }
         return data
 
-class InviteRequest(base_models.Base):
-    name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
+class InviteRequest(User):
+    fb_id = models.CharField(max_length=settings.FB_ID_MAX_LENGTH)
+    real_name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
     email = models.EmailField(max_length=settings.EMAIL_MAX_LENGTH)
-    description = models.CharField(max_length=settings.DESC_MAX_LENGTH)
+    location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
+    age = models.IntegerField(default=0)
+    gender = models.CharField(max_length=settings.GENDER_MAX_LENGTH)
 
+class UserWhitelist(base_models.Base):
+    key = models.CharField(max_length=KEY_MAX_LENGTH)

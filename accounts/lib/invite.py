@@ -2,6 +2,7 @@ import urllib
 import json
 import time
 import cgi
+import datetime
 from django.conf import settings
 
 import accounts.models as accounts_models
@@ -56,7 +57,8 @@ def account_is_eligible(user):
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
     state = user['location'].split(',')[-1].strip()
-    if state not in states_whitelist: return (False, 'User location "%s" not in authorized area' % user['location'])
+    if state not in states_whitelist:
+        return (False, 'User location "%s" not in authorized area' % user['location'])
     seconds_in_year = 60 * 60 * 24 * 365
     limit = int(round(time.time() - seconds_in_year))
     access_token['until'] = limit
@@ -64,4 +66,18 @@ def account_is_eligible(user):
         'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))
     if len(posts['data']) == 0: return (False, 'Account is less than a year old')
     return (True, '')
+
+def create_request(user):
+    del user['access_token']
+    new_req = accounts_models.InviteRequest(**user)
+    new_req.age = calc_age(user['birthday'])
+    new_req.save()
+
+def calc_age(birthday):
+    if birthday == 'undefined': return 0
+    birthday = birthday.split('/')
+    today = datetime.datetime.today()
+    age = today.year - int(birthday[2])
+    if (today.month, today.day) < (int(birthday[0]), int(birthday[1])): age -= 1
+    return age
 
