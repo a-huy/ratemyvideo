@@ -8,7 +8,7 @@ import json
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
-import accounts.lib as invite_lib
+import accounts.lib.invite as invite_lib
 
 class InviteCreateApi(base.RestView):
 
