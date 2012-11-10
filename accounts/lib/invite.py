@@ -1,6 +1,7 @@
 import urllib
 import json
 import time
+import cgi
 from django.conf import settings
 
 import accounts.models as accounts_models
