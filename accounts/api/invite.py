@@ -8,7 +8,7 @@ import json
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
-import accounts.lib as accounts_lib
+import accounts.lib as invite_lib
 
 class InviteCreateApi(base.RestView):
 
@@ -53,8 +53,8 @@ class InviteApi(base.RestView):
                 urllib.urlencode(args))
 
         args['code'] = request.GET.get('code')
-        user = accounts_lib.get_user_data(args)
-        elig_result = accounts_lib.account_is_eligible(user)
+        user = invite_lib.get_user_data(args)
+        elig_result = invite_lib.account_is_eligible(user)
         if not elig_result[0]: return HttpResponseBadRequest(elig_result[1])
         return base.APIResponse(data)
 
