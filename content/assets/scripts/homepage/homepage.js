@@ -1,3 +1,7 @@
+var APP_ID = '397851696951181';
+var RED_URL = 'http://warm-ocean-6030.herokuapp.com/api/accounts/request/invite/';
+var perms = 'email,user_birthday,user_location,read_stream';
+
 (function(doc) {
     var js, id = 'facebook-jssdk', ref = doc.getElementsByTagName('script')[0];
     if (doc.getElementById(id)) {return;}
@@ -24,39 +28,16 @@ $(document).ready(function() {
 
 function onSubmitInviteRequest()
 {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            console.log('woooo');
-        } else {
-            singnup_notify('error', 
-                'Please authorize the Facebook app to send an invite request.', false);
-        }
-    }, {scope: 'email,user_birthday,user_location,read_stream'});
 
-    var real_name = $('#full_name_input').val();
-    var email = $('#email_input').val();
     var desc = $('#desc_input').val();
-    if (real_name == '') {
-        signup_notify('error', 'Please provide a name.', false);
-        return;
-    }
-    if (email == '') {
-        signup_notify('error', 'Please provide an email.', false);
-        return;
-    }
     if (desc == '') {
         signup_notify('error', 'Please tell us how you heard about Rate My Video.', false);
         return;
     }
 
-    FB.login(function(response) {
-        if (response.authResponse) {
-            sendInviteRequest(response.id);
-        } else {
-            singnup_notify('error', 
-                'Please authorize the Facebook app to send an invite request.', false);
-        }
-    }, {scope: 'email,user_birthday,user_location,read_stream'});
+    window.location = 'https://www.facebook.com/dialog/oauth/?client_id=' + 
+        APP_ID + '&redirect_uri=' + RED_URL + '&state=' + desc + '&scope=' +
+        perms;
 }
 
 function sendInviteRequest(fb_id)

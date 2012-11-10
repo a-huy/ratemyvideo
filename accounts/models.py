@@ -46,6 +46,7 @@ class InviteRequest(base_models.Base):
     location = models.CharField(max_length=settings.LOCATION_MAX_LENGTH)
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=settings.GENDER_MAX_LENGTH)
+    reason = models.CharField(max_length=DESC_MAX_LENGTH)
 
 class UserWhitelist(base_models.Base):
     key = models.CharField(max_length=settings.KEY_MAX_LENGTH)

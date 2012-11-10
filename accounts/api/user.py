@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadReque
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
+import accounts.lib.invite as invite_lib
 
 class UserCreateApi(base.RestView):
 
@@ -41,14 +42,7 @@ class UserCreateApi(base.RestView):
             new_user.commented = 0
             new_user.karma = 0
             new_user.subscribed = 0
-            if request.POST['birthday'] == 'undefined':
-                new_user.age = 0
-            else:
-                birthday = request.POST['birthday'].split('/')
-                today = datetime.datetime.today()
-                new_user.age = today.year - int(birthday[2])
-                if (today.month, today.day) < (int(birthday[0]), int(birthday[1])):
-                    new_user.age -= 1
+            new_user.age = invite_lib.calc_age(request.POST['birthday'])
             new_user.save()
             request.session['fb_id'] = new_user.fb_id
         return base.APIResponse(new_user.to_json())
