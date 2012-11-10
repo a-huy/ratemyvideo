@@ -8,6 +8,7 @@ import json
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
+import accounts.lib as accounts_lib
 
 class InviteCreateApi(base.RestView):
 
@@ -50,23 +51,10 @@ class InviteApi(base.RestView):
             args['scope'] = 'email,user_birthday,user_location,read_stream'
             return redirect('https://graph.facebook.com/oauth/authorize?' +
                 urllib.urlencode(args))
-        else:
-            args['client_secret'] = settings.FACEBOOK_APP_SECRET
-            args['code'] = request.GET.get('code')
-            response = cgi.parse_qs(urllib.urlopen(
-                'https://graph.facebook.com/oauth/access_token?' +
-                urllib.urlencode(args)).read())
-            access_token = response['access_token'][-1] \
-                if 'access_token' in response else None
-            profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
-                urllib.urlencode(dict(access_token=access_token))))
-            data = {
-                'fb_id': profile['id'],
-                'real_name': profile['name'],
-                'location': profile['location'],
-                'birthday': profile['birthday'],
-                'email': profile['email'],
-                'gender': profile['gender']
-            }
+                
+        args['code'] = request.GET.get('code')
+        user = accounts_lib.get_user_data(args)
+        elig_result = accounts_lib.account_is_eligible(user)
+        if not elig_result[0]: return HttpResponseBadRequest(elig_result[1])
         return base.APIResponse(data)
 
