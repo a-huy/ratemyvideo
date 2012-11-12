@@ -28,8 +28,8 @@ class WhiteListCreateApi(base.RestView):
 
         # Create a new User out of the request
         inv_req_dict = in_req.__dict__
-        return base.APIResponse(inv_req_dict)
         del in_req_dict['reason']
+        del in_req_dict['_state']
         new_user = accounts_models.User(**in_req_dict)
         print new_user.__dict__
         # Save the User, remove the request

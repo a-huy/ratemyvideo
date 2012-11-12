@@ -33,7 +33,8 @@ function onButtonConfirm()
                 data: [
                     { name: 'fb_id', value: checked_list[argi].getAttribute('name') }
                 ],
-                contentType: 'application/json; charset=utf-8'
+                contentType: 'application/json; charset=utf-8',
+                onError: function(err) { console.log(err.responseText); }
             });
         }
         else if (action == 'ignore') {
