@@ -35,7 +35,7 @@ class WhiteListCreateApi(base.RestView):
         inv_req.vanish()
 
         # Update the whitelist
-        hash_key = hashlib.sha512('rmv:whitelist:' + inv_req.fb_id).hexdigest()
+        hash_key = hashlib.sha512('rmv:whitelist:' + new_user.fb_id).hexdigest()
         new_entry = accounts_models.UserWhitelist({'key':hash_key})
         new_entry.save()
 
