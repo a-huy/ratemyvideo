@@ -1,4 +1,5 @@
 import hashlib
+import copy
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.conf import settings
@@ -26,7 +27,7 @@ class WhiteListCreateApi(base.RestView):
             pass
 
         # Create a new User out of the request
-        inv_req_dict = inv_req.__dict__
+        inv_req_dict = copy.deepcopy(inv_req.__dict__)
         del inv_req_dict['reason']
         del inv_req_dict['_state']
         new_user = accounts_models.User(**inv_req_dict)
