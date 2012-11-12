@@ -13,13 +13,12 @@ class WhiteListCreateApi(base.RestView):
 
     model = accounts_models.UserWhitelist
 
-    @login_required
     def POST(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
             return HttpResponseBadRequest('A whitelist seed is required')
         try:
             inv_req = accounts_models.InviteRequest.active.get(fb_id=request.POST['fb_id'])
-            user = accounts_models.User.active.get(fb_id=request.POST['fb_id'])
+            curr_user = accounts_models.User.active.get(fb_id=request.POST['fb_id'])
             return HttpResponseBadRequest('User is already registered with the service')
         except accounts_models.InviteRequest.DoesNotExist:
             return HttpResponseBadRequest('Invite request could not be found')
