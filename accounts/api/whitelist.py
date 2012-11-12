@@ -3,7 +3,6 @@ import copy
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.conf import settings
-from django.contrib.auth.decorators import is_authenticated
 
 import base.api.base as base
 import accounts.models as accounts_models
