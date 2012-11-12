@@ -28,7 +28,7 @@
             <td class="center">{{ req.gender|capfirst }}</td>
             <td>{{ req.location }}</td>
             <td>{{ req.reason|capfirst }}</td>
-            <td><a href="http://www.facebook.com/profile.php?id={{ req.fb_id }}" target="_blank">{{ req.fb_id }}</a></td>
+            <td class="center"><a href="http://www.facebook.com/profile.php?id={{ req.fb_id }}" target="_blank">{{ req.fb_id }}</a></td>
             <td><input type="checkbox" class="invite-checkbox" name="{{ req.fb_id }}"></td>
         </tr>
         {% endfor %}
