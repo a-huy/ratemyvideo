@@ -31,7 +31,6 @@ class WhiteListCreateApi(base.RestView):
         del in_req_dict['reason']
         del in_req_dict['_state']
         new_user = accounts_models.User(**in_req_dict)
-        print new_user.__dict__
         # Save the User, remove the request
         new_user.save()
         inv_req.vanish()

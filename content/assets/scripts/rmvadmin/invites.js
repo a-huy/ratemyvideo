@@ -34,7 +34,7 @@ function onButtonConfirm()
                     { name: 'fb_id', value: checked_list[argi].getAttribute('name') }
                 ],
                 contentType: 'application/json; charset=utf-8',
-                onError: function(err) { console.log(err.responseText); }
+                error: function(err) { console.log(err.responseText); }
             });
         }
         else if (action == 'ignore') {
@@ -52,7 +52,7 @@ function onButtonConfirm()
             });
         }
     }
-    actionNotify('success', 'Changes have been applied!', true);
+//    actionNotify('success', 'Changes have been applied!', true);
 }
 
 function actionNotify(type, msg, refresh)
