@@ -20,3 +20,8 @@ urlpatterns += patterns('accounts.api.rating',
 urlpatterns += patterns('accounts.api.invite',
     (r'^request/invite/$', 'InviteApi'),
 )
+
+urlpatterns += patterns('accounts.api.whitelist',
+    (r'^whitelist/$', 'WhiteListCreateApi'),
+)
+

@@ -2,6 +2,7 @@
 
 {% block head %}
     {{ block.super }}
+    <script src="{{ MEDIA_URL }}scripts/rmvadmin/invites.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -28,20 +29,20 @@
             <td>{{ req.location }}</td>
             <td>{{ req.reason|capfirst }}</td>
             <td><a href="http://www.facebook.com/profile.php?id={{ req.fb_id }}" target="_blank">{{ req.fb_id }}</a></td>
-            <td><input type="checkbox" id="invite-checkbox" name="checkbox-{{ req.fb_id }}"></td>
+            <td><input type="checkbox" class="invite-checkbox" name="{{ req.fb_id }}"></td>
         </tr>
         {% endfor %}
     </table>
 </div>
 <div id="invite-actions">
     <span id="action-select">
-        <select>
+        <select id="action-list">
             <option value="accept">Accept</option>
             <option value="ignore">Ignore</option>
         </select>
     </span>
     <span id="action-confirm">
-        <button type="button">Confirm</button>
+        <button type="button" id="confirm-button">Confirm</button>
     </span>
     <div class="notify"></div>
 </div>

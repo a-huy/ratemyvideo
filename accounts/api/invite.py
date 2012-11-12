@@ -14,6 +14,8 @@ class InviteApi(base.RestView):
 
     model = accounts_models.InviteRequest
 
+    # This is used to create invites because Facebook sends a GET request
+    # to the redirect page
     def GET(self, request, *args, **kwargs):
         args = {
             'client_id': settings.FACEBOOK_APP_ID,
@@ -29,10 +31,28 @@ class InviteApi(base.RestView):
         user['reason'] = request.GET.get('state', '')
         elig_result = invite_lib.account_is_eligible(user)
         if not elig_result[0]: return HttpResponseBadRequest(elig_result[1])
+        # Users cannot submit multiple pending requests
         try:
-            invite_req = accounts_models.InviteRequest.objects.get(fb_id=user['fb_id'])
+            invite_req = accounts_models.InviteRequest.active.get(fb_id=user['fb_id'])
             return HttpResponseBadRequest('You have already submitted an invite request.')
         except accounts_models.InviteRequest.DoesNotExist:
             pass
+        # Users cannot submit a request if they are already using the service
+        try:
+            user = accounts_models.User.active.get(fb_id=user['fb_id'])
+            return HttpResponseBadRequest('You already have access to this service!')
+        except accounts_models.User.DoesNotExist:
+            pass
         invite_lib.create_request(user)
         return HttpResponse('Request received!')
+
+    def DELETE(self, request, *args, **kwargs):
+        if 'fb_id' not in request.POST or not request.POST['fb_id']:
+            return HttpResponseBadRequest('Invalid Facebook ID given')
+        try:
+            inv_req = accounts_models.InviteRequest.active.get(fb_id=request.POST['fb_id'])
+        except accounts_models.InviteRequest.DoesNotExist:
+            return HttpResponseBadRequest('User has not submitted an invite request')
+
+        inv_req.vanish()
+        return HttpResponse('Invite request with FB ID %s has been deleted!' % request.POST['fb_id'])
