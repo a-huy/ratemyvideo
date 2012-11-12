@@ -14,6 +14,7 @@ class WhiteListCreateApi(base.RestView):
 
     model = accounts_models.UserWhitelist
 
+    @login_required
     def POST(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
             return HttpResponseBadRequest('A whitelist seed is required')
