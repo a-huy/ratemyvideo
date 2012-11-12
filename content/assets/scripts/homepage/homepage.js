@@ -7,7 +7,7 @@ $(document).ready(function() {
         onSubmitInviteRequest();
     });
     $('#desc_input').keyup(function(evt) {
-        if (evt.keyCode == 13) onSubmitInviteRequest();
+        if (evt.keyCode == 13) onSubmitInviteRequest(); 
     });
 });
 
