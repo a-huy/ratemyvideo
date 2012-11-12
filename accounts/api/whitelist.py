@@ -3,7 +3,7 @@ import copy
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import is_authenticated
 
 import base.api.base as base
 import accounts.models as accounts_models
@@ -14,8 +14,9 @@ class WhiteListCreateApi(base.RestView):
 
     model = accounts_models.UserWhitelist
 
-    @login_required
     def POST(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden('User is not logged in')
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
             return HttpResponseBadRequest('A whitelist seed is required')
         try:
