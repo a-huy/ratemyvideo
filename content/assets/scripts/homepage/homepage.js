@@ -6,6 +6,9 @@ $(document).ready(function() {
     $('#invite_submit_button').click(function() {
         onSubmitInviteRequest();
     });
+    $('#desc_input').keyup(function(evt) {
+        if (evt.keyCode == 13) onSubmitInviteRequest();
+    });
 });
 
 function onSubmitInviteRequest()

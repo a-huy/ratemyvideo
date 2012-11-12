@@ -6,5 +6,6 @@ urlpatterns = patterns('rmvadmin.views',
     url(r'^logout/$', 'rmv_logout', name='rmv_logout'),
     url(r'^list_videos/$', 'list_videos', name='list_videos'),
     url(r'^add_video/$', 'add_video', name='add_video'),
-    url(r'^edit_whitelist/$', 'edit_whitelist', name='edit_whitelist'),
+    url(r'^whitelist/$', 'whitelist', name='whitelist'),
+    url(r'^invites/$', 'invites', name='invites'),
 )

@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import videos.models as videos_models
+import accounts.models as accounts_models
 
 @login_required
 def home(request):
@@ -64,10 +65,22 @@ def list_videos(request):
     return render_to_response('list_videos.html', context_vars,
         context_instance=RequestContext(request))
 
+@login_required
 def add_video(request):
     return render_to_response('add_video.html', { },
         context_instance=RequestContext(request))
 
 @login_required
-def edit_whitelist(request):
-    return HttpResponse()
+def whitelist(request):
+    return render_to_response('whitelist.html', { },
+        context_instance=RequestContext(request))
+
+@login_required
+def invites(request):
+    inv_requests = accounts_models.InviteRequest.active.all()
+    context_vars = {
+        'invite_requests': inv_requests
+    }
+    return render_to_response('invites.html', context_vars,
+        context_instance=RequestContext(request))
+

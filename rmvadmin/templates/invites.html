@@ -1,0 +1,59 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<div id="invites-list">
+    <table id="invites-table">
+        <tr class="header center">
+            <td>Request Date</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Age</td>
+            <td>Gender</td>
+            <td>Location</td>
+            <td>Referral</td>
+            <td>Facebook ID</td>
+            <td><input type="checkbox" id="sel-all-checkbox" name="sel-all-checkbox"></td>
+        </tr>
+        {% for req in invite_requests %}
+        <tr>
+            <td class="center">{{ req.created_date }}</td>
+            <td>{{ req.real_name }}</td>
+            <td>{{ req.email }}</td>
+            <td class="center">{{ req.age }}</td>
+            <td class="center">{{ req.gender|capfirst }}</td>
+            <td>{{ req.location }}</td>
+            <td>{{ req.reason|capfirst }}</td>
+            <td><a href="http://www.facebook.com/profile.php?id={{ req.fb_id }}" target="_blank">{{ req.fb_id }}</a></td>
+            <td><input type="checkbox" id="invite-checkbox" name="checkbox-{{ req.fb_id }}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div id="invite-actions">
+    <span id="action-select">
+        <select>
+            <option value="accept">Accept</option>
+            <option value="ignore">Ignore</option>
+        </select>
+    </span>
+    <span id="action-confirm">
+        <button type="button">Confirm</button>
+    </span>
+    <div class="notify"></div>
+</div>
+{% endblock body %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" 
+        href="{{ MEDIA_URL }}styles/rmvadmin/invites.css" />
+    {{ block.super }}
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}
+
