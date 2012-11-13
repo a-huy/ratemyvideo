@@ -16,6 +16,15 @@ http://www.facebook.com/profile.php?id=%s
 To review this and other pending requests, access the RMV Admin:
 %srmvadmin/invites/
 '''
+
+WELCOME_USER = '''
+Hey %s,
+
+Welcome to Rate My Video!
+
+In order to start using the service, you must download our Chrome extension.
+'''
+
 # This dict maps the type strings to their metadata and template
 email_types = {
     'new_invite_request': { 
