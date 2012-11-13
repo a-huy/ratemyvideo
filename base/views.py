@@ -5,5 +5,5 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
 from django.template import RequestContext
 
 def download_extension(request):
-    return redirect('content/assets/static/files/ratemyvideo.crx')
+    return redirect('/content/assets/static/files/ratemyvideo.crx')
 
