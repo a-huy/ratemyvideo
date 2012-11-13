@@ -11,7 +11,7 @@ Gender: %s
 Referral: %s
 
 Click below to view their Facebook profile.
-http://www.facebook.com/profile.php?id=%s"
+http://www.facebook.com/profile.php?id=%s
 
 To review this and other pending requests, access the RMV Admin:
 %srmvadmin/invites/
