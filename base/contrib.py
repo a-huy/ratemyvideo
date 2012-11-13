@@ -34,7 +34,7 @@ def backend_email(template_name, group_type, email_args):
     template = emails.email_types[template_name]['template']
     subject = emails.email_types[template_name]['subject']
     try:
-        message = tuple(email_args)
+        message = template % tuple(email_args)
         if 'admins' in group_type: mail_admins(subject, message)
         if 'managers' in group_type: mail_managers(subject, message)
     except TypeError:
