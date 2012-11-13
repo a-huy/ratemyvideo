@@ -33,6 +33,9 @@
         </tr>
         {% endfor %}
     </table>
+    {% if not invite_requests %}
+        There are no pending requests!
+    {% endif %}
 </div>
 <div id="invite-actions">
     <span id="action-select">

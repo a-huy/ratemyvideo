@@ -41,7 +41,7 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            createNewUser();
+            getUser();
             testAPI();
         } else {
             // cancelled
@@ -49,26 +49,40 @@ function login() {
     }, {scope: 'email,user_birthday,user_location'});
 }
 
-function createNewUser()
+//function createNewUser()
+//{
+//    FB.api('/me', function(response) {
+//        console.log(response); 
+//        $.ajax({
+//            type: "POST",
+//            async: false, 
+//            url: '/api/accounts/user/',
+//            data: [
+//                { name: 'fb_id', value: response.id },
+//                { name: 'real_name', value: response.name },
+//                { name: 'location', value: response.location.name },
+//                { name: 'birthday', value: response.birthday },
+//                { name: 'email', value: response.email },
+//                { name: 'gender', value: response.gender }
+//            ],
+//            contentType: 'application/json; charset=utf-8',
+//            success: function(result) { console.log('success!'); },
+//            error: function(error) { console.log(error.responseText); }
+//            
+//        });
+//    });
+//}
+
+function getUser()
 {
     FB.api('/me', function(response) {
-        console.log(response); 
         $.ajax({
-            type: "POST",
+            type: "GET",
             async: false, 
-            url: '/api/accounts/user/',
-            data: [
-                { name: 'fb_id', value: response.id },
-                { name: 'real_name', value: response.name },
-                { name: 'location', value: response.location.name },
-                { name: 'birthday', value: response.birthday },
-                { name: 'email', value: response.email },
-                { name: 'gender', value: response.gender }
-            ],
+            url: '/api/accounts/user/' + response.id + '/',
             contentType: 'application/json; charset=utf-8',
             success: function(result) { console.log('success!'); },
             error: function(error) { console.log(error.responseText); }
-            
         });
     });
 }
