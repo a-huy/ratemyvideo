@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^api/', include('base.urls')),
     url(r'^content/(.*)$', 'django.views.static.serve', 
         {'document_root': os.path.join(settings.PROJECT_PATH, 'content')}),
-    url(r'^extension/$', include('base.urls')),
+    url(r'^extension/', include('base.urls')),
     
     # Examples:
     # url(r'^$', 'ratemyvideo.views.home', name='home'),
