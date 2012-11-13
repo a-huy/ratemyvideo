@@ -1,6 +1,6 @@
 import hashlib
-import smtplib
-from email.mime.text import MIMEText
+
+from django.core.mail import send_mail, BadHeaderError
 
 import base.email_templates as emails
 import accounts.models as accounts_models
@@ -20,13 +20,10 @@ def send_email(template_name, recipient, email_args):
         raise LookupError('Email template type not supported')
     template = emails.email_types[template_name]['template']
     try:
-        msg = MIMEText(template % tuple(email_args))
+        send_mail(emails.email_types[template_name]['subject'],
+            template % tuple(email_args), 'ratemyvideos@gmail.com', [recipient])
     except TypeError:
         raise TypeError('One or more string arguments are invalid')
-    msg['Subject'] = emails.email_types[template_name]['subject']
-    msg['From'] = 'ratemyvideos@gmail.com'
-    msg['To'] = recipient
+    except BadHeaderError:
+       raise BadHeaderError('Invalid header found.')
 
-    letter = smtplib.SMTP('localhost')
-    letter.sendmail('ratemyvideos@gmail.com', [recipient], msg.as_string())
-    letter.quit()
