@@ -1,11 +1,3 @@
-# This dict maps the type strings to their metadata and template
-email_types = {
-    'new_invite_request': { 
-        'template': NEW_INVITE_REQUEST,
-        'subject': 'New Invite Request',
-    }
-}
-
 # fb_id, real_name, email, location, age, gender, reason, fb_id, domain
 NEW_INVITE_REQUEST = '''
 Someone has submitted a request to use the Rate My Video service.
@@ -24,3 +16,10 @@ To review this and other pending requests, access the RMV Admin.
 
 <a href="%srmvadmin/invites/">Quick Link to Invite Requests List</a>
 '''
+# This dict maps the type strings to their metadata and template
+email_types = {
+    'new_invite_request': { 
+        'template': NEW_INVITE_REQUEST,
+        'subject': 'New Invite Request',
+    }
+}
