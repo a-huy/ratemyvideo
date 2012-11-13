@@ -15,12 +15,12 @@ def whitelisted(fb_id):
         return False
 
 # Send an email with a specified template
-def send_email(template_name, recipient, *args):
+def send_email(template_name, recipient, email_args):
     if template_name not in emails.email_types:
         raise LookupError('Email template type not supported')
     template = emails.email_types[template_name]['template']
     try:
-        msg = MIMEText(template % tuple(args))
+        msg = MIMEText(template % tuple(email_args))
     except TypeError:
         raise TypeError('One or more string arguments are invalid')
     msg['Subject'] = emails.email_types[template_name]['subject']
