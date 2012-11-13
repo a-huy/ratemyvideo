@@ -179,7 +179,6 @@ SERVER_EMAIL = 'ratemyvideos@gmail.com'
 # Website Admins
 ADMINS = (
     ('Andy', 'anguyenhuy@gmail.com'),
-    ('Andy', 'andy@mahalo.com'),
     ('Server', 'ratemyvideos@gmail.com')
 )
 
