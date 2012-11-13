@@ -1,5 +1,4 @@
 import hashlib
-import re
 
 from django.core.mail import send_mail, mail_admins, BadHeaderError
 
