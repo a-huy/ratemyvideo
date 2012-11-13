@@ -3,7 +3,7 @@ window.fbAsyncInit = function() {
 
     FB.init({
         appId      : '397851696951181', // App ID
-        channelUrl : 'http://warm-ocean-6030.herokuapp.com/login/channel/', // Channel File
+        channelUrl : 'http://ratemyvideo.herokuapp.com/login/channel/', // Channel File
         status     : true, // check login status
         cookie     : true, // enable cookies to allow the server to access the session
         xfbml      : true  // parse XFBML
