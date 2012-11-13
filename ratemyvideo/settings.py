@@ -174,6 +174,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
 EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+SERVER_EMAIL = 'ratemyvideos@gmail.com'
+
+# Website Admins
+ADMINS = (('Andy', 'anguyenhuy@gmail.com'))
 
 # Configure Django to use Heroku's Postgres db
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':

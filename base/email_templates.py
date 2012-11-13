@@ -10,11 +10,11 @@ Age: %d
 Gender: %s
 Referral: %s
 
-<a href="http://www.facebook.com/profile.php?id=%s">Click here to view their Facebook profile.</a>
+Click below to view their Facebook profile.
+http://www.facebook.com/profile.php?id=%s"
 
-To review this and other pending requests, access the RMV Admin.
-
-<a href="%srmvadmin/invites/">Quick Link to Invite Requests List</a>
+To review this and other pending requests, access the RMV Admin:
+%srmvadmin/invites/
 '''
 # This dict maps the type strings to their metadata and template
 email_types = {

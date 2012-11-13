@@ -1,6 +1,7 @@
 import hashlib
+import re
 
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, mail_admins, BadHeaderError
 
 import base.email_templates as emails
 import accounts.models as accounts_models
@@ -23,7 +24,21 @@ def send_email(template_name, recipient, email_args):
         send_mail(emails.email_types[template_name]['subject'],
             template % tuple(email_args), 'ratemyvideos@gmail.com', [recipient])
     except TypeError:
-        raise TypeError('One or more string arguments are invalid')
+        raise TypeError('One or more email arguments are invalid')
     except BadHeaderError:
        raise BadHeaderError('Invalid header found.')
 
+# Send an email to the admins, managers, or both
+def backend_email(template_name, group_type, email_args):
+    if template_name not in emails.email_types:
+        raise LookupError('Email template type not supported')
+    template = emails.email_types[template_name]['template']
+    subject = emails.email_types[template_name]['subject']
+    try:
+        message = tuple(email_args)
+        if 'admins' in group_type: mail_admins(subject, message)
+        if 'managers' in group_type: mail_managers(subject, message)
+    except TypeError:
+        raise TypeError('One or more email arguments are invalid')
+    except BadHeaderError:
+       raise BadHeaderError('Invalid header found.')
