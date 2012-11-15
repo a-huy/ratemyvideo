@@ -24,7 +24,7 @@ DATABASES = {
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
-DOMAIN = 'http://ratemyvideo.herokuapp.com/'
+DOMAIN = 'http://www.ratemyvideo.co/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

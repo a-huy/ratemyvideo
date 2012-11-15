@@ -1,5 +1,5 @@
 var APP_ID = '397851696951181';
-var RED_URL = 'http://ratemyvideo.herokuapp.com/api/accounts/request/invite/';
+var RED_URL = 'http://www.ratemyvideo.co/api/accounts/request/invite/';
 var perms = 'email,user_birthday,user_location,read_stream';
 
 $(document).ready(function() {
