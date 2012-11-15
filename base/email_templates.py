@@ -42,7 +42,7 @@ email_types = {
     'new_invite_request': { 
         'template': NEW_INVITE_REQUEST,
         'subject': 'New Invite Request',
-    }
+    },
     'welcome_user': {
         'template': WELCOME_USER,
         'subject': 'Welcome to Rate My Video!'
