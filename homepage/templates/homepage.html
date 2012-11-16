@@ -7,21 +7,29 @@
 {% block body %}
 <div id="fb-root"></div>
 <script src="{{ MEDIA_URL }}scripts/homepage/homepage.js"></script>
-<h1> Rate My Video </h1>
+<div id="home-header"><img src="{{ MEDIA_URL }}static/images/logo_80px.png" /></div>
 <div id="description">
-Rate My Video is the only place where you get paid to find the next viral sensation!<br /><br />
+The only place where you get paid to find the next viral sensation!<br /><br />
 </div>
 
 <div id="signup">
-Unfortunately, Rate My Video is currently invite-only. If you would like to sign up and start rating videos, fill out the form below!
-    <div id="desc">How did you hear about Rate My Video? <input id="desc_input" type="text" name="desc_input"><br /></div><br />
-    <div id="invite_submit">
-        <input id="invite_submit_button" type="submit" value="Submit"> (Requires logging in with Facebook)</div>
+Unfortunately, Rate My Video is currently invite-only.<br />
+If you would like to sign up and start rating videos, fill out the form below!
+    <br /><br />
+    <div id="input-desc">How did you hear about Rate My Video?</div>
+    <div id="input-div">
+        <input id="desc-input" type="text" name="desc-input">
+            <a href="#">
+                <img id="invite-submit-button" src=" {{ MEDIA_URL }}static/images/facebook_40px.png" />
+            </a>
+    </div>
     <div class="notify"></div>
 </div>
 
 {% endblock body %}
 {% block styles %}
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/homepage/homepage.css" />
     {{ block.super }}
 {% endblock styles %}
 {% block scripts %}

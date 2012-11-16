@@ -3,17 +3,17 @@ var RED_URL = 'http://www.ratemyvideo.co/api/accounts/request/invite/';
 var perms = 'email,user_birthday,user_location,read_stream';
 
 $(document).ready(function() {
-    $('#invite_submit_button').click(function() {
+    $('#invite-submit-button').click(function() {
         onSubmitInviteRequest();
     });
-    $('#desc_input').keyup(function(evt) {
+    $('#desc-input').keyup(function(evt) {
         if (evt.keyCode == 13) onSubmitInviteRequest(); 
     });
 });
 
 function onSubmitInviteRequest()
 {
-    var desc = $('#desc_input').val();
+    var desc = $('#desc-input').val();
     if (desc == '') {
         signup_notify('error', 'Please tell us how you heard about Rate My Video.', false);
         return;

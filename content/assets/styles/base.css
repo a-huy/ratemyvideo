@@ -5,3 +5,19 @@
 .alert { background: #fdffcc; border: 1px solid yellow; }
 .success { background: #50a045; color: #fff; }
 
+/* Fonts */
+@font-face
+{
+    font-family: museo-sans;
+    src: url(/content/assets/static/fonts/museo_sans_500.ttf),
+         url(/content/assets/static/fonts/museo_sans_500.eot),
+         url(/content/assets/static/fonts/museo_sans_500.woff);
+}
+
+@font-face
+{
+    font-family: museo-slab;
+    src: url(/content/assets/static/fonts/museo_slab_500.ttf),
+         url(/content/assets/static/fonts/museo_slab_500.eot),
+         url(/content/assets/static/fonts/museo_slab_500.woff);
+}
