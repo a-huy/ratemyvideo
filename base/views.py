@@ -11,7 +11,7 @@ def download_extension(request):
 # Custom HttpResponse Page
 def message_response(request, code, msg):
     context_vars = { 'message': msg }
-    response = render('message.html', context_vars,
+    response = render_to_response('message.html', context_vars,
         context_instance=RequestContext(request))
     response.status_code = code
     return response
