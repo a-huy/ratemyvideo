@@ -7,6 +7,7 @@ import json
 
 import base.api.base as base
 from base.contrib import backend_email, send_email
+from base.views import message_response
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
 import accounts.lib.invite as invite_lib
@@ -35,13 +36,15 @@ class InviteApi(base.RestView):
         # Users cannot submit multiple pending requests
         try:
             invite_req = accounts_models.InviteRequest.active.get(fb_id=user['fb_id'])
-            return HttpResponseBadRequest('You have already submitted an invite request.')
+            return message_response(400, 'You have already submitted an invite request.')
+#            return HttpResponseBadRequest('You have already submitted an invite request.')
         except accounts_models.InviteRequest.DoesNotExist:
             pass
         # Users cannot submit a request if they are already using the service
         try:
             user = accounts_models.User.active.get(fb_id=user['fb_id'])
-            return HttpResponseBadRequest('You already have access to this service!')
+            return message_response(400, 'You already have access to this service!')
+#            return HttpResponseBadRequest('You already have access to this service!')
         except accounts_models.User.DoesNotExist:
             pass
         invite_lib.create_request(user)
@@ -49,7 +52,8 @@ class InviteApi(base.RestView):
             user['age'], user['gender'], user['reason'], user['fb_id'], settings.DOMAIN]
         send_email('confirm_invite', user['email'], [user['real_name']])
         backend_email('new_invite_request', 'admins', email_args)
-        return HttpResponse('Request received!')
+        return message_response(200, 'Request received!')
+#        return HttpResponse('Request received!')
 
     def DELETE(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
