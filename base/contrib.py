@@ -41,3 +41,4 @@ def backend_email(template_name, group_type, email_args):
         raise TypeError('One or more email arguments are invalid')
     except BadHeaderError:
        raise BadHeaderError('Invalid header found.')
+

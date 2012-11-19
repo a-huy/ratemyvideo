@@ -62,7 +62,7 @@ function getUser()
 
 function testAPI() {
     FB.api('/me', function(response) {
-        var status = document.getElementById('login-status');
+        var status = document.getElementById('login_status');
         status.innerText = 'Good to see you, ' + response.name + '!';
     });
 }
