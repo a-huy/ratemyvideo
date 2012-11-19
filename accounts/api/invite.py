@@ -6,7 +6,7 @@ import cgi
 import json
 
 import base.api.base as base
-from base.contrib import backend_email
+from base.contrib import backend_email, send_email
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
 import accounts.lib.invite as invite_lib
@@ -47,6 +47,7 @@ class InviteApi(base.RestView):
         invite_lib.create_request(user)
         email_args = [user['fb_id'], user['real_name'], user['email'], user['location'],
             user['age'], user['gender'], user['reason'], user['fb_id'], settings.DOMAIN]
+        send_email('confirm_invite', user['email'], [user['real_name']])
         backend_email('new_invite_request', 'admins', email_args)
         return HttpResponse('Request received!')
 
