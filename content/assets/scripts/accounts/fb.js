@@ -12,16 +12,13 @@ window.fbAsyncInit = function() {
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
             // connected
-            console.log('You are logged in!');
             testAPI();
             login();
         } else if (response.status === 'not_authorized') {
             // not_authorized
-            console.log('You are not authorized');
             login();
         } else {
             // not_logged_in
-            console.log('You are not logged in');
             login();
         }
     });
@@ -49,30 +46,6 @@ function login() {
     }, {scope: 'email,user_birthday,user_location'});
 }
 
-//function createNewUser()
-//{
-//    FB.api('/me', function(response) {
-//        console.log(response); 
-//        $.ajax({
-//            type: "POST",
-//            async: false, 
-//            url: '/api/accounts/user/',
-//            data: [
-//                { name: 'fb_id', value: response.id },
-//                { name: 'real_name', value: response.name },
-//                { name: 'location', value: response.location.name },
-//                { name: 'birthday', value: response.birthday },
-//                { name: 'email', value: response.email },
-//                { name: 'gender', value: response.gender }
-//            ],
-//            contentType: 'application/json; charset=utf-8',
-//            success: function(result) { console.log('success!'); },
-//            error: function(error) { console.log(error.responseText); }
-//            
-//        });
-//    });
-//}
-
 function getUser()
 {
     FB.api('/me', function(response) {
@@ -88,10 +61,8 @@ function getUser()
 }
 
 function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.');
-        var status = document.getElementById('login_status');
+        var status = document.getElementById('login-status');
         status.innerText = 'Good to see you, ' + response.name + '!';
     });
 }
