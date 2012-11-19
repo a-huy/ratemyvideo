@@ -8,3 +8,10 @@ def download_extension(request):
     print 'oh hurr'
     return redirect('/content/assets/static/files/ratemyvideo.crx')
 
+# Custom HttpResponse Page
+def message_response(code, msg):
+    context_vars = { 'message': msg }
+    response = render_to_response('message.html', context_vars,
+        context_instance=RequestContext(request))
+    response.status_code = code
+    return response

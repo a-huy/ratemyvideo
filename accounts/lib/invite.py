@@ -82,5 +82,3 @@ def calc_age(birthday):
     if (today.month, today.day) < (int(birthday[0]), int(birthday[1])): age -= 1
     return age
 
-def message_page
-
