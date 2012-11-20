@@ -1,4 +1,5 @@
 import hashlib
+import re
 
 from django.core.mail import send_mail, mail_admins, BadHeaderError
 
@@ -41,4 +42,8 @@ def backend_email(template_name, group_type, email_args):
         raise TypeError('One or more email arguments are invalid')
     except BadHeaderError:
        raise BadHeaderError('Invalid header found.')
+
+# Check if a YouTube ID is in the correct format
+def valid_yt_id(yt_id):
+    return re.match(r'[a-zA-Z0-9\-\_]', yt_id)
 

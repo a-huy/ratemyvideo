@@ -20,7 +20,7 @@
         <input id="video-reward-input" type="text" name="reward">
     </div>
     <div class="submit-row">
-        <label>&nbsp;</label><button id="video-submit">Add Video</button>
+        <label>&nbsp;</label><button id="video-submit" onclick="onButtonAdd();">Add Video</button>
     </div>
 </div>
 {% endblock body %}
@@ -30,5 +30,6 @@
 {% endblock styles %}
 
 {% block scripts %}
+    <script src="{{ MEDIA_URL}}scripts/rmvadmin/add_video.js"></script>
     {{ block.super }}
 {% endblock scripts %}

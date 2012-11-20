@@ -8,3 +8,7 @@ urlpatterns += patterns('videos.api.vote',
     (r'^vote/$', 'VoteCreateApi'),
 )
 
+urlpatterns += patterns('videos.api.video',
+    (r'^video/$', 'VideoCreateApi'),
+)
+
