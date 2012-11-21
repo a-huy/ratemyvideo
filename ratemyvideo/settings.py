@@ -1,5 +1,9 @@
 import os
 
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
+SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
+DOMAIN = 'http://www.ratemyvideo.co/'
+
 DEBUG = True
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo': DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -23,10 +27,6 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
-PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
-SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
-DOMAIN = 'http://www.ratemyvideo.co/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
