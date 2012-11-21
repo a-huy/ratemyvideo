@@ -32,7 +32,7 @@ class InviteApi(base.RestView):
         user = invite_lib.get_user_data(args)
         user['reason'] = request.GET.get('state', '')
         elig_result = invite_lib.account_is_eligible(user)
-        if not elig_result[0]: return HttpResponseBadRequest(elig_result[1])
+        if not elig_result[0]: return message_response(400, elig_result[1])
         # Users cannot submit multiple pending requests
         try:
             invite_req = accounts_models.InviteRequest.active.get(fb_id=user['fb_id'])
