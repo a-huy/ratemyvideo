@@ -1,6 +1,7 @@
 import os
 
 DEBUG = True
+if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo': DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
