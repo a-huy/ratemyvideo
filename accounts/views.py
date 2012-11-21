@@ -14,7 +14,7 @@ def login_page(request):
             context_instance=RequestContext(request))
     args = {
         'client_id': settings.FACEBOOK_APP_ID,
-        'redirect_uri': settings.DOMAIN + 'api/accounts/request/invite/',
+        'redirect_uri': settings.DOMAIN + 'login/',
         'code': request.GET.get('code')
     }
     user = invite_lib.get_user_data(args)
