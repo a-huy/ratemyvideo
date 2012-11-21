@@ -1,3 +1,7 @@
+var APP_ID = '397851696951181';
+var DOMAIN = 'http://www.ratemyvideo.co/';
+var PERMISSIONS = 'email,user_birthday,user_location,read_stream';
+
 // Additional JS functions here
 window.fbAsyncInit = function() {
 
@@ -65,5 +69,12 @@ function testAPI() {
         var status = document.getElementById('login_status');
         status.innerText = 'Good to see you, ' + response.name + '!';
     });
+}
+
+function onLoginButton()
+{
+    window.location = 'https://graph.facebook.com/oauth/authorize?' +
+        'client_id=' + APP_ID + '&redirect_uri=' + DOMAIN + 'login/&scope=' +
+        PERMISSIONS;
 }
 

@@ -9,7 +9,14 @@
 <script src="{{ MEDIA_URL }}scripts/accounts/fb.js"></script>
 <div id="home-header"><img src="{{ MEDIA_URL }}static/images/logo_80px.png" /></div>
 <div id="login_status">
-    You have not yet logged in via Facebook.
+{% if status == "out" %}
+    If you are logged into Facebook, Rate My Video will log you in automatically...<br />
+<br />
+    Taking too long? Click the button below to log into Rate My Video!<br />
+    <a href="#" onclick="onLoginButton();"><img id="invite-submit-button" src=" {{ MEDIA_URL }}static/images/facebook_button.png" /></a>
+{% else %}
+    Good to see you, {{ name }}!
+{% endif %}
 </div>
 {% endblock body %}
 
