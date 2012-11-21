@@ -12,7 +12,11 @@ def login_page(request):
     if 'code' not in request.GET or not request.GET['code']:
         return render_to_response('login_page.html', context_vars,
             context_instance=RequestContext(request))
-    args['code'] = request.GET.get('code')
+    args = {
+        'client_id': settings.FACEBOOK_APP_ID,
+        'redirect_uri': settings.DOMAIN + 'api/accounts/request/invite/',
+        'code': request.GET.get('code')
+    }
     user = invite_lib.get_user_data(args)
     request.session['fb_id'] = user['fb_id']
     context_vars['status'] = 'in'
