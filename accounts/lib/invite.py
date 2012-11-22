@@ -33,7 +33,7 @@ def get_user_data(args):
     data = {
         'fb_id': profile['id'],
         'real_name': profile['name'],
-        'location': profile['location']['name'] if 'location' in profile else 'Unknown'
+        'location': profile['location']['name'] if 'location' in profile else 'Unknown',
         'birthday': profile['birthday'],
         'email': profile['email'],
         'gender': profile['gender'],
