@@ -42,7 +42,7 @@ Follow these steps to install the Chrome extension manually:
 4. Review the list of permissions in the dialog that appears. If you would like
    to use our service, click Install.
 
-Once you have earned $10, we will contact you via your email address used (%s) to login with Facebook in order to request your PayPal account information so we can send you your MONEY!
+Once you have earned $10, we will contact you via your email address used to login with Facebook (%s) in order to request your PayPal account information so we can send you your MONEY!
 
 We look forward to you helping us find the next viral sensation!
 
