@@ -2,7 +2,6 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadReque
 from django.shortcuts import redirect
 from django.conf import settings
 import urllib
-import cgi
 import json
 
 import base.api.base as base

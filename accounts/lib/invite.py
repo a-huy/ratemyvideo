@@ -15,7 +15,7 @@ states_whitelist = [
     "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska",
     "Nevada", "New Hampshire", "New Jersey", "New Mexico", "North Carolina",
     "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Unknown", "Vermont",
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ]
 
@@ -33,7 +33,7 @@ def get_user_data(args):
     data = {
         'fb_id': profile['id'],
         'real_name': profile['name'],
-        'location': profile['location']['name'],
+        'location': profile['location']['name'] if 'location' in profile else 'Unknown'
         'birthday': profile['birthday'],
         'email': profile['email'],
         'gender': profile['gender'],
@@ -43,7 +43,7 @@ def get_user_data(args):
 
 def account_is_eligible(user):
     """
-        Returns a 2-type (is_eligible, reason), where:
+        Returns a 2-tuple (is_eligible, reason), where:
             is_eligible : account is eligibile to use the extension
             reason : if is_eligibile is false, this is the error message
     """
