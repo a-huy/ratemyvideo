@@ -32,15 +32,16 @@ You can do so by navigating to the following page:
 %sextension/get/
 
 Follow these steps to install the Chrome extension manually:
-1. Open the browser menu by clicking on the 3-bar icon in the top right
-   corner of the window.
+1. There is an icon in the top right corner of the Chrome browser that has 3 bars.
+   Click this icon to access the browser menu.
 2. Select Tools >> Extensions.
    Alternatively, you can reach the extensions menu by typing "chrome://extensions"
    (without the quotation marks) in the address bar and pressing Enter.
-3. Locate the .crx extension file on your computer and drag the file onto the
-   Extensions page.
-4. Review the list of permissions in the dialog that appears. If you would like
-   to use our service, click Install.
+3. Right click on the .crx extension file you just downloaded
+   (it should show up at the bottom in the download bar) and click on "Show in Folder".
+   If you are using Mac OS, it should say "Show in Finder" instead.
+   Drag the file onto the Extensions page.
+4. Review the list of permissions in the dialog that appears and click Install.
 
 Once you have earned $10, we will contact you via your email address used to login with Facebook (%s) in order to request your PayPal account information so we can send you your MONEY!
 
