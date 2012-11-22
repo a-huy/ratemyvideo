@@ -45,6 +45,6 @@ class WhiteListCreateApi(base.RestView):
         new_entry = accounts_models.UserWhitelist(**fields)
         new_entry.save()
 
-        send_email('welcome_user', new_user.email, [new_user.real_name, settings.DOMAIN])
+        send_email('welcome_user', new_user.email, [new_user.real_name, settings.DOMAIN, new_user.email])
 
         return HttpResponse('The whitelist has been updated!')

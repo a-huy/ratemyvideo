@@ -17,13 +17,17 @@ To review this and other pending requests, access the RMV Admin:
 %srmvadmin/invites/
 '''
 
-# real_name, domain
+# real_name, domain, email
 WELCOME_USER = '''
 Hey %s,
 
 Welcome to Rate My Video! We're excited about your interest in using our service.
 
-In order to start, you must download and install our Chrome extension.
+Rate My Video runs through a Google Chrome extension, so you will need to be running Google Chrome as your web browser (instead of FireFox, Safari, or Internet Explorer).
+You can download Google Chrome through the following link:
+http://www.google.com/chrome/
+
+In order to use Rate My Video, you must download and install our Chrome extension.
 You can do so by navigating to the following page:
 %sextension/get/
 
@@ -37,6 +41,8 @@ Follow these steps to install the Chrome extension manually:
    Extensions page.
 4. Review the list of permissions in the dialog that appears. If you would like
    to use our service, click Install.
+
+Once you have earned $10, we will contact you via your email address used (%s) to login with Facebook in order to request your PayPal account information so we can send you your MONEY!
 
 We look forward to you helping us find the next viral sensation!
 
