@@ -27,7 +27,7 @@ Rate My Video runs through a Google Chrome extension, so you will need to be run
 You can download Google Chrome through the following link:
 http://www.google.com/chrome/
 
-In order to use Rate My Video, you must download and install our Chrome extension.
+Next, you must download and install our Chrome extension.
 You can do so by navigating to the following page:
 %sextension/get/
 
