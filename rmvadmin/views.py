@@ -56,7 +56,7 @@ def list_videos(request):
         rating_matches = filter(lambda x: x.video_id == vid.id, ratings)
         if len(rating_matches) == 0: continue
         avg_ratings[vid.yt_id] = \
-            Decimal(sum([x.rating for x in rating_matches])) / Decimal(len(rating_matches))
+            round(Decimal(sum([x.rating for x in rating_matches])) / Decimal(len(rating_matches)), 3)
     context_vars = {
         'videos': videos,
         'counts': counts,
