@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.http import HttpResponse
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -16,7 +17,9 @@ urlpatterns = patterns('',
     url(r'^content/(.*)$', 'django.views.static.serve', 
         {'document_root': os.path.join(settings.PROJECT_PATH, 'content')}),
     url(r'^extension/', include('base.urls')),
-    
+    url(r'^robots\.txt$', 
+        lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')),
+
     # Examples:
     # url(r'^$', 'ratemyvideo.views.home', name='home'),
     # url(r'^ratemyvideo/', include('ratemyvideo.foo.urls')),

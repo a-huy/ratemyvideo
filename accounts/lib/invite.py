@@ -34,9 +34,9 @@ def get_user_data(args):
         'fb_id': profile['id'],
         'real_name': profile['name'],
         'location': profile['location']['name'] if 'location' in profile else 'Unknown',
-        'birthday': profile['birthday'],
+        'birthday': profile['birthday'] if 'birthday' in profile else 'undefined',
         'email': profile['email'],
-        'gender': profile['gender'],
+        'gender': profile['gender'] if 'gender' in profile else 'Unknown',
         'access_token': token_dict
     }
     return data
