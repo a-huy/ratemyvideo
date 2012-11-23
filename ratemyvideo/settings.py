@@ -2,7 +2,9 @@ import os
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
-DOMAIN = 'http://www.ratemyvideo.co/'
+if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+    DOMAIN = 'http://www.ratemyvideo.co/'
+else: DOMAIN = 'http://localhost:8000/'
 
 DEBUG = True
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo': DEBUG = False

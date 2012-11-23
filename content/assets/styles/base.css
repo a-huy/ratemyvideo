@@ -21,3 +21,18 @@
          url(/content/assets/static/fonts/museo_slab_500.eot),
          url(/content/assets/static/fonts/museo_slab_500.woff);
 }
+
+/* URLs */
+a:link
+{
+    color: #fff;
+}
+a:visited
+{
+    color: #fff;
+}
+a:hover
+{
+    color: #fff;
+}
+

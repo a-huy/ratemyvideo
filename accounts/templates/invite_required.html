@@ -1,0 +1,23 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<div id="home-header"><img src="{{ MEDIA_URL }}static/images/logo_80px.png" /></div>
+<div id="error_msg">
+    It appears that you are not authorized to use our service.<br />
+    Rate My Video is still in beta, so please request an invitation before using our service.<br />
+    <br /><a href="{{ home_url }}">Home Page</a>
+</div>
+{% endblock body %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/accounts/invite_required.css" />
+    {{ block.super }}
+{% endblock styles %}
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}
