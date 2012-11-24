@@ -5,15 +5,16 @@
 {% endblock head %}
 
 {% block body %}
-This is the RMV Admin!
-<br />
-<a href="{% url list_videos %}">List Videos</a><br />
-<a href="{% url add_video %}">Add Video</a><br />
-<a href="{% url whitelist %}">Edit Whitelist</a><br />
-<a href="{% url invites %}">View Invite Requests</a><br />
-<br />
-<button type="button" onclick="window.location='{% url rmv_logout %}';">Logout</button>
-
+<div id="body-content">
+    <div class="header"> This is the RMV Admin!</div>
+    <br />
+    <a href="{% url list_videos %}">List Videos</a><br />
+    <a href="{% url add_video %}">Add Video</a><br />
+    <a href="{% url whitelist %}">Edit Whitelist</a><br />
+    <a href="{% url invites %}">View Invite Requests</a><br />
+    <br />
+    <button type="button" onclick="window.location='{% url rmv_logout %}';">Logout</button>
+</div>
 {% endblock body %}
 
 {% block scripts %}

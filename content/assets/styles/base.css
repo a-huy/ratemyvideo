@@ -6,7 +6,21 @@ html
     color: #fff;
     font-family: museo-sans;
 }
+
+.header
+{
+    font-family: museo-slab;
+    color: #ea9600;
+    font-size: 50px;
+}
+
 #home-header { text-align: center; margin: 50px auto 50px auto; }
+
+#body-content
+{
+    margin: 0 80px 0 80px;
+    font-size: 18px;
+}
 
 /* Notify */
 .notify { display: none; margin-bottom: 10px; padding: 5px 10px; max-height: 35px;
@@ -31,6 +45,8 @@ html
          url(/content/assets/static/fonts/museo_slab_500.eot),
          url(/content/assets/static/fonts/museo_slab_500.woff);
 }
+.museo-sans { font-family: museo-sans; }
+.museo-slab { font-family: museo-slab; }
 
 /* URLs */
 a:link
