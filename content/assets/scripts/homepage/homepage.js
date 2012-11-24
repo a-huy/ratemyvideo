@@ -1,6 +1,6 @@
-var APP_ID = '397851696951181';
-var RED_URL = 'http://www.ratemyvideo.co/api/accounts/request/invite/';
-var perms = 'email,user_birthday,user_location,read_stream';
+var APP_ID = jsonVars['APP_ID'];
+var RED_URL = jsonVars['RED_URL'];
+var perms = jsonVars['SCOPE'];
 
 $(document).ready(function() {
     $('#invite-submit-button').click(function() {

@@ -1,13 +1,13 @@
-var APP_ID = '397851696951181';
-var DOMAIN = 'http://www.ratemyvideo.co/';
-var PERMISSIONS = 'email,user_birthday,user_location,read_stream';
+var APP_ID = jsonVars['APP_ID'];
+var DOMAIN = jsonVars['DOMAIN'];
+var PERMISSIONS = jsonVars['SCOPE'];
 
 // Additional JS functions here
 window.fbAsyncInit = function() {
 
     FB.init({
-        appId      : '397851696951181', // App ID
-        channelUrl : 'http://www.ratemyvideo.co/login/channel/', // Channel File
+        appId      : APP_ID, // App ID
+        channelUrl : jsonVars['CHANNEL'], // Channel File
         status     : true, // check login status
         cookie     : true, // enable cookies to allow the server to access the session
         xfbml      : true  // parse XFBML
@@ -46,6 +46,7 @@ function login() {
             testAPI();
         } else {
             // cancelled
+            onFBLoginCancel();
         }
     }, {scope: 'email,user_birthday,user_location'});
 }
@@ -58,8 +59,16 @@ function getUser()
             async: false, 
             url: '/api/accounts/user/' + response.id + '/',
             contentType: 'application/json; charset=utf-8',
-            success: function(result) { console.log('success!'); },
-            error: function(error) { console.log(error.responseText); }
+            success: function(result) { },
+            error: function(error) { console.log(error.responseText); },
+            statusCode: {
+                200: function() {
+                    console.log('success');
+                },
+                403: function() {
+                    window.location = DOMAIN + 'login/invite_required/';
+                }
+            }
         });
     });
 }
@@ -69,6 +78,12 @@ function testAPI() {
         var status = document.getElementById('login_status');
         status.innerText = 'Good to see you, ' + response.name + '!';
     });
+}
+
+function onFBLoginCancel()
+{
+    $('#login_status').html('You must login and approve the requested permissions ' +
+        'before using Rate My Video.<br /><br />' + '(Refresh the page to try again)');
 }
 
 function onLoginButton()

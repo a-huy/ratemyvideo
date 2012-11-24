@@ -195,6 +195,7 @@ if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
 else:
     FACEBOOK_APP_ID = '327510684023594'
     FACEBOOK_APP_SECRET = 'e5f2b10d26a977dd9b7805152dcf2a8c'
+FACEBOOK_SCOPE = 'email,user_birthday,user_location,read_stream'
 
 # CONSTANTS
 URL_MAX_LENGTH = 2048

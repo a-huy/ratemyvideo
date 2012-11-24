@@ -2,6 +2,13 @@
 <html>
     <head>
     {% block head %}
+        <script type="text/javascript">
+            {% if json_vars %}
+                var jsonVars = {{ json_vars|safe }};
+            {% else %}
+                var jsonVars = {};
+            {% endif %}
+        </script>
         <link href="{{ MEDIA_URL }}static/images/favicon.png" rel="shortcut icon" />
         <script src="{{ MEDIA_URL }}scripts/jquery-1.8.2.min.js"></script>
     {% endblock head %}

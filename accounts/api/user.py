@@ -19,7 +19,7 @@ class UserUpdateApi(base.RestView):
         try:
             user = accounts_models.User.objects.get(fb_id=fb_id)
         except accounts_models.User.DoesNotExist:
-            return HttpResponseBadRequest('Invalid id')
+            return HttpResponseForbidden('User has not been authenticated')
         if not whitelisted(fb_id):
             return HttpResponseForbidden('User has not been authenticated')
         request.session['fb_id'] = fb_id
