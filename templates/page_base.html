@@ -14,9 +14,11 @@
     {% endblock head %}
     </head>
     <body>
-        <div id="home-header"><img src="{{ MEDIA_URL }}static/images/logo_80px.png" /></div>
+        <div id="body-header"><img src="{{ MEDIA_URL }}static/images/logo_80px.png" /></div>
+    <div id="body-content">
     {% block body %}
     {% endblock body %}
+    </div>
     </body>
     {% block styles %}
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL}}styles/base.css" media="screen" />

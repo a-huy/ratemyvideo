@@ -6,24 +6,22 @@
 
 {% block body %}
 <script src="{{ MEDIA_URL }}scripts/homepage/homepage.js"></script>
-<div id="body-content">
-    <div class="header">
-    The only place where you get paid to find the next viral sensation!<br /><br />
-    </div>
+<div class="header">
+The only place where you get paid to find the next viral sensation!<br /><br />
+</div>
 
-    <div id="signup">
-    Unfortunately, Rate My Video is currently invite-only.<br />
-    If you would like to sign up and start rating videos, fill out the form below!
-        <br /><br />
-        <div id="input-desc">How did you hear about Rate My Video?</div>
-        <div id="input-div">
-            <input id="desc-input" type="text" name="desc-input">
-                <a href="#">
-                    <img id="invite-submit-button" src=" {{ MEDIA_URL }}static/images/facebook_40px.png" />
-                </a>
-        </div>
-        <div class="notify"></div>
+<div id="signup">
+Unfortunately, Rate My Video is currently invite-only.<br />
+If you would like to sign up and start rating videos, fill out the form below!
+    <br /><br />
+    <div id="input-desc">How did you hear about Rate My Video?</div>
+    <div id="input-div">
+        <input id="desc-input" type="text" name="desc-input">
+            <a href="#">
+                <img id="invite-submit-button" src=" {{ MEDIA_URL }}static/images/facebook_40px.png" />
+            </a>
     </div>
+    <div class="notify"></div>
 </div>
 {% endblock body %}
 {% block styles %}
