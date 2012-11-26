@@ -1,0 +1,51 @@
+{% extends "page_base.html" %}
+{% load dict_value %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<table id="users-table">
+    <tr class="labels">
+        <td>FB ID</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Age</td>
+        <td>Gender</td>
+        <td>Location</td>
+        <td>Earned</td>
+        <td>Rated</td>
+        <td>Liked</td>
+        <td>Commented</td>
+        <td>Subscribed</td>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td class="user-fb-id">
+            <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
+        </td>
+        <td class="user-name">{{ user.real_name }}</td>
+        <td class="user-email">{{ user.email }}</td>
+        <td class="user-age">{{ user.age }}</td>
+        <td class="user-gender">{{ user.gender|capfirst }}</td>
+        <td class="user-location">{{ user.location }}</td>
+        <td class="user-earned">{{ user.earned }}</td>
+        <td class="user-rated">{{ user.rated }}</td>
+        <td class="user-liked">{{ user.liked }}</td>
+        <td class="user-commented">{{ user.commented }}</td>
+        <td class="user-subscribed">{{ user.subscribed }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock body %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" 
+        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+    {{ block.super }}
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}

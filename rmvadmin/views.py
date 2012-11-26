@@ -66,6 +66,23 @@ def list_videos(request):
         context_instance=RequestContext(request))
 
 @login_required
+def list_users(request):
+    users_all = accounts_models.User.active.all().order_by('id')
+    num_per_page = request.GET.get('num', len(users_all))
+    page = request.GET.get('page')
+    paginator = Paginator(users_all, num_per_page)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger: users = paginator.page(1)
+    except EmptyPage: videos = paginator.page(paginator.num_pages)
+
+    context_vars = {
+        'users': users
+    }
+    return render_to_response('list_users.html', context_vars,
+        context_instance=RequestContext(request))
+
+@login_required
 def add_video(request):
     return render_to_response('add_video.html', { },
         context_instance=RequestContext(request))

@@ -49,13 +49,14 @@ html
 .museo-slab { font-family: museo-slab; }
 
 /* URLs */
+a { text-decoration: none; }
 a:link
 {
-    color: #fff;
+    color: #ea9600;
 }
 a:visited
 {
-    color: #fff;
+    color: #ea9600;
 }
 a:hover
 {
