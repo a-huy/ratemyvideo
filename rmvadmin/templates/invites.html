@@ -6,6 +6,9 @@
 {% endblock head %}
 
 {% block body %}
+{% if not invite_requests %}
+    There are no pending requests!
+{% else %}
 <div id="invites-list">
     <table id="invites-table">
         <tr class="labels center">
@@ -33,9 +36,6 @@
         </tr>
         {% endfor %}
     </table>
-    {% if not invite_requests %}
-        There are no pending requests!
-    {% endif %}
 </div>
 <div id="invite-actions">
     <span id="action-select">
@@ -49,6 +49,7 @@
     </span>
     <div class="notify"></div>
 </div>
+{% endif %}
 {% endblock body %}
 
 {% block styles %}
