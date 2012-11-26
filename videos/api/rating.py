@@ -31,7 +31,7 @@ class RatingCreateApi(base.RestView):
         except videos_models.Rating.DoesNotExist:
             pass
 
-        last_rating_time = float('inf')
+        time_since_last_rating = float('inf')
         user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('created_date')
         if len(user_ratings) != 0:
             time_since_last_rating = now() - user_ratings[0].created_date
