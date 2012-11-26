@@ -33,13 +33,18 @@ class VideoCreateApi(api_base.RestView):
         except videos_models.Video.DoesNotExist:
             pass
 
+        gdata_obj = video_lib.get_info_from_yt_id(yt_id)
+        duration = gdata_obj.media.duration.seconds if gdata_obj else 0
+
         title = request.POST.get('title', None)
-        if not title: title = video_lib.get_title_from_yt_id(yt_id)
+        if not title:
+            title = gdata_obj.title.text if gdata_obj else 'Unknown'
         if not title: return HttpResponseBadRequest('Invalid YouTube ID')
 
         new_video = videos_models.Video()
         new_video.yt_id = yt_id
         new_video.reward = reward
         new_video.title = smart_text(title)
+        new_video.duration = duration
         new_video.save()
         return api_base.APIResponse('new video added')
