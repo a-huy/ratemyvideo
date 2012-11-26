@@ -23,6 +23,9 @@ print 'Numer of pending updates: %d' % len(videos)
 for argi in xrange(len(videos)):
     if argi % 10 == 0: print 'Processed %d videos' % argi
     duration = get_duration(videos[argi].yt_id)
+    if duration == None:
+        print 'Could not get duration of %s (%s)' % (videos[argi].yt_id, videos[argi].title)
+        continue
     if not dry_run:
         videos[argi].duration = duration
         videos[argi].save()
