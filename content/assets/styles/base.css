@@ -1,7 +1,7 @@
 html
 {
     background: url(/content/assets/static/images/background.png) repeat black;
-    -webkit-box-shadow: inset 0 0 20px #000;
+/*    -webkit-box-shadow: inset 0 0 20px #000;*/
     height: 100%;
     color: #fff;
     font-family: museo-sans;
