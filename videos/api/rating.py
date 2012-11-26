@@ -31,12 +31,7 @@ class RatingCreateApi(base.RestView):
         except videos_models.Rating.DoesNotExist:
             pass
 
-        time_since_last_rating = float('inf')
-        user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('created_date')
-        if len(user_ratings) != 0:
-            time_since_last_rating = now() - user_ratings[0].created_date
-        if time_since_last_rating < video.duration:
-            return HttpResponseBadRequest('Please watch the entire video before rating')
+
 
         new_rating = videos_models.Rating()
         new_rating.video_id = video.id
