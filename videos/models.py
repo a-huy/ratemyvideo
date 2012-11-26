@@ -10,9 +10,10 @@ class Video(base_models.Base):
     yt_id = models.CharField(max_length=settings.YT_ID_MAX_LENGTH, unique=True)
     title = models.CharField(max_length=settings.YT_TITLE_MAX_LENGTH)
     reward = models.DecimalField(max_digits=3, decimal_places=2)
+    duration = models.IntegerField(default=0)
     
     def __unicode__(self):
-        return self.yt_id + ' | ' + self.title
+        return self.yt_id + ' | ' + self.title + ' (' + str(duration) + ')'
     
 class Rating(base_models.Base):
     video = models.ForeignKey(Video)
