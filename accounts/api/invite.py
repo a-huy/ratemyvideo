@@ -28,7 +28,7 @@ class InviteApi(base.RestView):
                 urllib.urlencode(args))
 
         args['code'] = request.GET.get('code')
-        user = invite_lib.get_user_data(args)
+        user = invite_lib.get_user_data(args, request)
         user['reason'] = request.GET.get('state', '')
         elig_result = invite_lib.account_is_eligible(user)
         if not elig_result[0]: return message_response(request, 400, elig_result[1])

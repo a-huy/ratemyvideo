@@ -3,25 +3,30 @@ import json
 import time
 import cgi
 import datetime
+import pygeoip
+import os
 from django.conf import settings
 
 import accounts.models as accounts_models
 
 # All the US states sans California and New York
-states_whitelist = [
-    "Alabama", "Alaska", "Arizona", "Arkansas", "Colorado", "Connecticut",
-    "Deleware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-    "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-    "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska",
-    "Nevada", "New Hampshire", "New Jersey", "New Mexico", "North Carolina",
-    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Unknown", "Vermont",
-    "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
-]
+states_whitelist = {
+    "Alabama":"AL", "Alaska":"AK", "Arizona":"AZ", "Arkansas":"AR", "Colorado":"CO",
+    "Connecticut":"CT", "Deleware":"DE", "Florida":"FL", "Georgia":"GA", "Hawaii":"HI",
+    "Idaho":"ID", "Illinois":"IL", "Indiana":"IN", "Iowa":"IA", "Kansas":"KS",
+    "Kentucky":"KY", "Louisiana":"LA", "Maine":"ME", "Maryland":"MD", "Massachusetts":"MA",
+    "Michigan":"MI", "Minnesota":"MN", "Mississippi":"MS", "Missouri":"MO",
+    "Montana":"MT", "Nebraska":"NE", "Nevada":"NV", "New Hampshire":"NH", "New Jersey":"NJ",
+    "New Mexico":"NM", "North Carolina":"NC", "North Dakota":"ND", "Ohio":"OH",
+    "Oklahoma":"OK", "Oregon":"OR", "Pennsylvania":"PA", "Rhode Island":"RI",
+    "South Carolina":"SC", "South Dakota":"SD", "Tennessee":"TN", "Texas":"TX",
+    "Utah":"UT", "Vermont":"VT", "Virginia":"VA", "Washington":"WA", "West Virginia":"WV",
+    "Wisconsin":"WI", "Wyoming":"WY"
+}
 
-states_whitelist += ["California"] # For dev testing purposes, since we are... located in CA
+states_whitelist["California"] = "CA" # For dev testing purposes, since we are... located in CA
 
-def get_user_data(args):
+def get_user_data(args, request):
     args['client_secret'] = settings.FACEBOOK_APP_SECRET
     response = cgi.parse_qs(urllib.urlopen(
         'https://graph.facebook.com/oauth/access_token?' +
@@ -58,8 +63,8 @@ def account_is_eligible(user):
         return (False, 'Reading user stream permission not granted')
     state = user['location'].split(',')[-1].strip()
     if state not in states_whitelist:
-        return (False, 'User location "%s" not in authorized area' % user['location'])
-    seconds_in_year = 60 * 60 * 24 * 365
+        return (False, 'User location not in authorized area')
+    seconds_in_year = 60 * 60 * 24 * 90
     limit = int(round(time.time() - seconds_in_year))
     access_token['until'] = limit
     posts = json.load(urllib.urlopen(
@@ -81,4 +86,11 @@ def calc_age(birthday):
     age = today.year - int(birthday[2])
     if (today.month, today.day) < (int(birthday[0]), int(birthday[1])): age -= 1
     return age
+
+def addr_to_us_loc(state, addr):
+    geoip = pygeoip.GeoIP(os.path.join(settings.GEOIP_PATH, 'GeoLiteCity.dat'))
+    result = geoip.record_by_addr(addr)
+    if not result: return 'Unknown'
+    return result['country_code'] == 'US' and \
+        filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())
 
