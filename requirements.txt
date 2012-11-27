@@ -4,5 +4,5 @@ argparse==1.2.1
 dj-database-url==0.2.1
 gdata==2.0.17
 psycopg2==2.4.5
-pygeoip=0.2.5
+pygeoip==0.2.5
 wsgiref==0.1.2
