@@ -75,6 +75,10 @@ def list_users(request):
         users = paginator.page(page)
     except PageNotAnInteger: users = paginator.page(1)
     except EmptyPage: videos = paginator.page(paginator.num_pages)
+    inv_requests = accounts_models.InviteRequest.objects.all().order_by('-created_date')
+    for user in users.object_list:
+        invites = filter(lambda x: x.fb_id == user.fb_id, inv_requests)
+        user.referral = invites[0].reason if invites else 'None'
 
     context_vars = {
         'users': users

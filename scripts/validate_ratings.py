@@ -10,7 +10,6 @@ ratings = vm.Rating.active.all().order_by('created_date')
 vids_dict = dict(zip([v.id for v in videos], [v.duration for v in videos]))
 
 for user in users:
-    if int(user.id) != 20 and int(user.id) != 21: continue
     num_violations = 0
     print 'Checking user %s (%s)...' % (user.fb_id, user.real_name)
     user_ratings = filter(lambda x: x.user_id == user.id, ratings)
