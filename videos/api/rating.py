@@ -35,7 +35,7 @@ class RatingCreateApi(base.RestView):
             pass
 
         time_since_last_rating = datetime.timedelta(999999999)
-        user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('created_date')
+        user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('-created_date')
         if len(user_ratings) != 0:
             time_since_last_rating = now() - user_ratings[0].created_date
         if timedelta_to_seconds(time_since_last_rating) < video.duration:
