@@ -2,6 +2,7 @@ import os
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
+GEOIP_PATH = os.path.join(PROJECT_PATH, 'geoip/')
 if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
     DOMAIN = 'http://www.ratemyvideo.co/'
 else: DOMAIN = 'http://localhost:8000/'

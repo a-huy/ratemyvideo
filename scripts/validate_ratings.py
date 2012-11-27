@@ -1,5 +1,3 @@
-import gdata.youtube.service
-
 import utils.djangoenv
 
 from django.conf import settings
