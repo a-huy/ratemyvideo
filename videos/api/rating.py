@@ -7,7 +7,7 @@ import base.api.base as base
 import accounts.models as accounts_models
 import videos.models as videos_models
 import videos.forms as videos_forms
-from base.contrib import timedelta_to_seconds
+from base.contrib import timedelta_to_seconds, extract_addr
 
 class RatingCreateApi(base.RestView):
     
@@ -45,6 +45,7 @@ class RatingCreateApi(base.RestView):
         new_rating.video_id = video.id
         new_rating.user_id = account.id
         new_rating.rating = fields['rating']
+        new_rating.source_ip = extract_addr(request) or '0.0.0.0'
         new_rating.save()
         account.rated += 1
         account.earned += video.reward

@@ -4,6 +4,7 @@ import base.api.base as base
 import accounts.models as accounts_models
 import videos.models as videos_models
 import videos.forms as videos_forms
+from base.contrib import extract_addr
 
 class VoteCreateApi(base.RestView):
 
@@ -32,6 +33,7 @@ class VoteCreateApi(base.RestView):
             new_vote.video_id = video.id
             new_vote.user_id = account.id
             new_vote.like = True if fields['like'] == 'True' else False
+            new_vote.source_ip = extract_addr(request) or '0.0.0.0'
             new_vote.save()
             account.liked += 1 if fields['like'] == 'True' else 0
             account.karma += 1
