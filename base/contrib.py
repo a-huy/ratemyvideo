@@ -47,3 +47,7 @@ def backend_email(template_name, group_type, email_args):
 def valid_yt_id(yt_id):
     return re.match(r'[a-zA-Z0-9\-\_]', yt_id)
 
+# Converts a timedelta object into an integer representing the number of seconds
+def timedelta_to_seconds(delta):
+    return delta.days * 86400 + delta.seconds + (1 if delta.microseconds > 500000 else 0)
+

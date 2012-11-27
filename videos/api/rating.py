@@ -5,6 +5,7 @@ import base.api.base as base
 import accounts.models as accounts_models
 import videos.models as videos_models
 import videos.forms as videos_forms
+from base.contrib import timedelta_to_seconds
 
 class RatingCreateApi(base.RestView):
     
@@ -31,7 +32,12 @@ class RatingCreateApi(base.RestView):
         except videos_models.Rating.DoesNotExist:
             pass
 
-
+        time_since_last_rating = float('inf')
+        user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('created_date')
+        if len(user_ratings) != 0:
+            time_since_last_rating = now() - user_ratings[0].created_date
+        if timedelta_to_seconds(time_since_last_rating) < video.duration:
+            return HttpResponseBadRequest('Please watch the entire video before rating.')
 
         new_rating = videos_models.Rating()
         new_rating.video_id = video.id
