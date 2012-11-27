@@ -51,3 +51,8 @@ def valid_yt_id(yt_id):
 def timedelta_to_seconds(delta):
     return delta.days * 86400 + delta.seconds + (1 if delta.microseconds > 500000 else 0)
 
+# Extracts an IP Address from a request object. Returns None if it could not
+def extract_addr(request):
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        return request.META.get('HTTP_X_FORWARDED_FOR').split(',')[-1].strip()
+    return request.META.get('REMOTE_ADDR', None)

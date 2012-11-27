@@ -50,3 +50,4 @@ class InviteRequest(base_models.Base):
 
 class UserWhitelist(base_models.Base):
     key = models.CharField(max_length=settings.KEY_MAX_LENGTH)
+

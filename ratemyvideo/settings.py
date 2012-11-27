@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'videos',
     'homepage',
     'rmvadmin',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
