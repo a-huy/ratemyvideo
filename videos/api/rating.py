@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.utils.timezone import now
 
@@ -32,7 +34,7 @@ class RatingCreateApi(base.RestView):
         except videos_models.Rating.DoesNotExist:
             pass
 
-        time_since_last_rating = float('inf')
+        time_since_last_rating = datetime.timedelta(999999999)
         user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('created_date')
         if len(user_ratings) != 0:
             time_since_last_rating = now() - user_ratings[0].created_date
