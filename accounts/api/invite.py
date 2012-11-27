@@ -28,7 +28,6 @@ class InviteApi(base.RestView):
                 urllib.urlencode(args))
 
         args['code'] = request.GET.get('code')
-        send_email('confirm_invite', 'anguyenhuy@gmail.com', [request.META['REMOTE_ADDR']])
         user = invite_lib.get_user_data(args, request)
         user['reason'] = request.GET.get('state', '')
         elig_result = invite_lib.account_is_eligible(user)
