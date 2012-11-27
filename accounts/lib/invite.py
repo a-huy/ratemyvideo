@@ -35,10 +35,11 @@ def get_user_data(args, request):
         if 'access_token' in response else None }
     profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
         urllib.urlencode(token_dict)))
+    location = profile['location']['name'] if 'location' in profile else addr_to_us_loc(request.META['REMOTE_ADDR'])
     data = {
         'fb_id': profile['id'],
         'real_name': profile['name'],
-        'location': profile['location']['name'] if 'location' in profile else 'Unknown',
+        'location': location,
         'birthday': profile['birthday'] if 'birthday' in profile else 'undefined',
         'email': profile['email'],
         'gender': profile['gender'] if 'gender' in profile else 'Unknown',
@@ -87,10 +88,10 @@ def calc_age(birthday):
     if (today.month, today.day) < (int(birthday[0]), int(birthday[1])): age -= 1
     return age
 
-def addr_to_us_loc(state, addr):
+def addr_to_us_loc(addr):
     geoip = pygeoip.GeoIP(os.path.join(settings.GEOIP_PATH, 'GeoLiteCity.dat'))
     result = geoip.record_by_addr(addr)
-    if not result: return 'Unknown'
-    return result['country_code'] == 'US' and \
-        filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())
+    if not result or result['country_code'] != 'US': return 'Unknown'
+    return result['city'] + ', ' + \
+        filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())[0]
 
