@@ -36,7 +36,7 @@
         <td class="user-liked">{{ user.liked }}</td>
         <td class="user-commented">{{ user.commented }}</td>
         <td class="user-subscribed">{{ user.subscribed }}</td>
-        <td class="user-referral">{{ user.referral }}</td>
+        <td class="user-referral">{{ user.referral|capfirst }}</td>
     </tr>
     {% endfor %}
 </table>

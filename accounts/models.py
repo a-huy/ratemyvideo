@@ -10,6 +10,7 @@ class User(base_models.Base):
     real_name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
     email = models.EmailField(max_length=settings.EMAIL_MAX_LENGTH)
     earned = models.DecimalField(max_digits=5, decimal_places=2, default=00.00)
+    balance = models.DecimalField(max_digits=5, decimal_places=2, default=00.00)
     rated = models.IntegerField(default=0)
     liked = models.IntegerField(default=0)
     commented = models.IntegerField(default=0)
@@ -26,7 +27,7 @@ class User(base_models.Base):
         data = {
             'fb_id': self.fb_id,
             'real_name': self.real_name,
-            'earned': str(self.earned),
+            'earned': str(self.balance),
             'rated': self.rated,
             'liked': self.liked,
             'commented': self.commented,

@@ -49,6 +49,7 @@ class RatingCreateApi(base.RestView):
         new_rating.save()
         account.rated += 1
         account.earned += video.reward
+        account.balance += video.reward
         account.save()
         return base.APIResponse(new_rating.to_json())
 

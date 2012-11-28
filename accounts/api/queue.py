@@ -17,23 +17,23 @@ class QueueApi(base.RestView):
             return HttpResponseBadRequest('Invalid fb_id')
         if not whitelisted(fb_id):
             return HttpResponseForbidden('User has not been authenticated')
-        vid_ids = [v.video_id for v in 
+        vid_ids = [v.video_id for v in
                    videos_models.Rating.objects.filter(user_id=uid)]
         videos = list(videos_models.Video.objects.all())
         videos = filter(lambda x: x.id not in vid_ids, videos)
-        
+
         vids = []
         for vid in videos:
             vids.append({
-                'yt_id': vid.yt_id, 
-                'reward': vid.reward, 
+                'yt_id': vid.yt_id,
+                'reward': vid.reward,
                 'title': vid.title
             })
-        
+
         data = {
             'vids': vids,
             'host': request.get_host()
         }
-        
+
         return base.APIResponse(data)
 
