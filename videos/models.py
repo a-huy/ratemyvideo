@@ -48,8 +48,8 @@ class Question(base_models.Base):
     video = models.ForeignKey(Video)
     time = models.IntegerField()
 
-#class Queue(base_models.Base):
-#    user = models.ForeignKey(accounts_models.User)
-#    video = models.ForeignKey(Video)
-#    bonuses = models.CharField(max_length=settings.VIDEO_BONUSES_MAX_LENGTH)
-#    expire_date = models.DateTimeField(default=django.utils.timezone.now)
+class Queue(base_models.Base):
+    user = models.ForeignKey(accounts_models.User)
+    video = models.ForeignKey(Video)
+    bonuses = models.CharField(max_length=settings.VIDEO_BONUSES_MAX_LENGTH)
+    expire_date = models.DateTimeField(default=django.utils.timezone.now)
