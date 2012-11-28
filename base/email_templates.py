@@ -1,3 +1,5 @@
+import datetime
+
 # fb_id, real_name, email, location, age, gender, reason, fb_id, domain
 NEW_INVITE_REQUEST = '''
 Someone has submitted a request to use the Rate My Video service.
@@ -65,6 +67,17 @@ Thank you,
 The Rate My Video Team
 '''
 
+# User list
+PAYOUT_ELIGIBLE = '''
+The following users are eligible for a payout:
+
+Name (Email): Balance
+------------------------------
+%s
+
+This is an automatically generated email sent every day.
+'''
+
 # This dict maps the type strings to their metadata and template
 email_types = {
     'new_invite_request': {
@@ -78,5 +91,9 @@ email_types = {
     'confirm_invite': {
         'template': CONFIRM_INVITE,
         'subject': 'Rate My Video - Invitation Request Confirmation'
-    }
+    },
+    'payout_eligible': {
+        'template': PAYOUT_ELIGIBLE,
+        'subject': datetime.datetime.today().strftime('%d-%m-%y') + ' | Daily User Balance Check'
+    },
 }

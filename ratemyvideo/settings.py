@@ -18,7 +18,9 @@ ADMINS = (
 
 ADMIN_MEDIA_PREFIX = '/admin-media/'
 
-MANAGERS = ADMINS
+MANAGERS = (
+    ('Support', 'support@ratemyvideo.co')
+)
 
 DATABASES = {
     'default': {
