@@ -1,7 +1,7 @@
 import hashlib
 import re
 
-from django.core.mail import send_mail, mail_admins, BadHeaderError
+from django.core.mail import send_mail, mail_admins, mail_managers, BadHeaderError
 
 import base.email_templates as emails
 import accounts.models as accounts_models
