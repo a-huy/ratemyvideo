@@ -5,6 +5,7 @@ from django.conf import settings
 
 import base.models as base_models
 import accounts.models as accounts_models
+import django.utils.timezone
 
 class Video(base_models.Base):
     yt_id = models.CharField(max_length=settings.YT_ID_MAX_LENGTH, unique=True)
@@ -47,3 +48,8 @@ class Question(base_models.Base):
     video = models.ForeignKey(Video)
     time = models.IntegerField()
 
+#class Queue(base_models.Base):
+#    user = models.ForeignKey(accounts_models.User)
+#    video = models.ForeignKey(Video)
+#    bonuses = models.CharField(max_length=settings.VIDEO_BONUSES_MAX_LENGTH)
+#    expire_date = models.DateTimeField(default=django.utils.timezone.now)

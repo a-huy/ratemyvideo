@@ -181,8 +181,12 @@ LOGGING = {
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+    EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+else:
+    EMAIL_HOST_USER = 'app8527592@heroku.com'
+    EMAIL_HOST_PASSWORD = '9ywnpddt'
 SERVER_EMAIL = 'ratemyvideos@gmail.com'
 
 # Configure Django to use Heroku's Postgres db
@@ -214,4 +218,5 @@ EMAIL_MAX_LENGTH = 254
 GENDER_MAX_LENGTH = 10
 DESC_MAX_LENGTH = 2048
 KEY_MAX_LENGTH = 128
+VIDEO_BONUSES_MAX_LENGTH = 200
 

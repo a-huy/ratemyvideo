@@ -1,3 +1,6 @@
+# Not to be confused with videos/api/rating.py,
+# this API is for a user's rating history
+
 import datetime
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 
