@@ -28,7 +28,7 @@ def login_page(request):
         'redirect_uri': settings.DOMAIN + 'login/',
         'code': request.GET.get('code')
     }
-    user = invite_lib.get_user_data(args)
+    user = invite_lib.get_user_data(args, request)
     if not whitelisted(user['fb_id']): return redirect('invite_required')
     request.session['fb_id'] = user['fb_id']
     context_vars['status'] = 'in'
