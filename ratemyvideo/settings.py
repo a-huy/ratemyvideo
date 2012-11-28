@@ -19,7 +19,8 @@ ADMINS = (
 ADMIN_MEDIA_PREFIX = '/admin-media/'
 
 MANAGERS = (
-    ('Support', 'support@ratemyvideo.co')
+    ('Jessica', 'jessica@ratemyvideo.co'),
+    ('Andy', 'andy@ratemyvideo.co')
 )
 
 DATABASES = {
