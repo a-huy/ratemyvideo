@@ -12,4 +12,4 @@ for user in accounts:
     if user.balance > 10:
         list_str += user.real_name + ' (' + user.email + '): $' + str(user.balance) + '\n'
 
-if list_str: backend_email('payout_eligible', 'admins', [list_str])
+if list_str: backend_email('payout_eligible', 'managers', [list_str])
