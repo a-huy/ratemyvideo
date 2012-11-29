@@ -28,6 +28,7 @@ class User(base_models.Base):
             'fb_id': self.fb_id,
             'real_name': self.real_name,
             'earned': str(self.balance),
+            'balance': str(self.balance),
             'rated': self.rated,
             'liked': self.liked,
             'commented': self.commented,
