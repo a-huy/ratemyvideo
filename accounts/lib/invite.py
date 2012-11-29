@@ -63,14 +63,14 @@ def account_is_eligible(user):
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
     state = user['location'].split(',')[-1].strip()
-    if state not in states_whitelist:
-        return (False, 'User location not in authorized area')
-    seconds_in_year = 60 * 60 * 24 * 90
+#    if state not in states_whitelist:
+#        return (False, 'User location not in authorized area')
+    seconds_in_year = 60 * 60 * 24 * 180 # It's actually about 6 months
     limit = int(round(time.time() - seconds_in_year))
     access_token['until'] = limit
     posts = json.load(urllib.urlopen(
         'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))
-    if len(posts['data']) == 0: return (False, 'Account is less than a year old')
+    if len(posts['data']) == 0: return (False, 'Account is less than 6 months old')
     return (True, '')
 
 def create_request(user):
@@ -94,7 +94,12 @@ def addr_to_us_loc(request):
     else: addr = request.META.get('REMOTE_ADDR', '127.0.0.1')
     geoip = pygeoip.GeoIP(os.path.join(settings.GEOIP_PATH, 'GeoLiteCity.dat'))
     result = geoip.record_by_addr(addr)
-    if not result or result['country_code'] != 'US': return 'Unknown'
+    if not result: return 'Unknown'
+    if result['country_code'] != 'US':
+        loc_str = result['country_name']
+        if result['region_name']: loc_str = result['region_name'] + ', ' + loc_str
+        if result['city']: loc_str = result['city'] + ', ' + loc_str
+        return loc_str
     return result['city'] + ', ' + \
         filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())[0]
 
