@@ -1,6 +1,6 @@
 html
 {
-    background: url(/content/assets/static/images/background.png) repeat black;
+    background: url(/content/assets/static/images/background2.png) repeat black;
     height: 100%;
     color: #fff;
     font-family: museo-sans;
@@ -18,7 +18,7 @@ html
 
 #body-content
 {
-    margin: 0 80px 0 80px;
+    margin: 0 80px 80px 80px;
     font-size: 18px;
 }
 

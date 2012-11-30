@@ -17,7 +17,7 @@ states_whitelist = {
     "Kentucky":"KY", "Louisiana":"LA", "Maine":"ME", "Maryland":"MD", "Massachusetts":"MA",
     "Michigan":"MI", "Minnesota":"MN", "Mississippi":"MS", "Missouri":"MO",
     "Montana":"MT", "Nebraska":"NE", "Nevada":"NV", "New Hampshire":"NH", "New Jersey":"NJ",
-    "New Mexico":"NM", "North Carolina":"NC", "North Dakota":"ND", "Ohio":"OH",
+    "New Mexico":"NM", "North Carolina":"NC", "North Dakota":"ND", "New York":"NY", "Ohio":"OH",
     "Oklahoma":"OK", "Oregon":"OR", "Pennsylvania":"PA", "Rhode Island":"RI",
     "South Carolina":"SC", "South Dakota":"SD", "Tennessee":"TN", "Texas":"TX",
     "Utah":"UT", "Vermont":"VT", "Virginia":"VA", "Washington":"WA", "West Virginia":"WV",
@@ -63,8 +63,8 @@ def account_is_eligible(user):
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
     state = user['location'].split(',')[-1].strip()
-#    if state not in states_whitelist:
-#        return (False, 'User location not in authorized area')
+    if state not in states_whitelist:
+        return (False, 'User location not in authorized area')
     seconds_in_year = 60 * 60 * 24 * 180 # It's actually about 6 months
     limit = int(round(time.time() - seconds_in_year))
     access_token['until'] = limit

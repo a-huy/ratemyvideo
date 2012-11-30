@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('rmvadmin.views',
-    url(r'^$', 'home', name='home'),
+    url(r'^$', 'home', name='rmvhome'),
     url(r'^login/$', 'rmv_login', name='rmv_login'),
     url(r'^logout/$', 'rmv_logout', name='rmv_logout'),
     url(r'^list_users/$', 'list_users', name='list_users'),

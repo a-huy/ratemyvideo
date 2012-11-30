@@ -13,10 +13,12 @@
 <a href="{% url whitelist %}">Edit Whitelist</a><br />
 <a href="{% url invites %}">View Invite Requests</a><br />
 <br />
-<button type="button" onclick="window.location='{% url rmv_logout %}';">Logout</button>
+<a class="button" href="{% url rmv_logout %}">Logout</a>
 {% endblock body %}
 
 {% block scripts %}
     {{ block.super }}
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
 {% endblock scripts %}
 
