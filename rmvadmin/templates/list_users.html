@@ -22,6 +22,7 @@
 
 <table id="users-table">
     <tr class="labels">
+        <td>&nbsp;</td>
         <td>FB ID</td>
         <td>Name</td>
         <td>Email</td>
@@ -37,6 +38,7 @@
     </tr>
     {% for user in users %}
     <tr class="user-info {% cycle 'even' 'odd' %}">
+        <td>{{ forloop.counter }}</td>
         <td class="user-fb-id">
             <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
         </td>

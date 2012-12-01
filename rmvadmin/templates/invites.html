@@ -12,6 +12,7 @@
 <div id="invites-list">
     <table id="invites-table">
         <tr class="labels center">
+            <td>&nbsp;</td>
             <td>Request Date</td>
             <td>Name</td>
             <td>Email</td>
@@ -23,7 +24,8 @@
             <td><input type="checkbox" id="sel-all-checkbox" name="sel-all-checkbox"></td>
         </tr>
         {% for req in invite_requests %}
-        <tr>
+        <tr class="{% cycle 'even' 'odd' %}">
+            <td>{{ forloop.counter }}</td>
             <td class="center">{{ req.created_date }}</td>
             <td>{{ req.real_name }}</td>
             <td>{{ req.email }}</td>

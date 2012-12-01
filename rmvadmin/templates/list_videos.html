@@ -8,6 +8,7 @@
 {% block body %}
 <table id="video-table">
     <tr class="labels center">
+        <td>&nbsp;</td>
         <td>YouTube ID</td>
         <td>Title</td>
         <td>Reward</td>
@@ -15,7 +16,8 @@
         <td>Avg Rating</td>
     </tr>
     {% for vid in videos %}
-    <tr>
+    <tr class="{% cycle 'even' 'odd' %}">
+        <td>{{ forloop.counter }}</td>
         <td class="vid-yt-id">{{ vid.yt_id }}</td>
         <td class="vid-title">
             <a href="http://www.youtube.com/watch?v={{ vid.yt_id }}" 
