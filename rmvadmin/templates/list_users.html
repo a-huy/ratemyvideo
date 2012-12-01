@@ -23,18 +23,18 @@
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
-        <td>FB ID</td>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Age</td>
-        <td>Gender</td>
-        <td>Location</td>
-        <td>Balance</td>
-        <td>Earned</td>
-        <td>Rated</td>
-        <td>Liked</td>
-        <td>Referral</td>
-        <td>Joined</td>
+        <td><a href="{% url list_users %}?filter=fb_id{% if not rev %}&rev{% endif %}">FB ID</a></td>
+        <td><a href="{% url list_users %}?filter=real_name{% if not rev %}&rev{% endif %}">Name</a></td>
+        <td><a href="{% url list_users %}?filter=email{% if not rev %}&rev{% endif %}">Email</a></td>
+        <td><a href="{% url list_users %}?filter=age{% if not rev %}&rev{% endif %}">Age</a></td>
+        <td><a href="{% url list_users %}?filter=gender{% if not rev %}&rev{% endif %}">Gender</a></td>
+        <td><a href="{% url list_users %}?filter=location{% if not rev %}&rev{% endif %}">Location</a></td>
+        <td><a href="{% url list_users %}?filter=balance{% if not rev %}&rev{% endif %}">Balance</a></td>
+        <td><a href="{% url list_users %}?filter=earned{% if not rev %}&rev{% endif %}">Earned</a></td>
+        <td><a href="{% url list_users %}?filter=rated{% if not rev %}&rev{% endif %}">Rated</a></td>
+        <td><a href="{% url list_users %}?filter=liked{% if not rev %}&rev{% endif %}">Liked</a></td>
+        <td><a href="{% url list_users %}?filter=referral{% if not rev %}&rev{% endif %}">Referral</a></td>
+        <td><a href="{% url list_users %}?filter=created_date{% if not rev %}&rev{% endif %}">Joined</a></td>
     </tr>
     {% for user in users %}
     <tr class="user-info {% cycle 'even' 'odd' %}">

@@ -9,29 +9,26 @@
 <table id="video-table">
     <tr class="labels center">
         <td>&nbsp;</td>
-        <td>YouTube ID</td>
-        <td>Title</td>
-        <td>Reward</td>
-        <td># Ratings</td>
-        <td>Avg Rating</td>
+        <td><a href="{% url list_videos %}?filter=yt_id{% if not rev %}&rev{% endif %}">YouTube ID</a></td>
+        <td><a href="{% url list_videos %}?filter=title{% if not rev %}&rev{% endif %}">Title</a></td>
+        <td><a href="{% url list_videos %}?filter=reward{% if not rev %}&rev{% endif %}">Reward</a></td>
+        <td><a href="{% url list_videos %}?filter=count{% if not rev %}&rev{% endif %}"># Ratings</a></td>
+        <td><a href="{% url list_videos %}?filter=avg_rating{% if not rev %}&rev{% endif %}">Avg Rating</a></td>
     </tr>
     {% for vid in videos %}
     <tr class="{% cycle 'even' 'odd' %}">
         <td>{{ forloop.counter }}</td>
         <td class="vid-yt-id">{{ vid.yt_id }}</td>
         <td class="vid-title">
-            <a href="http://www.youtube.com/watch?v={{ vid.yt_id }}" 
+            <a href="http://www.youtube.com/watch?v={{ vid.yt_id }}"
                 target="_blank">{{ vid.title }}</a>
         </td>
         <td class="vid-reward">${{ vid.reward }}</td>
-        <td class="vid-num-ratings{% if vid.yt_id not in counts %} unrated{% else %} rated{% endif %}">
-            {% if vid.yt_id not in counts %}0{% else %}
-            {% with ytid=vid.yt_id %}{{ counts|dict_value:ytid }}{% endwith %}{% endif %}
+        <td class="vid-num-ratings{% if vid.count == 0 %} unrated{% else %} rated{% endif %}">
+            {{ vid.count }}
         </td>
-        <td class="vid-avg-rating{% if vid.yt_id not in counts %} unrated{% else %} rated{% endif %}">
-            {% if vid.yt_id not in avg_ratings %}0{% else %}
-                {% with ytid=vid.yt_id %}{{ avg_ratings|dict_value:ytid }}{% endwith %}
-            {% endif %}
+        <td class="vid-avg-rating{% if vid.avg_rating == 0 %} unrated{% else %} rated{% endif %}">
+            {{ vid.avg_rating }}
         </td>
     </tr>
     {% endfor %}

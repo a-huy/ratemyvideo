@@ -34,7 +34,10 @@ def rmv_logout(request):
 
 @login_required
 def list_videos(request):
-    videos_all = videos_models.Video.active.all().order_by('id')
+    col_filter = request.GET.get('filter', 'id')
+    filter_rev = True if 'rev' in request.GET else False
+    videos_all = videos_models.Video.active.all()
+    ratings = videos_models.Rating.active.all()
     num_per_page = request.GET.get('num', len(videos_all))
     page = request.GET.get('page')
     paginator = Paginator(videos_all, num_per_page)
@@ -43,31 +46,29 @@ def list_videos(request):
     except PageNotAnInteger: videos = paginator.page(1)
     except EmptyPage: videos = paginator.page(paginator.num_pages)
 
-    ratings = videos_models.Rating.active.all()
-    counts = { }
-    avg_ratings = { }
-    for rating in ratings:
-        vid = rating.video_id
-        video_matches = filter(lambda x: x.id == vid, videos)
-        yt_id = '' if not video_matches else video_matches[0].yt_id
-        counts[yt_id] = 1 if yt_id not in counts else counts[yt_id] + 1
     getcontext()
     for vid in videos:
         rating_matches = filter(lambda x: x.video_id == vid.id, ratings)
+        vid.count = len(rating_matches)
         if len(rating_matches) == 0: continue
-        avg_ratings[vid.yt_id] = \
+        vid.avg_rating = \
             round(Decimal(sum([x.rating for x in rating_matches])) / Decimal(len(rating_matches)), 3)
+
+    videos.object_list = sorted(videos, key=lambda x: getattr(x, col_filter), reverse=filter_rev)
+
     context_vars = {
         'videos': videos,
-        'counts': counts,
-        'avg_ratings': avg_ratings
+        'filter': col_filter,
+        'rev': filter_rev
     }
     return render_to_response('list_videos.html', context_vars,
         context_instance=RequestContext(request))
 
 @login_required
 def list_users(request):
-    users_all = accounts_models.User.active.all().order_by('id')
+    col_filter = request.GET.get('filter', 'id')
+    filter_rev = True if 'rev' in request.GET else False
+    users_all = accounts_models.User.active.all()
     num_per_page = request.GET.get('num', len(users_all))
     page = request.GET.get('page')
     paginator = Paginator(users_all, num_per_page)
@@ -79,9 +80,12 @@ def list_users(request):
     for user in users.object_list:
         invites = filter(lambda x: x.fb_id == user.fb_id, inv_requests)
         user.referral = invites[0].reason if invites else 'None'
+    users.object_list = sorted(users, key=lambda x: getattr(x, col_filter), reverse=filter_rev)
 
     context_vars = {
-        'users': users
+        'users': users,
+        'filter': col_filter,
+        'rev': filter_rev
     }
     return render_to_response('list_users.html', context_vars,
         context_instance=RequestContext(request))
