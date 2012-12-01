@@ -85,10 +85,31 @@ def list_users(request):
     context_vars = {
         'users': users,
         'filter': col_filter,
-        'rev': filter_rev
+        'rev': filter_rev,
+        'total_active': len(filter(lambda x: x.rated > 0, users_all))
     }
     return render_to_response('list_users.html', context_vars,
         context_instance=RequestContext(request))
+
+@login_required
+def user_info(request, fb_id):
+    try:
+        user = accounts_models.User.active.get(fb_id=fb_id)
+    except accounts_models.User.DoesNotExist:
+        return redirect(list_users)
+    queue = videos_models.Queue.active.filter(user_id=user.id)
+    ratings = videos_models.Rating.active.filter(user_id=user.id)
+    videos = videos_models.Rating.active.filter(pk__in=[r.video_id for r in ratings])
+
+    context_vars = {
+        'user': user,
+        'queue': queue,
+        'ratings': ratings,
+        'videos': videos
+    }
+    return render_to_response('user_info.html', context_vars,
+        context_instance=RequestContext(request))
+
 
 @login_required
 def add_video(request):

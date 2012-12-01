@@ -9,4 +9,5 @@ urlpatterns = patterns('rmvadmin.views',
     url(r'^add_video/$', 'add_video', name='add_video'),
     url(r'^whitelist/$', 'whitelist', name='whitelist'),
     url(r'^invites/$', 'invites', name='invites'),
+    url(r'^user/(?P<fb_id>[0-9]+)/$', 'user_info', name='user_info'),
 )

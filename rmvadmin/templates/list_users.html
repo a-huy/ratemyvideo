@@ -1,5 +1,4 @@
 {% extends "page_base.html" %}
-{% load dict_value %}
 
 {% block head %}
     {{ block.super }}
@@ -20,6 +19,7 @@
     </span>
 </div>
 
+<div id="quick-stats">Total Active Users: {{ total_active }}</div>
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
@@ -42,7 +42,7 @@
         <td class="user-fb-id">
             <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
         </td>
-        <td class="user-name">{{ user.real_name }}</td>
+        <td class="user-name"><a href="{% url rmvhome %}user/{{ user.fb_id }}/">{{ user.real_name }}</a></td>
         <td class="user-email">{{ user.email }}</td>
         <td class="user-age">{{ user.age }}</td>
         <td class="user-gender">{{ user.gender|capfirst }}</td>
