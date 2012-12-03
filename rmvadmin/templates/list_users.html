@@ -19,7 +19,7 @@
     </span>
 </div>
 
-<div id="quick-stats">Total Active Users: {{ total_active }}</div>
+<div id="quick-stats">Active Users: {{ total_active }} ({{ total_users }} Total)</div>
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
@@ -47,12 +47,12 @@
         <td class="user-age">{{ user.age }}</td>
         <td class="user-gender">{{ user.gender|capfirst }}</td>
         <td class="user-location">{{ user.location }}</td>
-        <td class="user-balance">{{ user.balance }}</td>
+        <td class="user-balance{% if user.balance > 10 %} payout{% endif %}">{{ user.balance }}</td>
         <td class="user-earned">{{ user.earned }}</td>
         <td class="user-rated{% if user.rated > 0 %} active{% endif %}">{{ user.rated }}</td>
         <td class="user-liked">{{ user.liked }}</td>
-        <td class="user-referral">{{ user.referral|capfirst }}</td>
-        <td class="user-joined-date">{{ user.created_date|date:'m-d-y' }}
+        <td class="user-referral">{{ user.referral|capfirst|truncatechars:20 }}</td>
+        <td class="user-joined-date">{{ user.created_date|date:'m-d-y' }}<br />{{ user.created_date|date:'f a' }}</td>
     </tr>
     {% endfor %}
 </table>

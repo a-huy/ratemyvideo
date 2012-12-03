@@ -1,0 +1,10 @@
+.right { float: right; text-align: right; }
+.left { float: left; text-align: left; }
+.table-title { text-align: center; font-size: 30px; font-family: museo-slab; }
+.empty { text-align: center; color: #ff1d1d; }
+
+#user-email { color: #ea9600; }
+#balance-earned { color: #6FA800; }
+#rating-history { width: 50%; float: right; }
+#video-queue { width: 50%; float: left; }
+

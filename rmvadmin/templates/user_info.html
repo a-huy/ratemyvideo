@@ -1,17 +1,85 @@
 {% extends "page_base.html" %}
+{% load tz %}
 
 {% block head %}
     {{ block.super }}
 {% endblock head %}
 
 {% block body %}
-This page is still under construction.
+<div id="user-info" class="right">
+    <div id="balance-earned">Balance: ${{ user.balance }} (Total Earned: ${{ user.earned }})</div>
+    {{ user.age }} / {{ user.gender|capfirst }} / {{ user.location }}<br />
+    Joined: {{ user.created_date|date:'m-d-y' }} ({{ acc_age }} days ago)<br />
+    Referral: {{ user.referral|capfirst }}
+</div>
+<div class="header">{{ user.real_name }}</div>
+<div id="user-email">{{ user.email }}</div>
+<br /><br />
+<div id="rating-history" class="right">
+    <div class="table-title">Rating History</div>
+    {% if ratings %}
+    <table id="rating-table">
+        <tr class="labels">
+            <td>&nbsp;</td>
+            <td>Title</td>
+            <td>Rating</td>
+            <td>Liked</td>
+            <td>Date</td>
+        </tr>
+        {% for rating in ratings %}
+        <tr class="rating-entry {% cycle 'even' 'odd' %}">
+            <td>{{ forloop.counter }}</td>
+            <td class="left">
+                <a href="http://www.youtube.com/watch?v={{ rating.yt_id }}" target="_blank">
+                    {{ rating.title|truncatechars:50 }}
+                </a>
+            </td>
+            <td>{{ rating.rating }}</td>
+            <td>{% if rating.liked %}{% if rating.liked == 't' %}&#x2713;{% else %}&#x2717;{% endif %}{% endif %}</td>
+            <td>{{ rating.created_date|date:'m-d-y f a' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %} <div class="empty">This user has not rated any videos!</div>
+    {% endif %}
+</div>
+
+<div id="video-queue" class="left">
+    <div class="table-title">Video Queue</div>
+    {% if queue %}
+    <table id="queue-table">
+        <tr class="labels">
+            <td>&nbsp;</td>
+            <td>Title</td>
+            <td>Bonuses</td>
+            <td>Reward</td>
+            <td>Expiration Date</td>
+        </tr>
+        {% for entry in queue %}
+        <tr class="queue-entry {% cycle 'even' 'odd' %}">
+            <td>{{ forloop.counter }}</td>
+            <td class="left">
+                <a href="http://www.youtube.com/watch?v={{ entry.yt_id }}" target="_blank">
+                    {{ entry.title|truncatechars:50 }}
+                </a>
+            </td>
+            <td>{% if entry.bonuses %}{{ entry.bonuses }}{% else %}None{% endif %}</td>
+            <td>${{ entry.reward }}</td>
+            <td>{{ entry.expire_date|date:'m-d-y f a' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %} <div class="empty">There are no videos assigned to this user!</div>
+    {% endif %}
+</div>
 {% endblock body %}
 
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
         href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/user_info.css" />
 {% endblock styles %}
 
 {% block scripts %}

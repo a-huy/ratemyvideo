@@ -1,4 +1,6 @@
 from decimal import *
+import datetime
+
 from django.conf import settings
 from django.shortcuts import render_to_response, render, redirect
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
@@ -7,6 +9,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.timezone import now
 
 import videos.models as videos_models
 import accounts.models as accounts_models
@@ -86,7 +89,8 @@ def list_users(request):
         'users': users,
         'filter': col_filter,
         'rev': filter_rev,
-        'total_active': len(filter(lambda x: x.rated > 0, users_all))
+        'total_active': len(filter(lambda x: x.rated > 0, users_all)),
+        'total_users': len(users_all)
     }
     return render_to_response('list_users.html', context_vars,
         context_instance=RequestContext(request))
@@ -95,21 +99,40 @@ def list_users(request):
 def user_info(request, fb_id):
     try:
         user = accounts_models.User.active.get(fb_id=fb_id)
+        user.referral = accounts_models.InviteRequest.objects.filter(fb_id=fb_id)[0].reason
     except accounts_models.User.DoesNotExist:
         return redirect(list_users)
+    except IndexError: user.referral = 'None'
+    videos_all = videos_models.Video.active.all()
     queue = videos_models.Queue.active.filter(user_id=user.id)
     ratings = videos_models.Rating.active.filter(user_id=user.id)
-    videos = videos_models.Rating.active.filter(pk__in=[r.video_id for r in ratings])
+    votes = videos_models.Vote.active.filter(user_id=user.id)
+    acc_age = now() - user.created_date
+
+    for vid in queue:
+        video = filter(lambda x: x.id == vid.video_id, videos_all)[0]
+        vid.title = video.title
+        vid.yt_id = video.yt_id
+        # CST to PST (this is really horrible, but it's a hotfix for the moment)
+        vid.expire_date -= datetime.timedelta(hours=2)
+        vid.reward = video.reward
+
+    for entry in ratings:
+        video = filter(lambda x: x.id == entry.video_id, videos_all)[0]
+        entry.title = video.title
+        entry.yt_id = video.yt_id
+        vote = filter(lambda x: x.video_id == entry.video_id, votes)
+        if vote: entry.liked = 't' if vote[0].like else 'f'
 
     context_vars = {
         'user': user,
         'queue': queue,
         'ratings': ratings,
-        'videos': videos
+        'votes': votes,
+        'acc_age': acc_age.days
     }
     return render_to_response('user_info.html', context_vars,
         context_instance=RequestContext(request))
-
 
 @login_required
 def add_video(request):
