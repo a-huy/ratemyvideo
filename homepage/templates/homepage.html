@@ -24,7 +24,7 @@ If you would like to sign up and start rating videos, fill out the form below!
     </div>
     <div class="notify"></div>
     <br />
-Already registered with our service? <a href="#" onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/gahghbffpddmcjigjedgeamooimpjkce', onError, onSuccess);">Install</a> our Chrome extension!
+Already registered with our service? <a href="#" onclick="chrome.webstore.install();">Install</a> our Chrome extension!
 <br />
 Feel free to send an email to <a href="mailto:support@ratemyvideo.co">support@ratemyvideo.co</a> if you have any questions or issues.
 </div>
@@ -36,8 +36,4 @@ Feel free to send an email to <a href="mailto:support@ratemyvideo.co">support@ra
 {% endblock styles %}
 {% block scripts %}
     {{ block.super }}
-    <script>
-        function onError(err) { console.log(err); }
-        function onSuccess(msg) { console.log(msg); }
-    </script>
 {% endblock scripts %}
