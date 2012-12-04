@@ -90,6 +90,7 @@ def list_users(request):
         'filter': col_filter,
         'rev': filter_rev,
         'total_active': len(filter(lambda x: x.rated > 0, users_all)),
+        'total_payout': len(filter(lambda x: x.balance > 10, users_all)),
         'total_users': len(users_all)
     }
     return render_to_response('list_users.html', context_vars,

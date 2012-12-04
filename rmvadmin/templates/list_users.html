@@ -19,7 +19,10 @@
     </span>
 </div>
 
-<div id="quick-stats">Active Users: {{ total_active }} ({{ total_users }} Total)</div>
+<div id="quick-stats">
+    <span id="stats-active">Active Users: {{ total_active }} ({{ total_users }} Total)</span><br />
+    <span id="stats-payout">{{ total_payout }} Users are eligible for a payout</span>
+</div>
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
