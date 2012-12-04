@@ -35,7 +35,9 @@ def get_user_data(args, request):
         if 'access_token' in response else None }
     profile = json.load(urllib.urlopen('https://graph.facebook.com/me?' +
         urllib.urlencode(token_dict)))
-    location = profile['location']['name'] if 'location' in profile else addr_to_us_loc(request)
+    if 'location' in profile and profile['location']['name']:
+        location = profile['location']['name']
+    else: location = addr_to_loc(request)
     data = {
         'fb_id': profile['id'],
         'real_name': profile['name'],
@@ -88,7 +90,7 @@ def calc_age(birthday):
     if (today.month, today.day) < (int(birthday[0]), int(birthday[1])): age -= 1
     return age
 
-def addr_to_us_loc(request):
+def addr_to_loc(request):
     if 'HTTP_X_FORWARDED_FOR' in request.META:
         addr = request.META.get('HTTP_X_FORWARDED_FOR').split(',')[-1].strip()
     else: addr = request.META.get('REMOTE_ADDR', '127.0.0.1')
