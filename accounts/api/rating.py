@@ -38,7 +38,8 @@ class RatingHistoryApi(base.RestView):
                 },
                 'rating': rating.rating,
                 'title': video.title,
-                'reward': video.reward
+                'reward': video.reward,
+                'yt_id': video.yt_id
             })
         data = { 'result': ratings_list }
         return base.APIResponse(data)

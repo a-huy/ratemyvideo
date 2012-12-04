@@ -39,11 +39,11 @@ def get_user_data(args, request):
         location = profile['location']['name']
     else: location = addr_to_loc(request)
     data = {
-        'fb_id': profile['id'],
-        'real_name': profile['name'],
+        'fb_id': profile['id'] if 'id' in profile else None,
+        'real_name': profile['name'] if 'name' in profile else None,
         'location': location,
         'birthday': profile['birthday'] if 'birthday' in profile else 'undefined',
-        'email': profile['email'],
+        'email': profile['email'] if 'email' in profile else None,
         'gender': profile['gender'] if 'gender' in profile else 'Unknown',
         'access_token': token_dict
     }
@@ -67,8 +67,10 @@ def account_is_eligible(user):
     state = user['location'].split(',')[-1].strip()
     if state not in states_whitelist:
         return (False, 'User location not in authorized area')
-    seconds_in_year = 60 * 60 * 24 * 180 # It's actually about 6 months
-    limit = int(round(time.time() - seconds_in_year))
+    if not user['fb_id'] or not user['email'] or not user['real_name']:
+        return (False, 'Please approve the requested permissions to use the service.')
+    seconds_in_age_limit = 60 * 60 * 24 * 180 # It's actually about 6 months
+    limit = int(round(time.time() - seconds_in_age_limit))
     access_token['until'] = limit
     posts = json.load(urllib.urlopen(
         'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))

@@ -10,9 +10,9 @@ import videos.forms as videos_forms
 from base.contrib import timedelta_to_seconds, extract_addr
 
 class RatingCreateApi(base.RestView):
-    
+
     model = videos_models.Rating
-    
+
     def POST(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:
             return HttpResponseBadRequest('A Facebook ID is required')
@@ -22,18 +22,21 @@ class RatingCreateApi(base.RestView):
             return HttpResponseBadRequest('A numeric rating is required')
         fields = request.POST
         try:
-            account = accounts_models.User.active.get(fb_id=fields['fb_id'])
+            account = accounts_models.User.active.get(fb_id=fields['fb_id']).select_for_update()
             video = videos_models.Video.active.get(yt_id=fields['yt_id'])
-            rating = videos_models.Rating.active.get(user_id=account.id, 
-                                                      video_id=video.id)
+            queue_entry = videos_models.Queue.active.get(user_id=account.id, video_id=video.id) ###
+            rating = videos_models.Rating.active.get(user_id=account.id, video_id=video.id)
             return HttpResponseBadRequest('Users cannot rate a video more than once')
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid Facebook ID')
         except videos_models.Video.DoesNotExist:
             return HttpResponseBadRequest('Invalid YouTube Video ID')
+        except videos_models.Queue.DoesNotExist: ###
+            return HttpResponseBadRequest('User is not authorized to rate that video') ###
         except videos_models.Rating.DoesNotExist:
             pass
 
+        # Uncomment to prevent batch ratings (rating quickly in a small period of time)
 #        time_since_last_rating = datetime.timedelta(999999999)
 #        user_ratings = videos_models.Rating.active.filter(user_id=account.id).order_by('-created_date')
 #        if len(user_ratings) != 0:
@@ -51,6 +54,7 @@ class RatingCreateApi(base.RestView):
         account.earned += video.reward
         account.balance += video.reward
         account.save()
+        queue_entry.delete() ###
         return base.APIResponse(new_rating.to_json())
 
 class RatingUpdateApi(base.RestView):

@@ -37,14 +37,12 @@ class InviteApi(base.RestView):
             invite_req = accounts_models.InviteRequest.active.get(fb_id=user['fb_id'])
             return message_response(request, 400,
                 'You have already submitted an invite request.')
-#            return HttpResponseBadRequest('You have already submitted an invite request.')
         except accounts_models.InviteRequest.DoesNotExist:
             pass
         # Users cannot submit a request if they are already using the service
         try:
             user = accounts_models.User.active.get(fb_id=user['fb_id'])
             return message_response(request, 400, 'You already have access to this service!')
-#            return HttpResponseBadRequest('You already have access to this service!')
         except accounts_models.User.DoesNotExist:
             pass
         invite_lib.create_request(user)
@@ -52,8 +50,7 @@ class InviteApi(base.RestView):
             user['age'], user['gender'], user['reason'], user['fb_id'], settings.DOMAIN]
         send_email('confirm_invite', user['email'], [user['real_name']])
         backend_email('new_invite_request', 'admins', email_args)
-        return message_response(request, 200, 'Request received!')
-#        return HttpResponse('Request received!')
+        return message_response(request, 200, 'Request received. Thank you for your interest in Rate My Video!')
 
     def DELETE(self, request, *args, **kwargs):
         if 'fb_id' not in request.POST or not request.POST['fb_id']:

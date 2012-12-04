@@ -6,7 +6,7 @@ from django.utils.timezone import now
 import accounts.models as am
 import videos.models as vm
 
-DEFAULT_LIMIT = 20
+DEFAULT_LIMIT = 40
 
 accounts = am.User.active.all()
 videos = vm.Video.active.all()

@@ -14,12 +14,13 @@ class Video(base_models.Base):
     duration = models.IntegerField(default=0)
 
     def __unicode__(self):
-        return self.yt_id + ' | ' + self.title + ' (' + str(duration) + ')'
+        return self.yt_id + ' | ' + self.title + ' (' + str(self.duration) + ')'
 
 class Rating(base_models.Base):
     video = models.ForeignKey(Video)
     user = models.ForeignKey(accounts_models.User)
     rating = models.IntegerField()
+    bonuses = models.CharField(max_length=settings.VIDEO_BONUSES_MAX_LENGTH)
     source_ip = models.IPAddressField()
 
     def __unicode__(self):
