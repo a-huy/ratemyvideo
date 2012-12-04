@@ -22,7 +22,7 @@ class RatingCreateApi(base.RestView):
             return HttpResponseBadRequest('A numeric rating is required')
         fields = request.POST
         try:
-            account = accounts_models.User.active.get(fb_id=fields['fb_id']).select_for_update()
+            account = accounts_models.User.active.get(fb_id=fields['fb_id'])
             video = videos_models.Video.active.get(yt_id=fields['yt_id'])
             queue_entry = videos_models.Queue.active.get(user_id=account.id, video_id=video.id) ###
             rating = videos_models.Rating.active.get(user_id=account.id, video_id=video.id)
