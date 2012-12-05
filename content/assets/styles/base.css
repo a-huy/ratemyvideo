@@ -49,7 +49,7 @@ html
 .museo-slab { font-family: museo-slab; }
 
 /* URLs */
-a { text-decoration: none; }
+a { text-decoration: none; color: #ea9600; }
 a:link
 {
     color: #ea9600;
