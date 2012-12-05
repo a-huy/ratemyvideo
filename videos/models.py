@@ -12,6 +12,7 @@ class Video(base_models.Base):
     title = models.CharField(max_length=settings.YT_TITLE_MAX_LENGTH)
     reward = models.DecimalField(max_digits=3, decimal_places=2)
     duration = models.IntegerField(default=0)
+    tags = models.CharField(max_length=settings.VIDEO_TAGS_MAX_LENGTH, default='')
 
     def __unicode__(self):
         return self.yt_id + ' | ' + self.title + ' (' + str(self.duration) + ')'
@@ -24,7 +25,7 @@ class Rating(base_models.Base):
     source_ip = models.IPAddressField()
 
     def __unicode__(self):
-        return self.video + ' | ' + self.user + ' | ' + str(self.rating)
+        return str(self.video) + ' | ' + str(self.user) + ' | ' + str(self.rating)
 
     def to_json(self):
         return json.dumps(self.json_safe())
@@ -42,7 +43,7 @@ class Vote(base_models.Base):
     source_ip = models.IPAddressField()
 
     def __unicode__(self):
-        return self.video + ' | ' + self.user + ' | ' + ('like' if self.like else 'dislike')
+        return str(self.video) + ' | ' + str(self.user) + ' | ' + ('like' if self.like else 'dislike')
 
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)

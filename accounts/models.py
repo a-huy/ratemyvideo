@@ -42,6 +42,9 @@ class User(base_models.Base):
         }
         return data
 
+    def __unicode__(self):
+        return self.fb_id + ' | ' + self.real_name
+
 class InviteRequest(base_models.Base):
     fb_id = models.CharField(max_length=settings.FB_ID_MAX_LENGTH)
     real_name = models.CharField(max_length=settings.REAL_NAME_MAX_LENGTH)
