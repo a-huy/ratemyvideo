@@ -19,6 +19,7 @@ class User(base_models.Base):
     age = models.IntegerField(default=0)
     karma = models.IntegerField(default=0)
     gender = models.CharField(max_length=settings.GENDER_MAX_LENGTH)
+    verified = models.BooleanField(default=False)
 
     def to_json(self):
         return json.dumps(self.json_safe())
