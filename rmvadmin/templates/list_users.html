@@ -75,6 +75,7 @@
 </div>
 <br />
 <a class="button" href="{% url rmvhome %}">RMV Admin</a>
+<a id="xlsx-export-button" class="button" href="#">Export to Spreadsheet</a>
 {% endblock body %}
 
 {% block styles %}
@@ -87,4 +88,5 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script src="{{ MEDIA_URL }}scripts/rmvadmin/list_users.js"></script>
 {% endblock scripts %}
