@@ -18,7 +18,7 @@ vm.Queue.active.filter(expire_date__lt=curr_time).delete()
 
 # Create the queue from a pool of unrated videos
 for user in accounts:
-    ratings_vid_ids = [y.id for y in filter(lambda x: x.user_id==user.id, ratings)]
+    ratings_vid_ids = [y.video_id for y in filter(lambda x: x.user_id==user.id, ratings)]
     pool = filter(lambda x: x.id not in ratings_vid_ids, videos)
     random.shuffle(pool)
     queue = []
