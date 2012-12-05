@@ -23,6 +23,7 @@
     <span id="stats-active">Active Users: {{ total_active }} ({{ total_users }} Total)</span><br />
     <span id="stats-payout">{{ total_payout }} Users are eligible for a payout</span>
 </div>
+<div id="legend">&#x2713; = User is verified</div>
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
@@ -38,6 +39,7 @@
         <td><a href="{% url list_users %}?filter=liked{% if not rev %}&rev{% endif %}">Liked</a></td>
         <td><a href="{% url list_users %}?filter=referral{% if not rev %}&rev{% endif %}">Referral</a></td>
         <td><a href="{% url list_users %}?filter=created_date{% if not rev %}&rev{% endif %}">Joined</a></td>
+        <td>&nbsp;</td>
     </tr>
     {% for user in users %}
     <tr class="user-info {% cycle 'even' 'odd' %}">
@@ -56,6 +58,7 @@
         <td class="user-liked">{{ user.liked }}</td>
         <td class="user-referral">{{ user.referral|capfirst|truncatechars:20 }}</td>
         <td class="user-joined-date">{{ user.created_date|date:'m-d-y' }}<br />{{ user.created_date|date:'f a' }}</td>
+        <td>{% if user.verified == 't' %}&#x2713;{% endif %}</td>
     </tr>
     {% endfor %}
 </table>

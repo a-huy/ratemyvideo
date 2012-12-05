@@ -14,6 +14,7 @@
         <td><a href="{% url list_videos %}?filter=reward{% if not rev %}&rev{% endif %}">Reward</a></td>
         <td><a href="{% url list_videos %}?filter=count{% if not rev %}&rev{% endif %}"># Ratings</a></td>
         <td><a href="{% url list_videos %}?filter=avg_rating{% if not rev %}&rev{% endif %}">Avg Rating</a></td>
+        <td><a href="{% url list_videos %}?filter=tags{% if not rev %}&rev{% endif %}">Tags</a></td>
     </tr>
     {% for vid in videos %}
     <tr class="{% cycle 'even' 'odd' %}">
@@ -30,6 +31,7 @@
         <td class="vid-avg-rating{% if vid.avg_rating == 0 %} unrated{% else %} rated{% endif %}">
             {{ vid.avg_rating }}
         </td>
+        <td class="vid-tags">{% if not vid.tags %}None{% else %}{{ vid.tags }}{% endif %}</td>
     </tr>
     {% endfor %}
 </table>
