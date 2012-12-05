@@ -7,6 +7,7 @@ from django.conf import settings
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
+import accounts.lib.whitelist as whitelist_lib
 from base.contrib import send_email
 
 
@@ -36,6 +37,8 @@ class WhiteListCreateApi(base.RestView):
         # Save the User, remove the request
         new_user.save()
         inv_req.vanish()
+        # Create a video queue for the new user
+        whitelist_lib.create_queue(new_user)
 
         # Update the whitelist
         hash_key = hashlib.sha512('rmv:whitelist:' + new_user.fb_id).hexdigest()
