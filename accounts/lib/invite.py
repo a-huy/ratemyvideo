@@ -56,6 +56,8 @@ def account_is_eligible(user):
             reason : if is_eligibile is false, this is the error message
     """
     access_token = user['access_token']
+    if not user['fb_id'] or not user['email'] or not user['real_name']:
+        return (False, 'Please approve the requested permissions to use the service.')
     perms = json.load(urllib.urlopen(
         'https://graph.facebook.com/' + user['fb_id'] + '/permissions?' +
         urllib.urlencode(access_token)))
@@ -67,8 +69,6 @@ def account_is_eligible(user):
     state = user['location'].split(',')[-1].strip()
     if state not in states_whitelist:
         return (False, 'User location not in authorized area')
-    if not user['fb_id'] or not user['email'] or not user['real_name']:
-        return (False, 'Please approve the requested permissions to use the service.')
     seconds_in_age_limit = 60 * 60 * 24 * 180 # It's actually about 6 months
     limit = int(round(time.time() - seconds_in_age_limit))
     access_token['until'] = limit
