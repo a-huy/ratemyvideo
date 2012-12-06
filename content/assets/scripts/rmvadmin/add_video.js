@@ -33,7 +33,7 @@ function onButtonAdd()
         data: [
             { name: 'yt_id', value: yt_id },
             { name: 'title', value: name },
-            { name: 'reward', value: reward }
+            { name: 'reward', value: reward },
             { name: 'tags', value: tags }
         ],
         contentType: 'application/json; charset=utf-8',
