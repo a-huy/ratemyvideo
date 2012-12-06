@@ -15,7 +15,7 @@ AVG_AMT_PER_VID = 5 # cents
 NUM_VIDS = 200
 MAX_VID_TIME = 900 # seconds (15 minutes)
 
-vid_ids = [v.id for v in vm.Video.active.all()]
+vid_ids = [v.yt_id for v in vm.Video.active.all()]
 
 def get_vids(num_vids=NUM_VIDS, max_time=MAX_VID_TIME, amt_avg=AVG_AMT_PER_VID):
     vids = { }
@@ -36,7 +36,7 @@ def get_vids(num_vids=NUM_VIDS, max_time=MAX_VID_TIME, amt_avg=AVG_AMT_PER_VID):
             if duration > max_time: continue
 
             # Get the YouTube ID and perform validation
-            yt_id = vid.id.text.split('/')[-1]
+            yt_id = vid.id.text.split('/')[-1].strip()
             if yt_id in vid_ids: continue
             # Duplicate videos may show up in different queries
             if yt_id in vids: continue
