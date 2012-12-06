@@ -19,6 +19,8 @@ class VideoCreateApi(api_base.RestView):
         if 'reward' not in request.POST or not request.POST['reward']:
             return HttpResponseBadRequest('A reward is required')
         yt_id = request.POST['yt_id']
+        if 'tags' in request.POST and request.POST['tags']: tags = request.POST['tags']
+        else: tags = ''
 
         # Validate reward
         try:
@@ -46,5 +48,6 @@ class VideoCreateApi(api_base.RestView):
         new_video.reward = reward
         new_video.title = smart_text(title)
         new_video.duration = duration
+        new_video.tags = tags
         new_video.save()
         return api_base.APIResponse('new video added')

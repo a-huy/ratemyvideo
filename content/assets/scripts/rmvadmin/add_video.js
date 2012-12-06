@@ -3,6 +3,7 @@ function onButtonAdd()
     var yt_id = $('#video-yt-id-input').val();
     var name = $('#video-title-input').val();
     var reward = $('#video-reward-input').val();
+    var tags = $('#video-tags-input').val();
 
     if (yt_id == '')
     {
@@ -33,6 +34,7 @@ function onButtonAdd()
             { name: 'yt_id', value: yt_id },
             { name: 'title', value: name },
             { name: 'reward', value: reward }
+            { name: 'tags', value: tags }
         ],
         contentType: 'application/json; charset=utf-8',
         success: function() { notify('success', 'Video successfully added!'); },

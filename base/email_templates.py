@@ -30,20 +30,8 @@ You can download Google Chrome through the following link:
 http://www.google.com/chrome/
 
 Next, you must download and install our Chrome extension.
-You can do so by navigating to the following page:
-%sextension/get/
-
-Follow these steps to install the Chrome extension manually:
-1. There is an icon in the top right corner of the Chrome browser that has 3 bars.
-   Click this icon to access the browser menu.
-2. Select Tools >> Extensions.
-   Alternatively, you can reach the extensions menu by typing "chrome://extensions"
-   (without the quotation marks) in the address bar and pressing Enter.
-3. Right click on the .crx extension file you just downloaded
-   (it should show up at the bottom in the download bar) and click on "Show in Folder".
-   If you are using Mac OS, it should say "Show in Finder" instead.
-   Drag the file onto the Extensions page.
-4. Review the list of permissions in the dialog that appears and click Install.
+You can do so by navigating to our home page and clicking on the Install link:
+%s
 
 Once you have earned $10, we will contact you via your email address used to login with Facebook (%s) in order to request your PayPal account information so we can send you your MONEY!
 
