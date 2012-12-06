@@ -19,7 +19,7 @@ class VideoCreateApi(api_base.RestView):
         if 'reward' not in request.POST or not request.POST['reward']:
             return HttpResponseBadRequest('A reward is required')
         yt_id = request.POST['yt_id']
-        if 'tags' in request.POST and request.POST['tags']: tags = request.POST['tags']
+        if 'tags' in request.POST and request.POST['tags']: tags = request.POST['tags'].lower()
         else: tags = ''
 
         # Validate reward

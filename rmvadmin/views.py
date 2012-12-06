@@ -60,8 +60,8 @@ def list_videos(request):
     for vid in videos:
         rating_matches = filter(lambda x: x.video_id == vid.id, ratings)
         vid.count = len(rating_matches)
-        if len(rating_matches) == 0: continue
-        vid.avg_rating = \
+        if len(rating_matches) == 0: vid.avg_rating = 0
+        else: vid.avg_rating = \
             round(Decimal(sum([x.rating for x in rating_matches])) / Decimal(len(rating_matches)), 3)
 
     videos.object_list = sorted(videos, key=lambda x: getattr(x, col_filter), reverse=filter_rev)

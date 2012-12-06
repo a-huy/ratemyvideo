@@ -12,8 +12,7 @@ if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo': DEBUG = Fa
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Andy', 'anguyenhuy@gmail.com'),
-    ('Server', 'ratemyvideos@gmail.com')
+    ('Dev', 'dev@ratemyvideo.co'),
 )
 
 ADMIN_MEDIA_PREFIX = '/admin-media/'

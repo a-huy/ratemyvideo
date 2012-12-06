@@ -1,6 +1,7 @@
 import hashlib
 import re
 
+from django.conf import settings
 from django.core.mail import send_mail, mail_admins, mail_managers, BadHeaderError
 
 import base.email_templates as emails
@@ -22,7 +23,7 @@ def send_email(template_name, recipient, email_args):
     template = emails.email_types[template_name]['template']
     try:
         send_mail(emails.email_types[template_name]['subject'],
-            template % tuple(email_args), 'ratemyvideos@gmail.com', [recipient])
+            template % tuple(email_args), settings.SERVER_EMAIL, [recipient])
     except TypeError:
         raise TypeError('One or more email arguments are invalid')
     except BadHeaderError:
