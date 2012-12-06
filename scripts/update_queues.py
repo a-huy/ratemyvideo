@@ -25,11 +25,14 @@ curr_time = now()
 
 # Clear the table of any expired videos
 vm.Queue.active.filter(expire_date__lt=curr_time).delete()
+# Then, grab all the queue items that remain
+curr_queue = vm.Queue.active.all()
 
 # Create the queue from a pool of unrated videos
 for user in accounts:
     verified_vids = vm.Video.active.filter(tags__contains='verified') if user.verified else []
     ratings_vid_ids = [y.video_id for y in filter(lambda x: x.user_id==user.id, ratings)]
+    ratings_vid_ids += [q.video_id for q in filter(lambda x: x.user_id==user.id, curr_queue)]
     pool = filter(lambda x: x.id not in ratings_vid_ids, videos)
     random.shuffle(pool)
     if verified_vids:
