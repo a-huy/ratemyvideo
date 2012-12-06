@@ -58,7 +58,7 @@
         <td class="user-liked">{{ user.liked }}</td>
         <td class="user-referral">{{ user.referral|capfirst|truncatechars:20 }}</td>
         <td class="user-joined-date">{{ user.created_date|date:'m-d-y' }}<br />{{ user.created_date|date:'f a' }}</td>
-        <td>{% if user.verified == 't' %}&#x2713;{% endif %}</td>
+        <td>{% if user.verified %}&#x2713;{% endif %}</td>
     </tr>
     {% endfor %}
 </table>
