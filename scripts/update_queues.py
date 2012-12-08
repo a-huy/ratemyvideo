@@ -20,6 +20,8 @@ def create_entry(user, video, curr_time):
 accounts = am.User.active.all()
 # Query all the open videos
 videos = vm.Video.active.exclude(tags__contains='verified')
+core_vids = filter(lambda x: x.tags.find('core') != -1, videos)
+core_vids = vm.Video.active.filter(tags__contains='core')
 ratings = vm.Rating.active.all()
 curr_time = now()
 
@@ -41,6 +43,9 @@ for user in accounts:
         index = min(len(verified_pool), DEFAULT_LIMIT/2)
         pool = verified_pool[:index] + pool[:DEFAULT_LIMIT-index]
         random.shuffle(pool)
+    if core_vids:
+        core_pool = filter(lambda x: x.id not in ratings_vid_ids, core_vids)
+        for cvid in core_pool: pool.insert(0, cvid)
     queue = []
     for video in pool[:DEFAULT_LIMIT]:
         queue.append(create_entry(user, video, curr_time))
