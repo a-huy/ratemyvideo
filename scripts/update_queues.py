@@ -44,7 +44,9 @@ for user in accounts:
         random.shuffle(pool)
     if core_vids:
         core_pool = filter(lambda x: x.id not in ratings_vid_ids, core_vids)
-        for cvid in core_pool: pool.insert(0, cvid)
+        pool_vid_ids = [v.id for v in pool[:DEFAULT_LIMIT]]
+        for cvid in core_pool:
+            if cvid.id not in pool_vid_ids: pool.insert(0, cvid)
     queue = []
     for video in pool[:DEFAULT_LIMIT]:
         queue.append(create_entry(user, video, curr_time))
