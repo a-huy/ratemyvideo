@@ -1,11 +1,14 @@
 import hashlib
 import re
+import datetime
 
 from django.conf import settings
 from django.core.mail import send_mail, mail_admins, mail_managers, BadHeaderError
+from django.utils.timezone import now
 
 import base.email_templates as emails
 import accounts.models as accounts_models
+import videos.models as videos_models
 
 # Determines if a particular Facebook ID is whitelisted
 def whitelisted(fb_id):
@@ -58,6 +61,13 @@ def extract_addr(request):
         return request.META.get('HTTP_X_FORWARDED_FOR').split(',')[-1].strip()
     return request.META.get('REMOTE_ADDR', None)
 
+# Calculates the amount of time that has elapsed since a user's last video rating
+def time_since_last_rating(pk):
+    tslr = datetime.timedelta(999999999)
+    user_ratings = videos_models.Rating.active.filter(user_id=pk).order_by('-created_date')
+    if len(user_ratings) != 0: tslr = now() - user_ratings[0].created_date
+    return tslr
+
 # Calculates the Damerau-Levenshtein Distance (allows for transpositions)
 # I didn't want to download an entire module just for a single function
 def calc_dld(source, target):
@@ -103,9 +113,11 @@ def calc_dld(source, target):
                 score[argi + 1][argt + 1] = score[argi][argt]
                 DB = argt
             else:
-                score[argi + 1][argt + 1] = min(score[argi][argt], min(score[argi + 1][argt], score[argi][argt + 1])) + 1
-            score[argi + 1][argt + 1] = min(score[argi + 1][argt + 1],
-                                            score[argi1][argt1] + (argi - argi1 - 1) + 1 + (argt - argt1 - 1))
+                score[argi + 1][argt + 1] = \
+                    min(score[argi][argt], min(score[argi + 1][argt], score[argi][argt + 1])) + 1
+            score[argi + 1][argt + 1] = \
+                min(score[argi + 1][argt + 1],
+                    score[argi1][argt1] + (argi - argi1 - 1) + 1 + (argt - argt1 - 1))
         alpha[source[argi - 1]] = argi
 
     print_matrix(score)

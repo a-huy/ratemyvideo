@@ -20,6 +20,7 @@ from django.utils.timezone import now
 
 import videos.models as videos_models
 import accounts.models as accounts_models
+import base.contrib
 
 @login_required
 def home(request):
@@ -90,6 +91,9 @@ def list_users(request):
     for user in users.object_list:
         invites = filter(lambda x: x.fb_id == user.fb_id, inv_requests)
         user.referral = invites[0].reason if invites else 'None'
+        user.tslr = base.contrib.time_since_last_rating(user.pk)
+        # CST to PST (this is really horrible, but it's a hotfix for the moment)
+        user.created_date -= datetime.timedelta(hours=2)
     users.object_list = sorted(users, key=lambda x: getattr(x, col_filter), reverse=filter_rev)
 
     if 'export' in request.GET:
@@ -136,12 +140,17 @@ def user_info(request, fb_id):
         vote = filter(lambda x: x.video_id == entry.video_id, votes)
         if vote: entry.liked = 't' if vote[0].like else 'f'
 
+    json_vars = {
+        'verified': str(user.verified),
+        'fb_id': str(user.fb_id)
+    }
     context_vars = {
         'user': user,
         'queue': queue,
         'ratings': ratings,
         'votes': votes,
-        'acc_age': acc_age.days
+        'acc_age': acc_age.days,
+        'json_vars': json_vars
     }
     return render_to_response('user_info.html', context_vars,
         context_instance=RequestContext(request))

@@ -2,7 +2,11 @@
 .left { float: left; text-align: left; }
 .table-title { text-align: center; font-size: 30px; font-family: museo-slab; }
 .empty { text-align: center; color: #ff1d1d; }
+.button { cursor: pointer; }
+.ver-t { color: #6FA800; }
+.ver-f { color: #FF1D1D; }
 
+#admin-actions { width: 40%; margin: auto; float: center; }
 #user-email { color: #ea9600; }
 #balance-earned { color: #6FA800; }
 #rating-history { width: 50%; float: right; }

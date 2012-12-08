@@ -6,15 +6,32 @@
 {% endblock head %}
 
 {% block body %}
+<div id="user-header" class="left">
+    <div class="header">{{ user.real_name }}</div>
+    <div id="user-email">{{ user.email }}</div>
+    <div id="user-fb-id">Facebook ID:
+        <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
+    </div>
+    <div id="verified-status">
+        <span class="ver-{% if user.verified %}t">&#x2713;</span> User is{% else %}f">&#x2717;</span> User is not{% endif%} verified
+    </div>
+</div>
 <div id="user-info" class="right">
     <div id="balance-earned">Balance: ${{ user.balance }} (Total Earned: ${{ user.earned }})</div>
     {{ user.age }} / {{ user.gender|capfirst }} / {{ user.location }}<br />
     Joined: {{ user.created_date|date:'m-d-y' }} ({{ acc_age }} days ago)<br />
     Referral: {{ user.referral|capfirst }}
 </div>
-<div class="header">{{ user.real_name }}</div>
-<div id="user-email">{{ user.email }}</div>
-<br /><br />
+<div id="admin-actions">
+    <div class="table-title center">Administration</div><br />
+    <table id="admin-table">
+        <tr>
+            <td><a class="button" id="verify-toggle">Toggle Verification</a></td>
+<!--            <td><a class="button" onclick="">Delete User</a></td>-->
+        </tr>
+    </table>
+</div>
+<br /><br /><br /><br />
 <div id="rating-history" class="right">
     <div class="table-title">Rating History</div>
     {% if ratings %}
@@ -84,4 +101,5 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script src="{{ MEDIA_URL }}scripts/rmvadmin/user_info.js"></script>
 {% endblock scripts %}

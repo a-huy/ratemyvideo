@@ -26,7 +26,16 @@ class UserUpdateApi(base.RestView):
         return base.APIResponse(user.json_safe())
 
     def PUT(self, request, fb_id, *args, **kwargs):
-        return HttpReponse()
+        if not request.user.is_authenticated(): redirect('/rmvadmin/')
+        try:
+            user = accounts_models.User.objects.get(fb_id=fb_id)
+        except accounts_models.User.DoesNotExist:
+            return HttpResponseBadRequest('User with FB ID ' + fb_id + ' does not exist')
+        if 'verified' in request.POST and request.POST['verified']:
+            user.verified = True if request.POST['verified'] == 'true' else False
+        user.save()
+        return base.APIResponse({ })
+
 
     def DELETE(self, request, fb_id, *args, **kwargs):
         del request.session['fb_id']

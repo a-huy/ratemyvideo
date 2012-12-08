@@ -74,7 +74,8 @@ def account_is_eligible(user):
     access_token['until'] = limit
     posts = json.load(urllib.urlopen(
         'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))
-    if len(posts['data']) == 0: return (False, 'Account is less than 6 months old')
+    if 'data' not in posts or len(posts['data']) == 0:
+        return (False, 'Account is less than 6 months old')
     return (True, '')
 
 def create_request(user):
@@ -104,6 +105,7 @@ def addr_to_loc(request):
         if result['region_name']: loc_str = result['region_name'] + ', ' + loc_str
         if result['city']: loc_str = result['city'] + ', ' + loc_str
         return loc_str
-    return result['city'] + ', ' + \
-        filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())[0]
+    state = filter(lambda x: states_whitelist[x] == result['region_name'], states_whitelist.keys())
+    if not result['region_name'] or not state: return 'Unknown'
+    return result['city'] + ', ' + state[0]
 

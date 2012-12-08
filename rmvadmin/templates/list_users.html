@@ -1,4 +1,5 @@
 {% extends "page_base.html" %}
+{% load div %}
 
 {% block head %}
     {{ block.super }}
@@ -30,7 +31,6 @@
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
-        <td><a href="{% url list_users %}?filter=fb_id{% if not rev %}&rev{% endif %}">FB ID</a></td>
         <td><a href="{% url list_users %}?filter=real_name{% if not rev %}&rev{% endif %}">Name</a></td>
         <td><a href="{% url list_users %}?filter=email{% if not rev %}&rev{% endif %}">Email</a></td>
         <td><a href="{% url list_users %}?filter=age{% if not rev %}&rev{% endif %}">Age</a></td>
@@ -42,14 +42,14 @@
         <td><a href="{% url list_users %}?filter=liked{% if not rev %}&rev{% endif %}">Liked</a></td>
         <td><a href="{% url list_users %}?filter=referral{% if not rev %}&rev{% endif %}">Referral</a></td>
         <td><a href="{% url list_users %}?filter=created_date{% if not rev %}&rev{% endif %}">Joined</a></td>
+        <td>
+            <a href="{% url list_users %}?filter=tslr{% if not rev %}&rev{% endif %}">Last Rating</a>
+        </td>
         <td>&nbsp;</td>
     </tr>
     {% for user in users %}
     <tr class="user-info {% cycle 'even' 'odd' %}">
         <td>{{ forloop.counter }}</td>
-        <td class="user-fb-id">
-            <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
-        </td>
         <td class="user-name"><a href="{% url rmvhome %}user/{{ user.fb_id }}/">{{ user.real_name }}</a></td>
         <td class="user-email">{{ user.email }}</td>
         <td class="user-age">{{ user.age }}</td>
@@ -61,6 +61,12 @@
         <td class="user-liked">{{ user.liked }}</td>
         <td class="user-referral">{{ user.referral|capfirst|truncatechars:20 }}</td>
         <td class="user-joined-date">{{ user.created_date|date:'m-d-y' }}<br />{{ user.created_date|date:'f a' }}</td>
+        <td class="user-tslr">
+            {% if user.tslr.days == 999999999 %}Never{% else %}
+                {% if user.tslr.days > 0 %}{{ user.tslr.days }}d{% endif %}
+                {{ user.tslr.seconds|div:3600 }}h
+            {% endif %}
+        </td>
         <td>{% if user.verified %}&#x2713;{% endif %}</td>
     </tr>
     {% endfor %}
