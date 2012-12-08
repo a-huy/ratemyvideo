@@ -10,7 +10,10 @@ from django.utils.timezone import now
 def create_queue(user):
     curr_time = now()
     videos = list(videos_models.Video.active.all())
+    core_videos = filter(lambda x: x.tags.find('core') != -1, videos)
     random.shuffle(videos)
+    if core_videos:
+        for cvid in core_videos: videos.insert(0, cvid)
     queue = []
     for video in videos[:settings.DEFAULT_VIDEO_QUEUE_LIMIT]:
         new_entry = videos_models.Queue()

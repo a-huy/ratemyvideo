@@ -21,7 +21,6 @@ accounts = am.User.active.all()
 # Query all the open videos
 videos = vm.Video.active.exclude(tags__contains='verified')
 core_vids = filter(lambda x: x.tags.find('core') != -1, videos)
-core_vids = vm.Video.active.filter(tags__contains='core')
 ratings = vm.Rating.active.all()
 curr_time = now()
 
