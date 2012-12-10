@@ -6,6 +6,8 @@
 {% endblock head %}
 
 {% block body %}
+<a href="{% url rmvhome %}">RMV Admin</a> > <a href="{% url list_users %}">List Users</a> > {{ user.real_name }}<br /><br />
+
 <div id="user-header" class="left">
     <div class="header">{{ user.real_name }}</div>
     <div id="user-email">{{ user.email }}</div>

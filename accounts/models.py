@@ -57,3 +57,8 @@ class InviteRequest(base_models.Base):
 class UserWhitelist(base_models.Base):
     key = models.CharField(max_length=settings.KEY_MAX_LENGTH)
 
+class Payout(base_models.Base):
+    user = models.ForeignKey(User)
+    amount = models.DecimalField(max_digits=5, decimal_places=2, default=00.00)
+
+
