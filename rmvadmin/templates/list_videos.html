@@ -6,15 +6,24 @@
 {% endblock head %}
 
 {% block body %}
+<a href="{% url rmvhome %}">RMV Admin</a> > List Videos<br /><br />
+Videos per page:
+<select id="num-select">
+    <option value="10" {% if num == 10 %}selected{% endif %}>10</option>
+    <option value="25" {% if num == 25 %}selected{% endif %}>25</option>
+    <option value="50" {% if num == 40 %}selected{% endif %}>50</option>
+    <option value="100" {% if num == 100 %}selected{% endif %}>100</option>
+    <option value="all" {% if num > 100 %}selected{% endif %}>All</option>
+</select>
 <table id="video-table">
     <tr class="labels center">
         <td>&nbsp;</td>
-        <td><a href="{% url list_videos %}?filter=yt_id{% if not rev %}&rev{% endif %}">YouTube ID</a></td>
-        <td><a href="{% url list_videos %}?filter=title{% if not rev %}&rev{% endif %}">Title</a></td>
-        <td><a href="{% url list_videos %}?filter=reward{% if not rev %}&rev{% endif %}">Reward</a></td>
-        <td><a href="{% url list_videos %}?filter=count{% if not rev %}&rev{% endif %}"># Ratings</a></td>
-        <td><a href="{% url list_videos %}?filter=avg_rating{% if not rev %}&rev{% endif %}">Avg Rating</a></td>
-        <td><a href="{% url list_videos %}?filter=tags{% if not rev %}&rev{% endif %}">Tags</a></td>
+        <td><a href="{% url list_videos %}?filter=yt_id{% if not rev %}&rev{% endif %}&num={{ num }}">YouTube ID</a></td>
+        <td><a href="{% url list_videos %}?filter=title{% if not rev %}&rev{% endif %}&num={{ num }}">Title</a></td>
+        <td><a href="{% url list_videos %}?filter=reward{% if not rev %}&rev{% endif %}&num={{ num }}">Reward</a></td>
+        <td><a href="{% url list_videos %}?filter=count{% if not rev %}&rev{% endif %}&num={{ num }}"># Ratings</a></td>
+        <td><a href="{% url list_videos %}?filter=avg_rating{% if not rev %}&rev{% endif %}&num={{ num }}">Avg Rating</a></td>
+        <td><a href="{% url list_videos %}?filter=tags{% if not rev %}&rev{% endif %}&num={{ num }}">Tags</a></td>
     </tr>
     {% for vid in videos %}
     <tr class="{% cycle 'even' 'odd' %}">
@@ -25,10 +34,10 @@
                 target="_blank">{{ vid.title }}</a>
         </td>
         <td class="vid-reward">${{ vid.reward }}</td>
-        <td class="vid-num-ratings{% if vid.count == 0 %} unrated{% else %} rated{% endif %}">
+        <td class="vid-num-ratings {% if vid.count == 0 %}unrated{% else %}rated{% endif %}">
             {{ vid.count }}
         </td>
-        <td class="vid-avg-rating{% if vid.avg_rating == 0 %} unrated{% else %} rated{% endif %}">
+        <td class="vid-avg-rating {% if vid.avg_rating == 0 %}unrated{% else %}rated{% endif %}">
             {{ vid.avg_rating }}
         </td>
         <td class="vid-tags">{% if not vid.tags %}None{% else %}{{ vid.tags }}{% endif %}</td>
@@ -61,4 +70,5 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script src="{{ MEDIA_URL }}scripts/rmvadmin/list_videos.js"></script>
 {% endblock scripts %}

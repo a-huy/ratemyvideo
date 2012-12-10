@@ -5,3 +5,12 @@ $('#xlsx-export-button').click(function() {
     else export_str = '&' + export_str;
     window.location = window.location.href + export_str;
 });
+
+$('#num-select').change(function() {
+    var num = $('#num-select').val();
+    var loc = window.location.origin + '/rmvadmin/list_users/?';
+    if (jsonVars['filter']) loc += 'filter=' + jsonVars['filter'] + '&';
+    if (jsonVars['rev'] == 'true') loc += 'rev&';
+    loc += 'num=' + num;
+    window.location = loc;
+});

@@ -6,19 +6,18 @@
 {% endblock head %}
 
 {% block body %}
-<div class="pagination">
-    <span class="step-links">
-        {% if users.has_previous %}
-            <a href="?page={{ users.previous_page_number }}&num={{ users.paginator.per_page }}"><</a>
-        {% endif %}
-        <span class="current-page">
-            {{ users.number }} of {{ users.paginator.num_pages }}
-        </span>
-        {% if users.has_next %}
-            <a href="?page={{ users.next_page_number }}&num={{ users.paginator.per_page }}">></a>
-        {% endif %}
-    </span>
+<a href="{% url rmvhome %}">RMV Admin</a> > List Users<br /><br />
+<div class="left">
+    Users per page:
+    <select id="num-select">
+        <option value="10" {% if num == 10 %}selected{% endif %}>10</option>
+        <option value="25" {% if num == 25 %}selected{% endif %}>25</option>
+        <option value="50" {% if num == 50 %}selected{% endif %}>50</option>
+        <option value="100" {% if num == 100 %}selected{% endif %}>100</option>
+        <option value="all" {% if num > 100 %}selected{% endif %}>All</option>
+    </select>
 </div>
+<a id="xlsx-export-button" class="button right">Export to Spreadsheet</a><br /><br />
 
 <div id="quick-stats">
     <span id="stats-active">Active Users: {{ total_active }} ({{ total_users }} Total)</span><br />
@@ -31,19 +30,19 @@
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
-        <td><a href="{% url list_users %}?filter=real_name{% if not rev %}&rev{% endif %}">Name</a></td>
-        <td><a href="{% url list_users %}?filter=email{% if not rev %}&rev{% endif %}">Email</a></td>
-        <td><a href="{% url list_users %}?filter=age{% if not rev %}&rev{% endif %}">Age</a></td>
-        <td><a href="{% url list_users %}?filter=gender{% if not rev %}&rev{% endif %}">Gender</a></td>
-        <td><a href="{% url list_users %}?filter=location{% if not rev %}&rev{% endif %}">Location</a></td>
-        <td><a href="{% url list_users %}?filter=balance{% if not rev %}&rev{% endif %}">Balance</a></td>
-        <td><a href="{% url list_users %}?filter=earned{% if not rev %}&rev{% endif %}">Earned</a></td>
-        <td><a href="{% url list_users %}?filter=rated{% if not rev %}&rev{% endif %}">Rated</a></td>
-        <td><a href="{% url list_users %}?filter=liked{% if not rev %}&rev{% endif %}">Liked</a></td>
-        <td><a href="{% url list_users %}?filter=referral{% if not rev %}&rev{% endif %}">Referral</a></td>
-        <td><a href="{% url list_users %}?filter=created_date{% if not rev %}&rev{% endif %}">Joined</a></td>
+        <td><a href="{% url list_users %}?filter=real_name{% if not rev %}&rev{% endif %}&num={{ num }}">Name</a></td>
+        <td><a href="{% url list_users %}?filter=email{% if not rev %}&rev{% endif %}&num={{ num }}">Email</a></td>
+        <td><a href="{% url list_users %}?filter=age{% if not rev %}&rev{% endif %}&num={{ num }}">Age</a></td>
+        <td><a href="{% url list_users %}?filter=gender{% if not rev %}&rev{% endif %}&num={{ num }}">Gender</a></td>
+        <td><a href="{% url list_users %}?filter=location{% if not rev %}&rev{% endif %}&num={{ num }}">Location</a></td>
+        <td><a href="{% url list_users %}?filter=balance{% if not rev %}&rev{% endif %}&num={{ num }}">Balance</a></td>
+        <td><a href="{% url list_users %}?filter=earned{% if not rev %}&rev{% endif %}&num={{ num }}">Earned</a></td>
+        <td><a href="{% url list_users %}?filter=rated{% if not rev %}&rev{% endif %}&num={{ num }}">Rated</a></td>
+        <td><a href="{% url list_users %}?filter=liked{% if not rev %}&rev{% endif %}&num={{ num }}">Liked</a></td>
+        <td><a href="{% url list_users %}?filter=referral{% if not rev %}&rev{% endif %}&num={{ num }}">Referral</a></td>
+        <td><a href="{% url list_users %}?filter=created_date{% if not rev %}&rev{% endif %}&num={{ num }}">Joined</a></td>
         <td>
-            <a href="{% url list_users %}?filter=tslr{% if not rev %}&rev{% endif %}">Last Rating</a>
+            <a href="{% url list_users %}?filter=tslr{% if not rev %}&rev{% endif %}&num={{ num }}">Last Rating</a>
         </td>
         <td>&nbsp;</td>
     </tr>
@@ -86,8 +85,6 @@
     </span>
 </div>
 <br />
-<a class="button" href="{% url rmvhome %}">RMV Admin</a>
-<a id="xlsx-export-button" class="button">Export to Spreadsheet</a>
 {% endblock body %}
 
 {% block styles %}
