@@ -11,6 +11,7 @@ $('#num-select').change(function() {
     var loc = window.location.origin + '/rmvadmin/list_users/?';
     if (jsonVars['filter']) loc += 'filter=' + jsonVars['filter'] + '&';
     if (jsonVars['rev'] == 'true') loc += 'rev&';
-    loc += 'num=' + num;
+    if (num != 'all') loc += 'num=' + num;
+    else loc = loc.substring(0, loc.length - 1);
     window.location = loc;
 });
