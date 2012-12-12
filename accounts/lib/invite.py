@@ -24,7 +24,7 @@ states_whitelist = {
     "Wisconsin":"WI", "Wyoming":"WY"
 }
 
-states_whitelist["California"] = "CA" # For dev testing purposes, since we are... located in CA
+#states_whitelist["California"] = "CA" # For dev testing purposes, since we are... located in CA
 
 def get_user_data(args, request):
     args['client_secret'] = settings.FACEBOOK_APP_SECRET
