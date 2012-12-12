@@ -11,6 +11,7 @@
 <div id="user-header" class="left">
     <div class="header">{{ user.real_name }}</div>
     <div id="user-email">{{ user.email }}</div>
+    Paypal Email: <span id="user-pp-email">{{ user.pp_email }}</span>
     <div id="user-fb-id">Facebook ID:
         <a href="http://www.facebook.com/profile.php?id={{ user.fb_id }}">{{ user.fb_id }}</a>
     </div>
@@ -29,6 +30,7 @@
     <table id="admin-table">
         <tr>
             <td><a class="button" id="verify-toggle">Toggle Verification</a></td>
+            <td><a class="button" id="edit-user" href="{% url edit_user user.fb_id %}">Edit Info</a></td>
 <!--            <td><a class="button" onclick="">Delete User</a></td>-->
         </tr>
     </table>

@@ -7,7 +7,7 @@
 .ver-f { color: #FF1D1D; }
 
 #admin-actions { width: 40%; margin: auto; float: center; }
-#user-email { color: #ea9600; }
+#user-email, #user-pp-email { color: #ea9600; }
 #balance-earned { color: #6FA800; }
 #rating-history { width: 50%; float: right; }
 #video-queue { width: 50%; float: left; }

@@ -1,0 +1,92 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<a href="{% url rmvhome %}">RMV Admin</a> > <a href="{% url list_users %}">List Users</a> > <a href="{% url user_info user.fb_id %}">{{ user.real_name|truncatechars:15 }}</a> > Edit<br /><br />
+<div id="user-info">
+    <div id="edit-warning" class="center"></div>
+    <div id="edit-success" class="center"></div>
+    <table id="info-table">
+        <tr class="labels"><td>Field</td><td>Value</td><td class="clear">&nbsp;</td></tr>
+        <tr>
+            <td id="user-name" class="field-col">Name</td>
+            <td id="user-name-input" class="val-col">{{ user.real_name }}</td>
+            <td class="clear"><button id="name-edit-button">Edit</button></td>
+        </tr>
+        <tr>
+            <td id="user-email" class="field-col">Email</td>
+            <td id="user-email-input" class="val-col">{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td id="user-pp-email" class="field-col">PayPal Email</td>
+            <td id="user-pp-email-input" class="val-col">{{ user.pp_email }}</td>
+            <td class="clear"><button id="pp-email-edit-button">Edit</button></td>
+        </tr>
+        <tr>
+            <td id="user-age" class="field-col">Age</td>
+            <td id="user-age-input" class="val-col">{{ user.age }}</td>
+        </tr>
+        <tr>
+            <td id="user-gender" class="field-col">Gender</td>
+            <td id="user-gender-input" class="val-col">{{ user.gender }}</td>
+        </tr>
+        <tr>
+            <td id="user-location" class="field-col">Location</td>
+            <td id="user-location-input" class="val-col">{{ user.location }}</td>
+        </tr>
+        <tr>
+            <td id="user-balance" class="field-col">Balance</td>
+            <td id="user-balance-input" class="val-col">{{ user.balance }}</td>
+        <tr>
+        <tr>
+            <td id="user-earned" class="field-col">Earned</td>
+            <td id="uesr-earned-input" class="val-col">{{ user.earned }}</td>
+        </tr>
+        <tr>
+            <td id="user-rated" class="field-col">Rated</td>
+            <td id="user-rated-input" class="val-col">{{ user.rated }}</td>
+        </tr>
+        <tr>
+            <td id="user-liked" class="field-col">Liked</td>
+            <td id="user-liked-input" class="val-col">{{ user.liked }}</td>
+        </tr>
+        <tr>
+            <td id="user-commented" class="field-col">Commented</td>
+            <td id="user-commented-input" class="val-col">{{ user.commented }}</td>
+        </tr>
+        <tr>
+            <td id="user-subscribed" class="field-col">Subscribed</td>
+            <td id="user-subscribed-input" class="val-col">{{ user.subscribed }}</td>
+        </tr>
+        <tr>
+            <td id="user-karma" class="field-col">Karma</td>
+            <td id="user-karma-input" class="val-col">{{ user.karma }}</td>
+        </tr>
+        <tr>
+            <td id="user-verified" class="field-col">Verified</td>
+            <td id="user-verified-input" class="val-col">
+                {% if user.verified %}&#x2713;{% else %}&#x2717;{% endif %}
+            </td>
+            <td class="clear"><button id="verified-toggle-button">Toggle</button></td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="center"><a id="save-button" class="button">Save Changes</a></div>
+{% endblock body %}
+
+{% block styles %}
+    {{ block.super }}
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/edit_user.css" />
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{{ MEDIA_URL }}scripts/rmvadmin/edit_user.js"></script>
+{% endblock scripts %}

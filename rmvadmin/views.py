@@ -164,6 +164,18 @@ def user_info(request, fb_id):
         context_instance=RequestContext(request))
 
 @login_required
+def edit_user(request, fb_id):
+    try:
+        user = accounts_models.User.active.get(fb_id=fb_id)
+    except accounts_models.User.DoesNotExist: return redirect(list_users)
+    context_vars = {
+        'json_vars': { 'fb_id': str(user.fb_id) },
+        'user': user
+    }
+    return render_to_response('edit_user.html', context_vars,
+        context_instance=RequestContext(request))
+
+@login_required
 def add_video(request):
     return render_to_response('add_video.html', { },
         context_instance=RequestContext(request))

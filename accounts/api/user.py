@@ -2,11 +2,14 @@ import datetime
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, \
     HttpResponseForbidden
 from django.shortcuts import redirect
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
 import accounts.lib.invite as invite_lib
+import accounts.lib.user as user_lib
 from base.contrib import whitelisted
 
 class UserUpdateApi(base.RestView):
@@ -33,6 +36,15 @@ class UserUpdateApi(base.RestView):
             return HttpResponseBadRequest('User with FB ID ' + fb_id + ' does not exist')
         if 'verified' in request.POST and request.POST['verified']:
             user.verified = True if request.POST['verified'] == 'true' else False
+        if 'real_name' in request.POST and request.POST['real_name']:
+            user.real_name = user_lib.capitalize_name(request.POST['real_name'])
+        if 'pp_email' in request.POST and request.POST['pp_email']:
+            try:
+                validate_email(request.POST['pp_email'])
+                user.pp_email = request.POST['pp_email']
+            except ValidationError:
+                return HttpResponseBadRequest('The Paypal email you have submitted ' + \
+                    'is not a valid email')
         user.save()
         return base.APIResponse({ })
 
