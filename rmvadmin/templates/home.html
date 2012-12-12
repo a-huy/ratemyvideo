@@ -7,17 +7,22 @@
 {% block body %}
 <div class="header"> This is the RMV Admin!</div>
 <br />
+General Information<br />
+<a href="{% url site_stats %}">Site Stats</a><br />
+<br />
+Users<br />
 <a href="{% url list_users %}">List Users</a><br />
+<a href="{% url invites %}">View Invite Requests</a><br />
+<br />
+Videos<br />
 <a href="{% url list_videos %}">List Videos</a><br />
 <a href="{% url add_video %}">Add Video</a><br />
-<a href="{% url invites %}">View Invite Requests</a><br />
 <br />
 <a class="button" href="{% url rmv_logout %}">Logout</a>
 {% endblock body %}
 
-{% block scripts %}
+{% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
         href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
-{% endblock scripts %}
-
+{% endblock styles %}

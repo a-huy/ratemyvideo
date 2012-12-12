@@ -194,6 +194,13 @@ def invites(request):
     return render_to_response('invites.html', context_vars,
         context_instance=RequestContext(request))
 
+@login_required
+def site_stats(request):
+    context_vars = {
+    }
+    return render_to_response('site_stats.html', context_vars,
+        context_instance=RequestContext(request))
+
 def export_users_list_to_xlsx(users):
     workbook = Workbook()
     out_file = r'users-list-' + str(now())
