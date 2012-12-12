@@ -1,4 +1,5 @@
 import datetime
+from decimal import *
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, \
     HttpResponseForbidden
 from django.shortcuts import redirect
@@ -38,6 +39,12 @@ class UserUpdateApi(base.RestView):
             user.verified = True if request.POST['verified'] == 'true' else False
         if 'real_name' in request.POST and request.POST['real_name']:
             user.real_name = user_lib.capitalize_name(request.POST['real_name'])
+        if 'balance' in request.POST and request.POST['balance']:
+            try:
+                if user.balance != Decimal(request.POST['balance']):
+                    user.balance = Decimal(request.POST['balance'])
+            except InvalidOperation:
+                return HttpResponseBadRequest('The balance amount is not a valid number')
         if 'pp_email' in request.POST and request.POST['pp_email']:
             try:
                 validate_email(request.POST['pp_email'])

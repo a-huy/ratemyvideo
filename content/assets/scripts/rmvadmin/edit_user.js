@@ -36,6 +36,37 @@ $('#pp-email-edit-button').click(function() {
     }
 });
 
+$('#balance-edit-button').click(function() {
+    if (this.id == 'balance-edit-button')
+    {
+        var balance = $('#user-balance-input').text().trim();
+        $('#user-balance-input').html('<input type="text" id="balance-input" name="balance-input" value="'
+            + balance + '" size="35">').removeClass('edited');
+        $('#balance-edit-button').text('Done');
+        this.id = 'balance-done-button';
+    }
+    else
+    {
+        var balance = $('#balance-input').val();
+        var earned = parseFloat($('#user-earned-input').text().trim());
+        if (balance == '')
+        {
+            $('#edit-warning').text('Please enter a balance amount.');
+            return;
+        }
+        balance = parseFloat(balance);
+        if (isNaN(balance))
+        {
+            $('#edit-warning').text('The balance amount is not valid.');
+            return;
+        }
+        $('#user-balance-input').html(balance).addClass('edited');
+        $('#edit-warning').text('You have made edits that must be saved!');
+        $('#balance-done-button').text('Edit');
+        this.id = 'balance-edit-button';
+    }
+});
+
 $('#verified-toggle-button').click(function() {
     var state = $('#user-verified-input').html().trim().charCodeAt(0);
     console.log(state);
@@ -55,8 +86,9 @@ $('#save-button').click(function() {
     var name = $('#user-name-input').text().trim();
     var pp_email = $('#user-pp-email-input').text().trim();
     var verified = $('#user-verified-input').text().trim().charCodeAt(0);
+    var balance = parseFloat($('#user-balance-input').text().trim());
     verified = verified == 10003 ? 'true' : 'false'
-    if (name == '' || pp_email == '')
+    if (name == '')
     {
         $('#edit-warning').text('You are in the middle of editing one or more fields. ' +
             'Finish editing before saving your changes.');
@@ -77,7 +109,8 @@ $('#save-button').click(function() {
             data: [
                 { name: 'verified', value: verified },
                 { name: 'real_name', value: name },
-                { name: 'pp_email', value: pp_email }
+                { name: 'pp_email', value: pp_email },
+                { name: 'balance', value: balance }
             ],
             contentType: 'application/json; charset=urf-8',
             error: function(err) { $('#edit-warning').text(err.responseText); },
@@ -87,5 +120,6 @@ $('#save-button').click(function() {
                 $('#edit-success').text('Changes successfully commited!');
             }
         });
+        $('.edited').removeClass('edited');
     }
 });
