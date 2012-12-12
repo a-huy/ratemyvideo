@@ -24,3 +24,7 @@ urlpatterns += patterns('accounts.api.whitelist',
     url(r'^whitelist/$', 'WhiteListCreateApi'),
 )
 
+urlpatterns += patterns('accounts.api.payout',
+    url(r'^payout/$', 'PayoutCreateApi'),
+)
+

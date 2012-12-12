@@ -129,7 +129,7 @@ def user_info(request, fb_id):
     except IndexError: user.referral = 'None'
     videos_all = videos_models.Video.active.all()
     queue = videos_models.Queue.active.filter(user_id=user.id)
-    ratings = videos_models.Rating.active.filter(user_id=user.id)
+    ratings = videos_models.Rating.active.filter(user_id=user.id).order_by('-created_date')
     votes = videos_models.Vote.active.filter(user_id=user.id)
     acc_age = now() - user.created_date
 
@@ -181,7 +181,8 @@ def payout(request, fb_id):
         user = accounts_models.User.active.get(fb_id=fb_id)
     except accounts_models.User.DoesNotExist: return redirect(list_users)
     context_vars = {
-        'user': user
+        'user': user,
+        'json_vars': { 'fb_id': str(user.fb_id) }
     }
     return render_to_response('payout.html', context_vars,
         context_instance=RequestContext(request))

@@ -5,15 +5,37 @@
 {% endblock head %}
 
 {% block body %}
+<a href="{% url rmvhome %}">RMV Admin</a> > <a href="{% url list_users %}">List Users</a> > <a href="{% url user_info user.fb_id %}">{{ user.real_name|truncatechars:15 }}</a> > Payout<br /><br />
 
+<div id="user-name" class="center">{{ user.real_name }}</div><br />
+<div id="user-amounts" class="center">
+    Earned: ${{ user.earned }}<br />
+    Balance: ${{ user.balance }}<br />
+</div>
+<br />
+<div id="amount-form" class="center">
+    Payout amount: <input type="text" id="amount-input">
+</div>
+<br />
+<div id="action-buttons" class="center">
+    <a class="button" id="payout-button">Payout</a>
+    <a class="button" href="{% url user_info user.fb_id %}">Back</a>
+</div>
+<br />
+<div id="notify-bar">
+    <div class="notify"></div>
+</div>
 {% endblock body %}
 
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
         href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/payout.css" />
 {% endblock styles %}
 
 {% block scripts %}
     {{ block.super }}
+    <script type="text/javascript" src="{{ MEDIA_URL }}scripts/rmvadmin/payout.js"></script>
 {% endblock scripts %}
