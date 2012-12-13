@@ -11,10 +11,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.timezone import now
+from django.core.cache import cache
 
 import videos.models as videos_models
 import accounts.models as accounts_models
 import base.contrib
+import base.cache_keys as keys
 import accounts.lib.views as views_lib
 
 @login_required
@@ -203,13 +205,34 @@ def invites(request):
 
 @login_required
 def site_stats(request):
-    ratings = videos_models.Rating.active.values_list('created_date', flat=True)
-    users_dates = accounts_models.User.active.values_list('created_date', flat=True)
-    users_states = accounts_models.User.active.values_list('location', flat=True)
+    now_ts = now()
+    date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
+    rdates_key = keys.RMV_RATING_DATES % date_today
+    udates_key = keys.RMV_USER_DATES % date_today
+    ustates_key = keys.RMV_USER_STATES % date_today
+
+    ratings = cache.get(rdates_key)
+    if not ratings:
+        values = videos_models.Rating.active.values_list('created_date', flat=True)
+        ratings = views_lib.count_by_date(values)
+        cache.set(rdates_key, ratings)
+
+    users_dates = cache.get(udates_key)
+    if not users_dates:
+        values = accounts_models.User.active.values_list('created_date', flat=True)
+        users_dates = views_lib.count_by_date(values)
+        cache.set(udates_key, users_dates)
+
+    users_states = cache.get(ustates_key)
+    if not users_states:
+        values = accounts_models.User.active.values_list('location', flat=True)
+        users_states = views_lib.count_by_state(values)
+        cache.set(ustates_key, users_states)
+
     json_vars = {
-        'rdates': views_lib.count_by_date(ratings),
-        'udates': views_lib.count_by_date(users_dates),
-        'ustates': views_lib.count_by_state(users_states)
+        'rdates': ratings,
+        'udates': users_dates,
+        'ustates': users_states
     }
     context_vars = {
         'json_vars': json_vars
