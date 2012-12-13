@@ -58,8 +58,9 @@ class RatingCreateApi(base.RestView):
         account.save()
         queue_entry.delete() ###
 
-        # Invalidate user queue
+        # Invalidate user queue and rating history
         cache.delete(keys.ACC_USER_QUEUE % account.fb_id)
+        cache.delete(keys.ACC_USER_HISTORY % account.fb_id)
 
         return base.APIResponse(new_rating.to_json())
 

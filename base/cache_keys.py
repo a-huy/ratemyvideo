@@ -2,6 +2,7 @@
 
 # Accounts
 ACC_USER_QUEUE = 'accounts:queue:%s' # fb_id
+ACC_USER_HISTORY = 'accounts:history:%s' # fb_id
 
 # RMV Admin
 RMV_RATING_DATES = 'rmvadmin:stats:rating:%s' # mm-dd-yyyy
