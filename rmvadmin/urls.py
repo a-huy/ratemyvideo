@@ -12,5 +12,6 @@ urlpatterns = patterns('rmvadmin.views',
     url(r'^user/(?P<fb_id>[0-9]+)/$', 'user_info', name='user_info'),
     url(r'^edit_user/(?P<fb_id>[0-9]+)/$', 'edit_user', name='edit_user'),
     url(r'^payout/(?P<fb_id>[0-9]+)/$', 'payout', name='payout'),
+    url(r'^stats/(?P<fb_id>[0-9]+)/$', 'user_stats', name='user_stats'),
     url(r'^site_stats/$', 'site_stats', name='site_stats'),
 )

@@ -204,6 +204,25 @@ def invites(request):
         context_instance=RequestContext(request))
 
 @login_required
+def user_stats(request, fb_id):
+    try:
+        user = accounts_models.User.active.get(fb_id=fb_id)
+    except accounts_models.User.DoesNotExist: return redirect(list_users)
+    ratings = videos_models.Rating.active.filter(user_id=user.id)
+    ratings_dates = views_lib.count_by_date(ratings.values_list('created_date', flat=True))
+    ratings_sums = views_lib.sum_by_date(ratings.values_list('created_date', 'video__reward'))
+    json_vars = {
+        'rdates': ratings_dates,
+        'rsums': ratings_sums
+    }
+    context_vars = {
+        'json_vars': json_vars,
+        'user': user
+    }
+    return render_to_response('user_stats.html', context_vars,
+        context_instance=RequestContext(request))
+
+@login_required
 def site_stats(request):
     now_ts = now()
     date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
