@@ -1,24 +1,56 @@
-google.load('visualization', '1.0', {'packages':['corechart']});
-google.setOnLoadCallback(drawChart);
+google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
+google.setOnLoadCallback(drawAllTheCharts);
 
-function drawChart() {
+CHARTS_LIST = [drawRatingsChart, drawNewUsersChart, drawPopulationChart]
 
-    // Create the data table.
+function drawAllTheCharts()
+{
+    for (var argi = 0; argi < CHARTS_LIST.length; ++argi) CHARTS_LIST[argi]();
+}
+
+function drawRatingsChart()
+{
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Topping');
-    data.addColumn('number', 'Slices');
-    data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1], 
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
-    ]);
+    data.addColumn('string', 'Date');
+    data.addColumn('number', 'Ratings');
+    data.addRows(jsonVars['rdates']);
+    var options = {
+        'title': 'Rating Activity',
+        'width': 800,
+        'height': 600,
+        'curveType': 'function'
+    };
+    var chart = new google.visualization.LineChart(document.getElementById('ratings-chart'));
+    chart.draw(data, options);
+}
 
-    var options = {'title':'How Much Pizza I Ate Last Night',
-        'width':400,
-        'height':300};
-                 
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+function drawNewUsersChart()
+{
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Date');
+    data.addColumn('number', 'New Users');
+    data.addRows(jsonVars['udates']);
+    var options = {
+        'title': 'New Registrations',
+        'width': 800,
+        'height': 600,
+        'colors': ['red'],
+        'curveType': 'function'
+    };
+    var chart = new google.visualization.LineChart(document.getElementById('new-users-chart'));
+    chart.draw(data, options);
+}
+
+function drawPopulationChart()
+{
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'State');
+    data.addColumn('number', 'Users');
+    data.addRows(jsonVars['ustates']);
+    var options = {
+        'region': 'US',
+        'resolution': 'provinces'
+    }
+    var chart = new google.visualization.GeoChart(document.getElementById('users-region-chart'));
     chart.draw(data, options);
 }

@@ -1,0 +1,6 @@
+hr { width: 900px; }
+
+.large-chart { margin: 0 auto; width: 800px; height: 600px; }
+.center { margin: 0 auto; }
+.chart-title { color: #ea9600; font-size: 30px; font-family: museo-slab; }
+.link-top { float: right; }

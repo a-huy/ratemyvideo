@@ -5,15 +5,44 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="{{ MEDIA_URL }}scripts/rmvadmin/site_stats.js"></script>
 {% endblock head %}
-
+<a name="top"></a>
 {% block body %}
-<div id="chart_div" style="width:400; height:300"></div>
+<a href="{% url rmvhome %}">RMV Admin</a> > Site Stats<br /><br />
+<div id="jump-panel" class="center">
+Jump To: <br />
+<a href="#ratings-day">Rating Activity</a> &#8226;
+<a href="#new-users-day">New Registrations</a> &#8226;
+<a href="#users-region">Users By Region</a>
+</div>
+<hr><br />
+<div class="large-chart">
+    <a name="ratings-day"></a>
+    <div class="chart-title">Rating Activity</div>
+    <div id="ratings-chart"></div>
+    <a href="#top" class="link-top">Back to Top</a>
+</div>
+<br /><br /><br />
+<div class="large-chart">
+    <a name="new-users-day"></a>
+    <div class="chart-title">New Registrations</div>
+    <div id="new-users-chart"></div>
+    <a href="#top" class="link-top">Back to Top</a>
+</div>
+<br /><br /><br />
+<div class="large-chart">
+    <a name="users-region"></a>
+    <div class="chart-title">Users By Region</div>
+    <div id="users-region-chart"></div>
+    <a href="#top" class="link-top">Back to Top</a>
+</div>
 {% endblock body %}
 
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
         href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/site_stats.css" />
 {% endblock styles %}
 
 {% block scripts %}

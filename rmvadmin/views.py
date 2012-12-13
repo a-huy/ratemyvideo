@@ -1,12 +1,6 @@
 from decimal import *
 import datetime
-import tempfile
-import os
 import re
-
-from openpyxl.workbook import Workbook
-from openpyxl.writer.excel import ExcelWriter
-from openpyxl.cell import get_column_letter
 
 from django.conf import settings
 from django.shortcuts import render_to_response, render, redirect
@@ -21,6 +15,7 @@ from django.utils.timezone import now
 import videos.models as videos_models
 import accounts.models as accounts_models
 import base.contrib
+import accounts.lib.views as views_lib
 
 @login_required
 def home(request):
@@ -99,7 +94,7 @@ def list_users(request):
 
     if 'export' in request.GET:
         print request.get_full_path()
-        return export_users_list_to_xlsx(users.object_list)
+        return views_lib.export_users_list_to_xlsx(users.object_list)
 
     json_vars = {
         'filter': str(col_filter),
@@ -208,51 +203,17 @@ def invites(request):
 
 @login_required
 def site_stats(request):
+    ratings = videos_models.Rating.active.values_list('created_date', flat=True)
+    users_dates = accounts_models.User.active.values_list('created_date', flat=True)
+    users_states = accounts_models.User.active.values_list('location', flat=True)
+    json_vars = {
+        'rdates': views_lib.count_by_date(ratings),
+        'udates': views_lib.count_by_date(users_dates),
+        'ustates': views_lib.count_by_state(users_states)
+    }
     context_vars = {
+        'json_vars': json_vars
     }
     return render_to_response('site_stats.html', context_vars,
         context_instance=RequestContext(request))
-
-def export_users_list_to_xlsx(users):
-    workbook = Workbook()
-    out_file = r'users-list-' + str(now())
-    ws = workbook.worksheets[0]
-    ws.title = 'Users List'
-
-    # Create column labels
-    headers = ['First Name', 'Middle Name', 'Last Name', 'Email', 'Age', 'Gender',
-               'Location', 'Rated', 'Balance', 'Earned', 'Joined']
-    for argi in xrange(1, len(headers) + 1):
-        col = get_column_letter(argi)
-        cell =  ws.cell('%s1' % col)
-        cell.value = headers[argi - 1]
-        cell.style.font.bold = True
-        if argi < 4: ws.column_dimensions[col].width = 12
-        elif argi == 4: ws.column_dimensions[col].width = 25
-        elif argi == 7: ws.column_dimensions[col].width = 20
-        else: ws.column_dimensions[col].width = 10
-
-    for argi in xrange(2, len(users) + 2):
-        name_parts = users[argi - 2].real_name.split(' ')
-        users[argi - 2].first_name = name_parts[0]
-        users[argi - 2].last_name = name_parts[-1]
-        users[argi - 2].middle_name = name_parts[1] if len(name_parts) > 2 else ''
-        users[argi - 2].joined = users[argi - 2].created_date
-        users[argi - 2].gender = users[argi - 2].gender[0].upper()
-        for argt in xrange(1, len(headers) + 1):
-            col = get_column_letter(argt)
-            attr = re.sub(r' ', '_', headers[argt - 1].lower())
-            cell = ws.cell('%s%s' % (col, argi))
-            cell.value = getattr(users[argi - 2], attr)
-            cell.style.font.size = 8
-
-    fd, fn = tempfile.mkstemp()
-    os.close(fd)
-    workbook.save(filename = fn)
-    fh = open(fn, 'rb')
-    resp = fh.read()
-    fh.close()
-    response = HttpResponse(resp, mimetype='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="%s.xlsx"' % out_file
-    return response
 
