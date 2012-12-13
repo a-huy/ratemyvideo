@@ -1,7 +1,7 @@
 google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
 google.setOnLoadCallback(drawAllTheCharts);
 
-CHARTS_LIST = [drawRatingsChart, drawNewUsersChart, drawPopulationChart]
+CHARTS_LIST = [drawRatingsChart, drawRatingSumsChart, drawNewUsersChart, drawPopulationChart]
 
 function drawAllTheCharts()
 {
@@ -21,6 +21,23 @@ function drawRatingsChart()
         'curveType': 'function'
     };
     var chart = new google.visualization.LineChart(document.getElementById('ratings-chart'));
+    chart.draw(data, options);
+}
+
+function drawRatingSumsChart()
+{
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Date');
+    data.addColumn('number', 'Total (USD)');
+    data.addRows(jsonVars['rsums']);
+    var options = {
+        'title': 'User Earnings',
+        'width': 800,
+        'height': 600,
+        'curveType': 'function',
+        'colors': ['green']
+    };
+    var chart = new google.visualization.LineChart(document.getElementById('ratings-sums-chart'));
     chart.draw(data, options);
 }
 
@@ -54,3 +71,4 @@ function drawPopulationChart()
     var chart = new google.visualization.GeoChart(document.getElementById('users-region-chart'));
     chart.draw(data, options);
 }
+

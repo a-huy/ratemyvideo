@@ -68,3 +68,14 @@ def count_by_state(items):
     map(lambda x: states_list.append([x, counts[x]]), list(counts))
     return states_list
 
+# takes a list of tuples (date, reward) and returns a list of [date, sum]
+def sum_by_date(items):
+    dates_dict = { }
+    for pair in items:
+        date = datetime.datetime(month=pair[0].month, day=pair[0].day, year=pair[0].year)
+        if date not in dates_dict: dates_dict[date] = pair[1]
+        else: dates_dict[date] += pair[1]
+    sums_list = []
+    map(lambda x: sums_list.append(['%s-%s-%s' % (x.month, x.day, x.year),
+        float(dates_dict[x])]), sorted(dates_dict.keys()))
+    return sums_list

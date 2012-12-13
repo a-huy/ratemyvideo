@@ -8,5 +8,6 @@ yts = now() - datetime.timedelta(days=1)
 yesterday = '%s-%s-%s' % (yts.month, yts.day, yts.year)
 
 cache.delete(keys.RMV_RATING_DATES % yesterday)
+cache.delete(keys.RMV_RATING_SUMS % yesterday)
 cache.delete(keys.RMV_USER_DATES % yesterday)
 cache.delete(keys.RMV_USER_STATES % yesterday)

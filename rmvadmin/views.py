@@ -208,6 +208,7 @@ def site_stats(request):
     now_ts = now()
     date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
     rdates_key = keys.RMV_RATING_DATES % date_today
+    rsums_key = keys.RMV_RATING_SUMS % date_today
     udates_key = keys.RMV_USER_DATES % date_today
     ustates_key = keys.RMV_USER_STATES % date_today
 
@@ -229,10 +230,17 @@ def site_stats(request):
         users_states = views_lib.count_by_state(values)
         cache.set(ustates_key, users_states)
 
+    ratings_sums = cache.get(rsums_key)
+    if not ratings_sums:
+        values = videos_models.Rating.active.values_list('created_date', 'video__reward')
+        ratings_sums = views_lib.sum_by_date(values)
+        cache.set(rsums_key, ratings_sums)
+
     json_vars = {
         'rdates': ratings,
         'udates': users_dates,
-        'ustates': users_states
+        'ustates': users_states,
+        'rsums': ratings_sums
     }
     context_vars = {
         'json_vars': json_vars
