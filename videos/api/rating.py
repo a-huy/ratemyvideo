@@ -2,8 +2,10 @@ import datetime
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.utils.timezone import now
+from django.core.cache import cache
 
 import base.api.base as base
+import base.cache_keys as keys
 import accounts.models as accounts_models
 import videos.models as videos_models
 import videos.forms as videos_forms
@@ -55,6 +57,10 @@ class RatingCreateApi(base.RestView):
         account.balance += video.reward
         account.save()
         queue_entry.delete() ###
+
+        # Invalidate user queue
+        cache.delete(keys.ACC_USER_QUEUE % account.fb_id)
+
         return base.APIResponse(new_rating.to_json())
 
 class RatingUpdateApi(base.RestView):

@@ -5,8 +5,10 @@ import itertools
 
 from django.conf import settings
 from django.utils.timezone import now
+from django.core.cache import cache
 import accounts.models as am
 import videos.models as vm
+import base.cache_keys as keys
 
 DEFAULT_LIMIT = settings.DEFAULT_VIDEO_QUEUE_LIMIT
 
@@ -31,6 +33,7 @@ curr_queue = vm.Queue.active.all()
 
 # Create the queue from a pool of unrated videos
 for user in accounts:
+    cache.delete(keys.ACC_USER_QUEUE % user.fb_id)
     verified_vids = vm.Video.active.filter(tags__contains='verified') if user.verified else []
     ratings_vid_ids = [y.video_id for y in filter(lambda x: x.user_id==user.id, ratings)]
     ratings_vid_ids += [q.video_id for q in filter(lambda x: x.user_id==user.id, curr_queue)]
