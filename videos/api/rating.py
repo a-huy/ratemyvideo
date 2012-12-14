@@ -9,7 +9,9 @@ import base.cache_keys as keys
 import accounts.models as accounts_models
 import videos.models as videos_models
 import videos.forms as videos_forms
+from accounts.lib.invite import is_inside_us
 from base.contrib import timedelta_to_seconds, extract_addr
+from decimal import Decimal
 
 class RatingCreateApi(base.RestView):
 
@@ -46,6 +48,10 @@ class RatingCreateApi(base.RestView):
 #        if timedelta_to_seconds(time_since_last_rating) < video.duration:
 #            return HttpResponseBadRequest('Please watch the entire video before rating.')
 
+        # Changes the reward of the video if the user is outside the US
+        domestic = is_inside_us(account.location)
+        reward = Decimal(0.02) if not domestic else video.reward
+
         new_rating = videos_models.Rating()
         new_rating.video_id = video.id
         new_rating.user_id = account.id
@@ -53,8 +59,8 @@ class RatingCreateApi(base.RestView):
         new_rating.source_ip = extract_addr(request) or '0.0.0.0'
         new_rating.save()
         account.rated += 1
-        account.earned += video.reward
-        account.balance += video.reward
+        account.earned += reward
+        account.balance += reward
         account.save()
         queue_entry.delete() ###
 

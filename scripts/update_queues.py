@@ -9,14 +9,16 @@ from django.core.cache import cache
 import accounts.models as am
 import videos.models as vm
 import base.cache_keys as keys
+from accounts.lib.invite import is_inside_us
 
 DEFAULT_LIMIT = settings.DEFAULT_VIDEO_QUEUE_LIMIT
 
-def create_entry(user, video, curr_time):
+def create_entry(user, video, curr_time, bonuses=''):
     new_entry = vm.Queue()
     new_entry.user_id = user.id
     new_entry.video_id = video.id
     new_entry.expire_date = curr_time.replace(hour=8, minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
+    new_entry.bonuses = bonuses
     return new_entry
 
 accounts = am.User.active.all()
@@ -51,7 +53,9 @@ for user in accounts:
         for cvid in core_pool:
             if cvid.id not in pool_vid_ids: pool.insert(0, cvid)
     queue = []
+    domestic = is_inside_us(user.location)
+    bonuses = '' if not domestic else 'intl'
     for video in pool[:DEFAULT_LIMIT]:
-        queue.append(create_entry(user, video, curr_time))
+        queue.append(create_entry(user, video, curr_time, bonuses))
     if queue: vm.Queue.objects.bulk_create(queue)
 
