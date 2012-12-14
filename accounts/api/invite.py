@@ -49,7 +49,7 @@ class InviteApi(base.RestView):
         email_args = [user['fb_id'], user['real_name'], user['email'], user['location'],
             user['age'], user['gender'], user['reason'], user['fb_id'], settings.DOMAIN]
         send_email('confirm_invite', user['email'], [user['real_name']])
-        backend_email('new_invite_request', 'admins', email_args)
+        backend_email('new_invite_request', 'managers', email_args)
         return message_response(request, 200, 'Request received. Thank you for your interest in Rate My Video!')
 
     def DELETE(self, request, *args, **kwargs):
