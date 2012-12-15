@@ -18,7 +18,7 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-`# Sendgrid credentials
+# Sendgrid credentials
 EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
 EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 
