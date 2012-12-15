@@ -3,6 +3,7 @@ import datetime
 
 import accounts.models as accounts_models
 import videos.models as videos_models
+from accounts.lib.invite import is_inside_us
 from django.conf import settings
 from django.utils.timezone import now
 
@@ -20,5 +21,6 @@ def create_queue(user):
         new_entry.user_id = user.id
         new_entry.video_id = video.id
         new_entry.expire_date = curr_time.replace(hour=8, minute=0, second=0, microsecond=0) + datetime.timedelta(days=1)
+        if not is_inside_us(user.location): new_entry.bonuses = 'intl'
         queue.append(new_entry)
     if queue: videos_models.Queue.objects.bulk_create(queue)

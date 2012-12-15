@@ -95,7 +95,6 @@ def list_users(request):
     except EmptyPage: videos = paginator.page(paginator.num_pages)
 
     if 'export' in request.GET:
-        print request.get_full_path()
         return views_lib.export_users_list_to_xlsx(users.object_list)
 
     json_vars = {

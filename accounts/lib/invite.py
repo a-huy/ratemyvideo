@@ -9,7 +9,7 @@ from django.conf import settings
 
 import accounts.models as accounts_models
 
-# All the US states sans California and New York
+# All the US states sans California
 states_whitelist = {
     "Alabama":"AL", "Alaska":"AK", "Arizona":"AZ", "Arkansas":"AR", "Colorado":"CO",
     "Connecticut":"CT", "Deleware":"DE", "Florida":"FL", "Georgia":"GA", "Hawaii":"HI",
@@ -25,6 +25,9 @@ states_whitelist = {
 }
 
 #states_whitelist["California"] = "CA" # For dev testing purposes, since we are... located in CA
+
+def is_inside_us(loc):
+    return loc.split(', ')[-1] in (states_whitelist.keys() + ['California'])
 
 def get_user_data(args, request):
     args['client_secret'] = settings.FACEBOOK_APP_SECRET
@@ -66,9 +69,11 @@ def account_is_eligible(user):
         return (False, 'Location permission not granted')
     if 'read_stream' not in perms['data'][0]:
         return (False, 'Reading user stream permission not granted')
-    state = user['location'].split(',')[-1].strip()
-    if state not in states_whitelist:
-        return (False, 'User location not in authorized area')
+    # Comment to allow int'l requests
+#    state = user['location'].split(',')[-1].strip()
+#    if state not in states_whitelist:
+#        return (False, 'User location not in authorized area')
+    if user['location'] == 'Unknown': return (False, 'User location not in authorized area')
     seconds_in_age_limit = 60 * 60 * 24 * 180 # It's actually about 6 months
     limit = int(round(time.time() - seconds_in_age_limit))
     access_token['until'] = limit
