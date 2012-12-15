@@ -11,6 +11,7 @@ CACHES = {
         'LOCATION': os.environ['MEMCACHIER_SERVERS'],
         'TIMEOUT': 500,
         'BINARY': True,
+    }
 }
 
 DATABASES = {
