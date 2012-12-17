@@ -4,6 +4,7 @@ argparse==1.2.1
 dj-database-url==0.2.1
 django-pylibmc-sasl==0.2.4
 gdata==2.0.17
+gunicorn==0.16.1
 openpyxl==1.6.1
 psycopg2==2.4.5
 pygeoip==0.2.5
