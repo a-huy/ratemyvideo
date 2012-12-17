@@ -1,6 +1,6 @@
 import os
 
-DOMAIN = 'http://localhost:8000'
+DOMAIN = 'http://localhost:5000'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
