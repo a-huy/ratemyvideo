@@ -45,6 +45,12 @@ class Vote(base_models.Base):
     def __unicode__(self):
         return str(self.video) + ' | ' + str(self.user) + ' | ' + ('like' if self.like else 'dislike')
 
+class Comment(base_models.Base):
+    video = models.ForeignKey(Video)
+    user = models.ForeignKey(accounts_models.User)
+    text = models.CharField(max_length=settings.VIDEO_COMMENTS_MAX_LENGTH)
+    source_ip = models.IPAddressField()
+
 class Question(base_models.Base):
     text = models.CharField(max_length=settings.QUESTION_MAX_LENGTH)
     video = models.ForeignKey(Video)

@@ -12,3 +12,6 @@ urlpatterns += patterns('videos.api.video',
     (r'^video/$', 'VideoCreateApi'),
 )
 
+urlpatterns += patterns('videos.api.comment',
+    (r'^comment/$', 'CommentCreateApi'),
+)

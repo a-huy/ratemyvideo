@@ -3,6 +3,7 @@
 
 import datetime
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+from django.conf import settings
 #from django.core.cache import cache
 
 import base.api.base as base
@@ -30,7 +31,7 @@ class RatingHistoryApi(base.RestView):
         videos = videos_models.Video.objects.filter(id__in=[r.video_id for r in ratings])
 
         ratings_list = []
-        for rating in ratings:
+        for rating in ratings[:settings.DEFAULT_RATING_LIST_LIMIT]:
             video = filter(lambda x:rating.video_id == x.id, videos)[0]
             ratings_list.append({
                 'date': {
