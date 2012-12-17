@@ -1,6 +1,6 @@
 import os
 
-from global_settings import *
+from all_envs import *
 from constants import *
 
 
