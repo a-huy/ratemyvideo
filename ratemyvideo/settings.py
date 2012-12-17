@@ -27,12 +27,13 @@ CACHES = get_cache()
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
 GEOIP_PATH = os.path.join(PROJECT_PATH, 'geoip/')
-if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+if 'andy' not in map(lambda x: x.lower(), PROJECT_PATH.split(os.path.sep)):
     DOMAIN = 'http://www.ratemyvideo.co/'
 else: DOMAIN = 'http://localhost:8000/'
 
 DEBUG = True
-if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo': DEBUG = False
+if 'andy' not in map(lambda x: x.lower(), PROJECT_PATH.split(os.path.sep)):
+    DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -52,7 +53,7 @@ DATABASES = {
         'NAME': 'ratemyvideo',                      # Or path to database file if using sqlite3.
         'USER': 'andy',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': 'localhost',             # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -204,7 +205,7 @@ LOGGING = {
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+if 'andy' not in map(lambda x: x.lower(), PROJECT_PATH.split(os.path.sep)):
     EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
     EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 else:
@@ -213,7 +214,7 @@ else:
 SERVER_EMAIL = 'ratemyvideos@gmail.com'
 
 # Configure Django to use Heroku's Postgres db
-if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+if 'andy' not in map(lambda x: x.lower(), PROJECT_PATH.split(os.path.sep)):
     import dj_database_url
     DATABASES['default'] = dj_database_url.config()
 
@@ -221,7 +222,7 @@ if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
 LOGIN_URL = '/rmvadmin/login'
 
 # Facebook App Info
-if SETTINGS_PATH != '/home/andy/code/heroku/ratemyvideo/ratemyvideo':
+if 'andy' not in map(lambda x: x.lower(), PROJECT_PATH.split(os.path.sep)):
     FACEBOOK_APP_ID = '397851696951181'
     FACEBOOK_APP_SECRET = 'c4edd2b230320164c5aee64c3a10bb4d'
 else:
