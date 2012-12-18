@@ -1,6 +1,7 @@
 # File to store helper functions for views
 import tempfile
 import os
+import re
 import collections
 import datetime
 
@@ -8,6 +9,7 @@ from openpyxl.workbook import Workbook
 from openpyxl.writer.excel import ExcelWriter
 from openpyxl.cell import get_column_letter
 from django.utils.timezone import now
+from django.http import HttpResponse
 
 # Export a list of users into a .xlsx spreadsheet
 def export_users_list_to_xlsx(users):
