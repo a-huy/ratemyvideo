@@ -46,7 +46,9 @@ def list_videos(request):
     filter_rev = True if 'rev' in request.GET else False
     videos_all = videos_models.Video.active.all()
     ratings = videos_models.Rating.active.all()
-    num_per_page = int(request.GET.get('num', len(videos_all)))
+    try:
+        num_per_page = int(request.GET.get('num', len(videos_all)))
+    except ValueError: num_per_page = len(users_all)
     page = request.GET.get('page')
 
     getcontext()
@@ -78,7 +80,9 @@ def list_users(request):
     col_filter = request.GET.get('filter', 'id')
     filter_rev = True if 'rev' in request.GET else False
     users_all = accounts_models.User.active.all()
-    num_per_page = int(request.GET.get('num', len(users_all)))
+    try:
+        num_per_page = int(request.GET.get('num', len(users_all)))
+    except ValueError: num_per_page = len(users_all)
     page = request.GET.get('page')
     inv_requests = accounts_models.InviteRequest.objects.all().order_by('-created_date')
     for user in users_all:
