@@ -34,8 +34,8 @@ class UserUpdateApi(base.RestView):
         avg_po_time = user_lib.avg_payout_time(po_dates)
         tslp = user_lib.time_since_last_payout(po_dates)
         data = user.json_safe()
-        data['avg_po_time'] = '%s|%s' % (avg_po_time.days, tslp.seconds / 3600)
-        data['tslp'] = '%s|%s' % (tslp.days, tslp.seconds / 3600)
+        data['avg_po_time'] = '%s|%s' % (avg_po_time.days, tslp.seconds / 3600) if avg_po_time else 'N/A'
+        data['tslp'] = '%s|%s' % (tslp.days, tslp.seconds / 3600) if tslp else 'N/A'
         return base.APIResponse(data)
 
     def PUT(self, request, fb_id, *args, **kwargs):
