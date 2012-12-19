@@ -54,7 +54,7 @@ for user in accounts:
             if cvid.id not in pool_vid_ids: pool.insert(0, cvid)
     queue = []
     domestic = is_inside_us(user.location)
-    bonuses = '' if not domestic else 'intl'
+    bonuses = '' if domestic else 'intl'
     for video in pool[:DEFAULT_LIMIT]:
         queue.append(create_entry(user, video, curr_time, bonuses))
     if queue: vm.Queue.objects.bulk_create(queue)
