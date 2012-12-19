@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf.urls import patterns, include, url
+from django.views.defaults import server_error
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.api.urls')),

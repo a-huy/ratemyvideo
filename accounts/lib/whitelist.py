@@ -14,9 +14,9 @@ def create_queue(user):
     core_videos = filter(lambda x: x.tags.find('core') != -1, videos)
     random.shuffle(videos)
     if core_videos:
-        pool_vid_ids = [x.yt_id for x in videos[:settings.DEFAULT_VIDEO_QUEUE_LIMIT]]
+        pool_yt_ids = [x.yt_id for x in videos[:settings.DEFAULT_VIDEO_QUEUE_LIMIT]]
         for cvid in core_videos:
-            if cvid.yt_id not in pool_vid_ids: videos.insert(0, cvid)
+            if cvid.yt_id not in pool_yt_ids: videos.insert(0, cvid)
     queue = []
     for video in videos[:settings.DEFAULT_VIDEO_QUEUE_LIMIT]:
         new_entry = videos_models.Queue()

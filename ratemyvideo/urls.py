@@ -1,4 +1,5 @@
 import os
+import base.views
 
 from django.conf import settings
 from django.conf.urls import patterns, include, url
@@ -7,6 +8,8 @@ from django.http import HttpResponse
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+handler500 = base.views.custom_500
 
 urlpatterns = patterns('',
     url(r'^$', include('homepage.urls')),
