@@ -57,9 +57,11 @@ def export_users_list_to_xlsx(users):
 
 # Takes a list of datetime objects and returns a list of [date, count]
 def count_by_date(items):
+    adj_dates = []
+    for date in items: adj_dates.append(date - datetime.timedelta(hours=8)) # UTC to PST
     dates_list = []
     counts = collections.Counter([datetime.datetime(month=x.month, \
-        day=x.day, year=x.year) for x in items])
+        day=x.day, year=x.year) for x in adj_dates])
     map(lambda x: dates_list.append(['%s-%s-%s' % (x.month, x.day, x.year),
         counts[x]]), sorted(list(counts)))
     return dates_list
@@ -75,7 +77,8 @@ def count_by_state(items):
 def sum_by_date(items):
     dates_dict = { }
     for pair in items:
-        date = datetime.datetime(month=pair[0].month, day=pair[0].day, year=pair[0].year)
+        adj_date = pair[0] - datetime.timedelta(hours=8) # UTC to PST
+        date = datetime.datetime(month=adj_date.month, day=adj_date.day, year=adj_date.year)
         if date not in dates_dict: dates_dict[date] = pair[1]
         else: dates_dict[date] += pair[1]
     sums_list = []

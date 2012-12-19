@@ -17,7 +17,7 @@ import videos.models as videos_models
 import accounts.models as accounts_models
 import base.contrib
 import base.cache_keys as keys
-import accounts.lib.views as views_lib
+import rmvadmin.lib.views as views_lib
 
 @login_required
 def home(request):
