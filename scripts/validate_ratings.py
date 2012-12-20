@@ -5,7 +5,7 @@ import accounts.models as am
 import videos.models as vm
 
 users = am.User.active.all()
-videos = vm.Video.active.all()
+videos = vm.Video.objects.all()
 ratings = vm.Rating.active.all().order_by('created_date')
 vids_dict = dict(zip([v.id for v in videos], [v.duration for v in videos]))
 

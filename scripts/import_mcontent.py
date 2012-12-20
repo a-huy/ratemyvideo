@@ -9,7 +9,7 @@ usernames = ['mmasurge', 'xfitdaily', 'beingfatsuckschannel', 'watchinsidemykitc
              'watchsuperfoods', 'fooddeconstructed', 'watchwellcast', 'recipewars',
              'watchinsidecars']
 yt = gys.YouTubeService()
-vids_ids = [v.yt_id for v in vm.Video.active.all()]
+vids_ids = [v.yt_id for v in vm.Video.objects.all()]
 base_uri = 'https://gdata.youtube.com/feeds/api/users/%s/uploads?max-results=50'
 pending = []
 

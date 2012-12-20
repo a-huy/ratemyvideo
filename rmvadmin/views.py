@@ -127,7 +127,7 @@ def user_info(request, fb_id):
     except accounts_models.User.DoesNotExist:
         return redirect(list_users)
     except IndexError: user.referral = 'None'
-    videos_all = videos_models.Video.active.all()
+    videos_all = videos_models.Video.objects.all()
     queue = videos_models.Queue.active.filter(user_id=user.id)
     ratings = videos_models.Rating.active.filter(user_id=user.id).order_by('-created_date')
     votes = videos_models.Vote.active.filter(user_id=user.id)
