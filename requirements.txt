@@ -8,4 +8,6 @@ gunicorn==0.16.1
 openpyxl==1.6.1
 psycopg2==2.4.5
 pygeoip==0.2.5
+pylibmc==1.2.3
+python-memcached==1.48
 wsgiref==0.1.2
