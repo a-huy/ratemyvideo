@@ -19,7 +19,7 @@ for show in usernames:
         feed = yt.GetYouTubeVideoFeed(uri)
         if not feed.entry: break
         for entry in feed.entry:
-            yt_id = entry.id.text.split('/')[-1]
+            yt_id = entry.id.text.split('/')[-1].strip()
             if yt_id in vids_ids: continue
             fields = {
                 'yt_id': yt_id,

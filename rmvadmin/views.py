@@ -137,8 +137,6 @@ def user_info(request, fb_id):
         video = filter(lambda x: x.id == vid.video_id, videos_all)[0]
         vid.title = video.title
         vid.yt_id = video.yt_id
-        # CST to PST (this is really horrible, but it's a hotfix for the moment)
-        vid.expire_date -= datetime.timedelta(hours=2)
         vid.reward = video.reward
 
     for entry in ratings:
