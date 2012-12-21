@@ -66,20 +66,19 @@ Name (Email): Balance
 This is an automatically generated email sent every day.
 '''
 
-# real_name, balance
+# real_name
 MISSING_PAYPAL_EMAIL = '''
 Hey %s,
 
-With a balance of $%s, you are eligible for a PAYOUT!
+You've made it to your first payout from Rate My Video! Congratulations!
 
-However, it seems that we do not have your PayPal email.
-Before we can give you your money, please email us with your PayPal email at:
+We need your PayPal email address to send you your earnings. Can you please reply to this email with your PayPal account email address and the name that appears on your Facebook profile?
 
-paypal@ratemyvideo.co
+If you prefer, you can also send an email to paypal@ratemyvideo.co with this info.
 
-Once you do that, we will make the transaction as soon as possible.
+Once you do this, we will send your earnings as soon as possible. 
 
-Happy rating!
+Thanks and Happy Rating!
 The Rate My Video Team
 '''
 

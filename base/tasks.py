@@ -5,13 +5,13 @@ from django.conf import settings
 
 # Send an email with a specified template
 @task()
-def send_email(template_name, recipient, email_args):
+def send_email(template_name, recipient, email_args, sender=settings.SERVER_EMAIL):
     if template_name not in emails.email_types:
         raise LookupError('Email template type not supported')
     template = emails.email_types[template_name]['template']
     try:
         send_mail(emails.email_types[template_name]['subject'],
-                       template % tuple(email_args), settings.SERVER_EMAIL, [recipient])
+                       template % tuple(email_args), sender, [recipient])
     except TypeError:
         raise TypeError('One or more email arguments are invalid')
     except BadHeaderError:
