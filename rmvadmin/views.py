@@ -113,7 +113,7 @@ def list_users(request):
         'rev': filter_rev,
         'num': num_per_page,
         'total_active': len(filter(lambda x: x.rated > 0, users_all)),
-        'total_payout': len(filter(lambda x: x.balance > 10, users_all)),
+        'total_payout': len(filter(lambda x: x.balance >= 10, users_all)),
         'total_users': len(users_all)
     }
     return render_to_response('list_users.html', context_vars,
@@ -177,9 +177,11 @@ def edit_user(request, fb_id):
 def payout(request, fb_id):
     try:
         user = accounts_models.User.active.get(fb_id=fb_id)
+        payouts = accounts_models.Payout.active.filter(user=user).order_by('-created_date')
     except accounts_models.User.DoesNotExist: return redirect(list_users)
     context_vars = {
         'user': user,
+        'payouts': payouts,
         'json_vars': { 'fb_id': str(user.fb_id) }
     }
     return render_to_response('payout.html', context_vars,

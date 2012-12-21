@@ -1,4 +1,6 @@
 import os
+import sys
+import djcelery
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -65,6 +67,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
+    'kombu.transport.django',
+    'djcelery',
+    'ratemyvideo',
     'base',
     'accounts',
     'videos',
@@ -96,6 +101,10 @@ LOGGING = {
     }
 }
 
+# Celery
+BROKER_BACKEND = 'django'
+djcelery.setup_loader()
+
 # Email settings
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
@@ -106,3 +115,9 @@ LOGIN_URL = '/rmvadmin/login'
 
 # Facebook app info
 FACEBOOK_SCOPE = 'email,user_birthday,user_location,read_stream'
+
+# Paypal
+TEST_PAYPAL_USER = 'dev_1356037078_biz_api1.ratemyvideo.co'
+TEST_PAYPAL_PASS = '1356037100'
+TEST_PAYPAL_SIGNATURE = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AmvJjdB608f29vuqflOhtj9lYGLO'
+PAYPAL_API_VERSION = '95.0'

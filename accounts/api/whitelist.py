@@ -8,7 +8,7 @@ import base.api.base as base
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
 import accounts.lib.whitelist as whitelist_lib
-from base.contrib import send_email
+from base.tasks import send_email
 
 
 class WhiteListCreateApi(base.RestView):
@@ -48,6 +48,6 @@ class WhiteListCreateApi(base.RestView):
         new_entry = accounts_models.UserWhitelist(**fields)
         new_entry.save()
 
-        send_email('welcome_user', new_user.email, [new_user.real_name, settings.DOMAIN, new_user.email])
+        send_email.delay('welcome_user', new_user.email, [new_user.real_name, settings.DOMAIN, new_user.email])
 
         return HttpResponse('The whitelist has been updated!')

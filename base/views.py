@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
     HttpResponse
 from django.template import RequestContext
 
-def download_extension(request):
-    return redirect('/content/assets/static/files/ratemyvideo.crx')
+# def download_extension(request):
+#     return redirect('/content/assets/static/files/ratemyvideo.crx')
 
 # Custom HttpResponse Page
 def message_response(request, code, msg):

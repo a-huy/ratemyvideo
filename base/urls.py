@@ -7,7 +7,6 @@ urlpatterns = patterns('',
     url(r'^videos/', include('videos.api.urls')),
 )
 
-urlpatterns += patterns('base.views',
-    url(r'^get/$', 'download_extension', name='download_extension'),
-)
-
+# urlpatterns += patterns('base.views',
+#     url(r'^get/$', 'download_extension', name='download_extension'),
+# )

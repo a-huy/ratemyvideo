@@ -26,6 +26,26 @@
 <div id="notify-bar">
     <div class="notify"></div>
 </div>
+<br />
+<div id="payout-history">
+    <div class="table-title">Payout History</div>
+    {% if payouts %}
+    <table id="payout-table">
+        <tr class="labels">
+            <td>&nbsp;</td>
+            <td>Amount</td>
+            <td>Date</td>
+        </tr>
+        {% for po in payouts %}
+        <tr class="po-entry {% cycle 'even' 'odd' %}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ po.amount }}</td>
+            <td>{{ po.created_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}<div class="empty">No payouts have been made to this user!</div>{% endif %}
+</div>
 {% endblock body %}
 
 {% block styles %}

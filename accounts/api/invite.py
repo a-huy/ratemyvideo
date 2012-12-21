@@ -5,7 +5,7 @@ import urllib
 import json
 
 import base.api.base as base
-from base.contrib import backend_email, send_email
+from base.tasks import backend_email, send_email
 from base.views import message_response
 import accounts.models as accounts_models
 import accounts.forms as accounts_forms
@@ -48,8 +48,8 @@ class InviteApi(base.RestView):
         invite_lib.create_request(user)
         email_args = [user['fb_id'], user['real_name'], user['email'], user['location'],
             user['age'], user['gender'], user['reason'], user['fb_id'], settings.DOMAIN]
-        send_email('confirm_invite', user['email'], [user['real_name']])
-        backend_email('new_invite_request', 'managers', email_args)
+        send_email.delay('confirm_invite', user['email'], [user['real_name']])
+        backend_email.delay('new_invite_request', 'managers', email_args)
         return message_response(request, 200, 'Request received. Thank you for your interest in Rate My Video!')
 
     def DELETE(self, request, *args, **kwargs):

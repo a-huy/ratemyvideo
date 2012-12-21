@@ -66,6 +66,23 @@ Name (Email): Balance
 This is an automatically generated email sent every day.
 '''
 
+# real_name, balance
+MISSING_PAYPAL_EMAIL = '''
+Hey %s,
+
+With a balance of $%s, you are eligible for a PAYOUT!
+
+However, it seems that we do not have your PayPal email.
+Before we can give you your money, please email us with your PayPal email at:
+
+paypal@ratemyvideo.co
+
+Once you do that, we will make the transaction as soon as possible.
+
+Happy rating!
+The Rate My Video Team
+'''
+
 # This dict maps the type strings to their metadata and template
 email_types = {
     'new_invite_request': {
@@ -84,4 +101,8 @@ email_types = {
         'template': PAYOUT_ELIGIBLE,
         'subject': datetime.datetime.today().strftime('%d-%m-%y') + ' | Daily User Balance Check'
     },
+    'missing_paypal_email': {
+        'template': MISSING_PAYPAL_EMAIL,
+        'subject': 'Rate My Video - Payout Reached!'
+    }
 }
