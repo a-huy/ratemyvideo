@@ -4,6 +4,7 @@ import os
 import re
 import collections
 import datetime
+import csv
 
 from openpyxl.workbook import Workbook
 from openpyxl.writer.excel import ExcelWriter
@@ -14,7 +15,7 @@ from django.http import HttpResponse
 # Export a list of users into a .xlsx spreadsheet
 def export_users_list_to_xlsx(users):
     workbook = Workbook()
-    out_file = r'users-list-' + str(now())
+    out_file = 'users-list-' + str(now())
     ws = workbook.worksheets[0]
     ws.title = 'Users List'
 
@@ -53,6 +54,17 @@ def export_users_list_to_xlsx(users):
     fh.close()
     response = HttpResponse(resp, mimetype='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename="%s.xlsx"' % out_file
+    return response
+
+def export_masspay_csv(users):
+    out_file = 'masspay-%s' % str(now())
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % out_file
+
+    writer = csv.writer(response)
+    for user in users:
+        if not user.pp_email: continue
+        writer.writerow([user.pp_email, user.balance, 'USD', 'rmv-%s' % (user.fb_id), 'Rate My Video Payout'])
     return response
 
 # Takes a list of datetime objects and returns a list of [date, count]

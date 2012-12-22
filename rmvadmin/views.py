@@ -270,3 +270,7 @@ def site_stats(request):
     return render_to_response('site_stats.html', context_vars,
         context_instance=RequestContext(request))
 
+@login_required
+def masspay_csv(request):
+    po_users = accounts_models.User.active.filter(balance__gte=10)
+    return views_lib.export_masspay_csv(po_users)
