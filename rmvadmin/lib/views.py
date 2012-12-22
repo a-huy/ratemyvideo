@@ -64,7 +64,7 @@ def export_masspay_csv(users):
     writer = csv.writer(response)
     for user in users:
         if not user.pp_email: continue
-        writer.writerow([user.pp_email, float(user.balance) + 0.30, 'USD', 'rmv-%s' % (user.fb_id), 'Rate My Video Payout'])
+        writer.writerow([user.pp_email, user.balance, 'USD', 'rmv-%s' % (user.fb_id), 'Rate My Video Payout'])
     return response
 
 # Takes a list of datetime objects and returns a list of [date, count]
