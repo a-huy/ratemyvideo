@@ -29,7 +29,10 @@
         {% endif %}
     </span>
 </div>
-<div id="legend">&#x2713; = User is verified</div>
+<div id="legend">
+    P = User has a PayPal email<br />
+    V = User is verified
+</div>
 <table id="users-table">
     <tr class="labels">
         <td>&nbsp;</td>
@@ -47,7 +50,8 @@
         <td>
             <a href="{% url list_users %}?filter=tslr{% if not rev %}&rev{% endif %}&num={{ num }}">Last Rating</a>
         </td>
-        <td>&nbsp;</td>
+        <td>P</td>
+        <td>V</td>
     </tr>
     {% for user in users %}
     <tr class="user-info {% cycle 'even' 'odd' %}">
@@ -69,6 +73,7 @@
                 {{ user.tslr.seconds|div:3600 }}h
             {% endif %}
         </td>
+        <td>{% if user.pp_email %}&#x2713;{% endif %}</td>
         <td>{% if user.verified %}&#x2713;{% endif %}</td>
     </tr>
     {% endfor %}
