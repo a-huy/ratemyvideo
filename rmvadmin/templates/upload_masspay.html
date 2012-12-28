@@ -1,0 +1,57 @@
+{% extends "page_base.html" %}
+
+{% block head %}
+    {{ block.super }}
+    <title>Rate My Video - Upload MassPay CSV File</title>
+{% endblock head %}
+
+{% block body %}
+<form action="{% url mass_payout %}" method="post" enctype="multipart/form-data">
+    <p>{{ form.non_field_errors }}</p>
+    <p>{{ form.csvfile.label_tag }}</p>
+    <p>
+        {{ form.csvfile.errors }}
+        {{ form.csvfile }}
+   </p>
+   <p><input type="submit" value="Upload" /></p>
+</form>
+<br />
+{% if po_users %}
+<div id="pending-payouts">
+    <a id="commit-button" class="button">Commit Payouts</a><br /><br />
+    <div class="notify"></div>
+    <div class="table-title">Pending Payouts</div>
+    <table id="pending-table">
+        <tr class="labels">
+            <td>&nbsp;</td>
+            <td>Name</td>
+            <td>Facebook ID</td>
+            <td>PayPal Email</td>
+            <td>Amount</td>
+        </tr>
+        {% for po in po_users %}
+            <tr class="po-entry {% cycle 'even' 'odd' %}">
+                <td>{{ forloop.counter }}</td>
+                <td class="po-name">{{ po.real_name }}</td>
+                <td class="po-fb-id">{{ po.fb_id }}</td>
+                <td class="po-pp-email">{{ po.pp_email }}</td>
+                <td class="po-amount">{{ po.amount }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% endblock body %}
+
+{% block styles %}
+    {{ block.super }}
+    <link type="text/css" rel="stylesheet"
+        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+        <link type="text/css" rel="stylesheet"
+            href="{{ MEDIA_URL }}styles/rmvadmin/upload_masspay.css" />
+{% endblock styles %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ MEDIA_URL }}scripts/rmvadmin/upload_masspay.js"></script>
+{% endblock scripts %}

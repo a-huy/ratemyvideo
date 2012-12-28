@@ -18,6 +18,7 @@ a.button:hover { color: #ea9600; }
     padding: 9px 10px 5px 10px;
 }
 
+.table-title { text-align: center; font-size: 30px; font-family: museo-slab; }
 .labels { font-weight: bold; background-color: #606060; padding: 2px 6px 2px 6px; color: #ea9600;}
 
 .center { text-align: center; }

@@ -18,6 +18,7 @@ import accounts.models as accounts_models
 import base.contrib
 import base.cache_keys as keys
 import rmvadmin.lib.views as views_lib
+from rmvadmin.forms import CSVForm
 
 @login_required
 def home(request):
@@ -274,3 +275,27 @@ def site_stats(request):
 def masspay_csv(request):
     po_users = accounts_models.User.active.filter(balance__gte=10)
     return views_lib.export_masspay_csv(po_users)
+
+@login_required
+def mass_payout(request):
+    po_dict = None
+    users = []
+    error_msgs = []
+    if request.method == 'POST':
+        form = CSVForm(request.POST, request.FILES)
+        if form.is_valid():
+            po_dict = views_lib.process_csv(request.FILES['csvfile'])
+    else: form = CSVForm()
+    if po_dict:
+        users = accounts_models.User.active.filter(pp_email__in=po_dict.keys())
+        for user in users:
+            try: user.amount = po_dict[user.pp_email]
+            except KeyError:
+                error_msgs.append('There was an error processing payout information for %s' % user.real_name)
+    context_vars = {
+        'form': form,
+        'po_users': users,
+        'error_msgs': error_msgs
+    }
+    return render_to_response('upload_masspay.html', context_vars,
+        context_instance=RequestContext(request))

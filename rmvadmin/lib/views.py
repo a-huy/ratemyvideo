@@ -97,3 +97,17 @@ def sum_by_date(items):
     map(lambda x: sums_list.append(['%s-%s-%s' % (x.month, x.day, x.year),
         float(dates_dict[x])]), sorted(dates_dict.keys()))
     return sums_list
+
+# processes a user-uploaded mass payout csv file
+def process_csv(in_file):
+    po_dict = {}
+    curr_line = ''
+    for char in in_file.read():
+        if char == '\r': continue
+        elif char == '\n':
+            parts = curr_line.split(',')
+            po_dict[parts[0]] = parts[1]
+            curr_line = ''
+        else: curr_line += char
+
+    return po_dict if po_dict else None
