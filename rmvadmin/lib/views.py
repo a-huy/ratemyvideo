@@ -106,7 +106,7 @@ def process_csv(in_file):
         if char == '\r': continue
         elif char == '\n':
             parts = curr_line.split(',')
-            po_dict[parts[0]] = parts[1]
+            po_dict[parts[3][4:]] = parts[1]
             curr_line = ''
         else: curr_line += char
 

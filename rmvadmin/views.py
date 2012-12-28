@@ -287,9 +287,9 @@ def mass_payout(request):
             po_dict = views_lib.process_csv(request.FILES['csvfile'])
     else: form = CSVForm()
     if po_dict:
-        users = accounts_models.User.active.filter(pp_email__in=po_dict.keys())
+        users = accounts_models.User.active.filter(fb_id__in=po_dict.keys())
         for user in users:
-            try: user.po_amount = po_dict[user.pp_email]
+            try: user.po_amount = po_dict[user.fb_id]
             except KeyError:
                 error_msgs.append('There was an error processing payout information for %s' % user.real_name)
                 user.po_amount = 0
