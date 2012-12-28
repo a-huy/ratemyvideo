@@ -289,9 +289,10 @@ def mass_payout(request):
     if po_dict:
         users = accounts_models.User.active.filter(pp_email__in=po_dict.keys())
         for user in users:
-            try: user.amount = po_dict[user.pp_email]
+            try: user.po_amount = po_dict[user.pp_email]
             except KeyError:
                 error_msgs.append('There was an error processing payout information for %s' % user.real_name)
+                user.po_amount = 0
     context_vars = {
         'form': form,
         'po_users': users,
