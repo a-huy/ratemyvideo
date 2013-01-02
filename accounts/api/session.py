@@ -14,6 +14,7 @@ class SessionApi(base.RestView):
     def DELETE(self, request, *args, **kwargs):
         if 'fb_id' in request.session:
             del request.session['fb_id']
+        request.session.flush()
 
         return HttpResponse()
 
