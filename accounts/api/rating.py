@@ -27,11 +27,12 @@ class RatingHistoryApi(base.RestView):
 #        history_key = keys.ACC_USER_HISTORY % user.fb_id
 #        ratings_list = cache.get(history_key)
 #        if not ratings_list:
-        ratings = videos_models.Rating.objects.filter(user_id=user.id).order_by('-created_date')
+        ratings = videos_models.Rating.objects.filter(user_id=user.id)
+        ratings = ratings.order_by('-created_date')[:settings.DEFAULT_RATING_LIST_LIMIT]
         videos = videos_models.Video.objects.filter(id__in=[r.video_id for r in ratings])
 
         ratings_list = []
-        for rating in ratings[:settings.DEFAULT_RATING_LIST_LIMIT]:
+        for rating in ratings:
             video = filter(lambda x:rating.video_id == x.id, videos)[0]
             ratings_list.append({
                 'date': {
