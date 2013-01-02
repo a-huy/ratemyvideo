@@ -36,6 +36,7 @@ curr_queue = vm.Queue.active.all()
 # Create the queue from a pool of unrated videos
 for user in accounts:
     cache.delete(keys.ACC_USER_QUEUE % user.fb_id)
+    USER_LIMIT = 30 if user.verified else DEFAULT_LIMIT
     verified_vids = vm.Video.active.filter(tags__contains='verified') if user.verified else []
     ratings_vid_ids = [y.video_id for y in filter(lambda x: x.user_id==user.id, ratings)]
     ratings_vid_ids += [q.video_id for q in filter(lambda x: x.user_id==user.id, curr_queue)]
@@ -44,18 +45,18 @@ for user in accounts:
     if verified_vids:
         verified_pool = filter(lambda x: x.id not in ratings_vid_ids, verified_vids)
         random.shuffle(verified_pool)
-        index = min(len(verified_pool), DEFAULT_LIMIT/2)
-        pool = verified_pool[:index] + pool[:DEFAULT_LIMIT-index]
+        index = min(len(verified_pool), USER_LIMIT/2)
+        pool = verified_pool[:index] + pool[:USER_LIMIT-index]
         random.shuffle(pool)
     if core_vids:
         core_pool = filter(lambda x: x.id not in ratings_vid_ids, core_vids)
-        pool_vid_ids = [v.id for v in pool[:DEFAULT_LIMIT]]
+        pool_vid_ids = [v.id for v in pool[:USER_LIMIT]]
         for cvid in core_pool:
             if cvid.id not in pool_vid_ids: pool.insert(0, cvid)
     queue = []
     domestic = is_inside_us(user.location)
     bonuses = '' if domestic else 'intl'
-    for video in pool[:DEFAULT_LIMIT]:
+    for video in pool[:USER_LIMIT]:
         queue.append(create_entry(user, video, curr_time, bonuses))
     if queue: vm.Queue.objects.bulk_create(queue)
 
