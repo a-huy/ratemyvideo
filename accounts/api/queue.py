@@ -26,8 +26,7 @@ class QueueApi(base.RestView):
 #        vids = cache.get(queue_key)
 #        if not vids:
         entries = videos_models.Queue.objects.filter(user_id=uid)
-        vid_ids = [v.video_id for v in entries]
-        videos = videos_models.Video.active.filter(id__in=vid_ids)
+        videos = [entry.video for entry in entries]
 
         vids = []
         for vid in videos:

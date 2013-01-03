@@ -20,7 +20,7 @@ class RatingHistoryApi(base.RestView):
         if not whitelisted(fb_id):
             return HttpResponseForbidden('User has not been authenticated')
         try:
-            user = accounts_models.User.objects.get(fb_id=fb_id)
+            user = accounts_models.User.active.get(fb_id=fb_id)
         except accounts_models.User.DoesNotExist:
             return HttpResponseBadRequest('Invalid FB ID')
 
@@ -29,7 +29,7 @@ class RatingHistoryApi(base.RestView):
 #        if not ratings_list:
         ratings = videos_models.Rating.objects.filter(user_id=user.id)
         ratings = ratings.order_by('-created_date')[:settings.DEFAULT_RATING_LIST_LIMIT]
-        videos = videos_models.Video.objects.filter(id__in=[r.video_id for r in ratings])
+        videos = [rating.video for rating in ratings]
 
         ratings_list = []
         for rating in ratings:
