@@ -10,3 +10,5 @@ RMV_RATING_SUMS = 'rmvadmin:stats:sums:%s' # mm-dd-yyyy
 RMV_USER_DATES = 'rmvadmin:stats:users:%s' # mm-dd-yyyy
 RMV_USER_STATES = 'rmvadmin:stats:states:%s' # mm-dd-yyyy
 
+# Pagecache
+PAGECACHE = 'ratemyvideo:pagecache:%s' # page tag / name
