@@ -13,20 +13,21 @@ window.fbAsyncInit = function() {
         xfbml      : true  // parse XFBML
     });
 
-    FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-            // connected
-            testAPI();
-            login();
-        } else if (response.status === 'not_authorized') {
-            // not_authorized
-            login();
-        } else {
-            // not_logged_in
-            login();
-        }
-    });
-
+    login();
+    // FB.getLoginStatus(function(response) {
+    //         login();
+    //         // if (response.status === 'connected') {
+    //         //             // connected
+    //         //             testAPI();
+    //         //             login();
+    //         //         } else if (response.status === 'not_authorized') {
+    //         //             // not_authorized
+    //         //             login();
+    //         //         } else {
+    //         //             // not_logged_in
+    //         //             login();
+    //         //         }
+    //     });
 };
 
 // Load the SDK Asynchronously
@@ -43,7 +44,7 @@ function login() {
         if (response.authResponse) {
             // connected
             getUser();
-            testAPI();
+            responseAPI();
         } else {
             // cancelled
             onFBLoginCancel();
@@ -73,7 +74,7 @@ function getUser()
     });
 }
 
-function testAPI() {
+function responseAPI() {
     FB.api('/me', function(response) {
         var status = document.getElementById('login_status');
         status.innerText = 'Good to see you, ' + response.name + '!';

@@ -40,7 +40,6 @@ class QueueApi(base.RestView):
 
         data = {
             'vids': vids,
-            'host': request.get_host()
         }
 
         return base.APIResponse(data)
