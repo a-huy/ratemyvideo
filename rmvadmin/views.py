@@ -17,6 +17,7 @@ import videos.models as videos_models
 import accounts.models as accounts_models
 import base.contrib
 import base.cache_keys as keys
+from base.decorators import pagecache
 import rmvadmin.lib.views as views_lib
 from rmvadmin.forms import CSVForm
 
@@ -162,6 +163,7 @@ def user_info(request, fb_id):
     return render_to_response('user_info.html', context_vars,
         context_instance=RequestContext(request))
 
+@pagecache('rmvadmin:edit:user:%s')
 @login_required
 def edit_user(request, fb_id):
     try:
@@ -174,6 +176,7 @@ def edit_user(request, fb_id):
     return render_to_response('edit_user.html', context_vars,
         context_instance=RequestContext(request))
 
+@pagecache('rmvadmin:payout:%s')
 @login_required
 def payout(request, fb_id):
     try:

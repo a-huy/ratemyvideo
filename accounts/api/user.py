@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadReque
 from django.shortcuts import redirect
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.cache import cache
 from django.utils.timezone import now
 from django.db.models import Max
 
@@ -13,6 +14,7 @@ import accounts.models as accounts_models
 import accounts.forms as accounts_forms
 import accounts.lib.invite as invite_lib
 import accounts.lib.user as user_lib
+import base.cache_keys as cache_keys
 from base.contrib import whitelisted
 
 class UserUpdateApi(base.RestView):
@@ -62,8 +64,8 @@ class UserUpdateApi(base.RestView):
                 return HttpResponseBadRequest('The Paypal email you have submitted ' + \
                     'is not a valid email')
         user.save()
+        cache.delete(cache_keys.PAGECACHE % ('rmvadmin:edit:user:%s' % user.fb_id))
         return base.APIResponse({ })
-
 
     def DELETE(self, request, fb_id, *args, **kwargs):
         del request.session['fb_id']

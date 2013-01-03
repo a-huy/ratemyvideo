@@ -1,8 +1,10 @@
 from decimal import *
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.shortcuts import redirect
+from django.core.cache import cache
 
 import base.api.base as base
+import base.cache_keys as cache_keys
 
 import accounts.models as accounts_models
 
@@ -37,5 +39,6 @@ class PayoutCreateApi(base.RestView):
         }
         payout = accounts_models.Payout(**args)
         payout.save()
+        cache.delete(cache_keys.PAGECACHE % ('rmvadmin:edit:user:%s' % user.fb_id))
 
         return HttpResponse('Payout has been successfully submitted!')
