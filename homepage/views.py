@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
 from django.template import RequestContext
 from base.decorators import pagecache
 
+@pagecache('homepage')
 def homepage(request):
     context_vars = {
         'json_vars': {
