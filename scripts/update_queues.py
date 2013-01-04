@@ -44,9 +44,10 @@ for user in accounts:
     random.shuffle(pool)
     if verified_vids:
         verified_pool = filter(lambda x: x.id not in ratings_vid_ids, verified_vids)
-        random.shuffle(verified_pool)
-        index = min(len(verified_pool), USER_LIMIT/2)
-        pool = verified_pool[:index] + pool[:USER_LIMIT-index]
+        pool += verified_pool
+        # random.shuffle(verified_pool)
+        #         index = min(len(verified_pool), USER_LIMIT/2)
+        #         pool = verified_pool[:index] + pool[:USER_LIMIT-index]
         random.shuffle(pool)
     if core_vids:
         core_pool = filter(lambda x: x.id not in ratings_vid_ids, core_vids)
