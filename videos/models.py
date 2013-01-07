@@ -61,3 +61,7 @@ class Queue(base_models.Base):
     video = models.ForeignKey(Video)
     bonuses = models.CharField(max_length=settings.VIDEO_BONUSES_MAX_LENGTH)
     expire_date = models.DateTimeField(default=django.utils.timezone.now)
+
+    def __unicode__(self):
+        return str(self.video) + ' | ' + str(self.user) + ' | (' + str(self.expire_date) + ') : ' + \
+            (self.bonuses if self.bonuses else 'none')

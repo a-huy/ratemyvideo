@@ -1,6 +1,8 @@
 import os
 import sys
 import djcelery
+import datetime
+from celery.schedules import crontab
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -104,6 +106,22 @@ LOGGING = {
 # Celery
 BROKER_BACKEND = 'django'
 djcelery.setup_loader()
+
+CELERYBEAT_SCHEDULE = {
+    'check-user-balances': {
+        'task': 'base.tasks.check_user_balances',
+        'schedule': crontab(hour=16, minute=0)
+    },
+    'invalidate-charts': {
+        'task': 'base.tasks.invalidate_charts',
+        'schedule': crontab(hour=16, minute=30)
+    },
+    # 'update-queues': {
+    #     'task': 'base.tasks.update_queues',
+    #     'schedule': crontab(hour=8, minute=0)
+    # }
+}
+CELERY_TIMEZONE = 'UTC'
 
 # Email settings
 EMAIL_HOST = 'smtp.sendgrid.net'

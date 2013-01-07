@@ -1,7 +1,6 @@
 import utils.djangoenv
 import random
 import datetime
-import itertools
 
 from django.conf import settings
 from django.utils.timezone import now
