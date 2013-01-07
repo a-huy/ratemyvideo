@@ -17,3 +17,16 @@ def homepage(request):
     return render_to_response('homepage.html', context_vars,
         context_instance=RequestContext(request))
 
+@pagecache('privacy-policy')
+def privacy_policy(request):
+    context_vars = {
+    }
+    return render_to_response('privacy_policy.html', context_vars,
+        context_instance=RequestContext(request))
+
+@pagecache('terms-of-service')
+def terms_of_service(request):
+    context_vars = {
+    }
+    return render_to_response('terms_of_service.html', context_vars,
+        context_instance=RequestContext(request))
