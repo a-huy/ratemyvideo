@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style type="text/css">
+            html
+            {
+                background: url({{ STATIC_URL }}images/background2.png) repeat black;
+            }
+            @font-face
+            {
+                font-family: museo-sans;
+                src: url({{ STATIC_URL }}fonts/museo_sans_500.ttf),
+                     url({{ STATIC_URL }}fonts/museo_sans_500.eot),
+                     url({{ STATIC_URL }}fonts/museo_sans_500.woff);
+            }
+
+            @font-face
+            {
+                font-family: museo-slab;
+                src: url({{ STATIC_URL }}fonts/museo_slab_500.ttf),
+                     url({{ STATIC_URL }}fonts/museo_slab_500.eot),
+                     url({{ STATIC_URL }}fonts/museo_slab_500.woff);
+            }
+        </style>
     {% block head %}
         <script type="text/javascript">
             {% if json_vars %}

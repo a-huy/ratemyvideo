@@ -1,6 +1,5 @@
 html
 {
-    background: url(/content/static/images/background2.png) repeat black;
     height: 100%;
     color: #fff;
     font-family: museo-sans;
@@ -30,21 +29,6 @@ html
 .success { background: #6FA800; color: #fff; }
 
 /* Fonts */
-@font-face
-{
-    font-family: museo-sans;
-    src: url(/content/static/fonts/museo_sans_500.ttf),
-         url(/content/static/fonts/museo_sans_500.eot),
-         url(/content/static/fonts/museo_sans_500.woff);
-}
-
-@font-face
-{
-    font-family: museo-slab;
-    src: url(/content/static/fonts/museo_slab_500.ttf),
-         url(/content/static/fonts/museo_slab_500.eot),
-         url(/content/static/fonts/museo_slab_500.woff);
-}
 .museo-sans { font-family: museo-sans; }
 .museo-slab { font-family: museo-slab; }
 
