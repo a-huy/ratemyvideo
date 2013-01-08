@@ -46,12 +46,12 @@
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
-        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/rmvbase.css" />
         <link type="text/css" rel="stylesheet"
-            href="{{ MEDIA_URL }}styles/rmvadmin/upload_masspay.css" />
+            href="{{ STATIC_URL }}styles/rmvadmin/upload_masspay.css" />
 {% endblock styles %}
 
 {% block scripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{{ MEDIA_URL }}scripts/rmvadmin/upload_masspay.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/rmvadmin/upload_masspay.js"></script>
 {% endblock scripts %}

@@ -6,13 +6,13 @@
 
 {% block body %}
 <div id="fb-root"></div>
-<script src="{{ MEDIA_URL }}scripts/accounts/fb.js"></script>
+<script src="{{ STATIC_URL }}scripts/accounts/fb.js"></script>
 <div id="login_status">
 {% if status == "out" %}
     If you are logged into Facebook, Rate My Video will log you in automatically...<br />
 <br />
     Taking too long? Click the button below to log into Rate My Video!<br />
-    <a href="#" onclick="onLoginButton();"><img id="invite-submit-button" src=" {{ MEDIA_URL }}static/images/facebook_button.png" /></a>
+    <a href="#" onclick="onLoginButton();"><img id="invite-submit-button" src=" {{ STATIC_URL }}images/facebook_button.png" /></a>
 {% elif status == "user_denied" %}
     You must login and approve the requested permissions before using Rate My Video.
     <br /><br />

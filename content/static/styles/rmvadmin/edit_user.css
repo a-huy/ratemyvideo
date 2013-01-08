@@ -1,0 +1,12 @@
+td { padding: 0 10px 0 10px; width: 300px; }
+
+.clear { width: 0px; background-color: transparent; }
+.left { float: left; }
+.right { float: right; }
+.field-col { text-align: right; }
+.val-col { text-align: left; }
+.edited { background-color: #ff1d1d; }
+.button { cursor: pointer; }
+
+#edit-warning { color: #ff1d1d; }
+#edit-success { color: #6fa800; }

@@ -51,12 +51,12 @@
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
-        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/rmvbase.css" />
     <link type="text/css" rel="stylesheet"
-        href="{{ MEDIA_URL }}styles/rmvadmin/payout.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/payout.css" />
 {% endblock styles %}
 
 {% block scripts %}
     {{ block.super }}
-    <script type="text/javascript" src="{{ MEDIA_URL }}scripts/rmvadmin/payout.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/rmvadmin/payout.js"></script>
 {% endblock scripts %}

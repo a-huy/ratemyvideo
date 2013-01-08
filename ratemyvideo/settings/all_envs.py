@@ -7,8 +7,8 @@ from celery.schedules import crontab
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 SETTINGS_PATH = os.path.abspath(os.path.dirname(__file__))
 GEOIP_PATH = os.path.join(PROJECT_PATH, 'geoip/')
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'content/assets/')
-MEDIA_URL = '/content/assets/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'content/media/')
+MEDIA_URL = '/content/media/'
 
 ADMINS = (
     ('Dev', 'dev@ratemyvideo.co'),
@@ -28,9 +28,9 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_PATH, '/static/')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ()
+STATICFILES_DIRS = (os.path.join(PROJECT_PATH, 'content/static/'),)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -44,6 +44,7 @@ TEMPLATE_LOADERS = (
 )
 TEMPLATE_CONTEXT_PROCESSORS = {
     'django.core.context_processors.media',
+    'django.core.context_processors.static',
     'django.core.context_processors.csrf',
     'django.contrib.auth.context_processors.auth',
 }
@@ -78,6 +79,7 @@ INSTALLED_APPS = (
     'homepage',
     'rmvadmin',
     'south',
+    'storages',
 )
 LOGGING = {
     'version': 1,

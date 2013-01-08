@@ -98,12 +98,12 @@
 {% block styles %}
     {{ block.super }}
     <link type="text/css" rel="stylesheet"
-        href="{{ MEDIA_URL }}styles/rmvadmin/list_users.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/list_users.css" />
     <link type="text/css" rel="stylesheet"
-        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/rmvbase.css" />
 {% endblock styles %}
 
 {% block scripts %}
     {{ block.super }}
-    <script src="{{ MEDIA_URL }}scripts/rmvadmin/list_users.js"></script>
+    <script src="{{ STATIC_URL }}scripts/rmvadmin/list_users.js"></script>
 {% endblock scripts %}

@@ -2,7 +2,7 @@
 
 {% block head %}
     {{ block.super }}
-    <script src="{{ MEDIA_URL }}scripts/rmvadmin/invites.js"></script>
+    <script src="{{ STATIC_URL }}scripts/rmvadmin/invites.js"></script>
     <title>Rate My Video - Invite Requests</title>
 {% endblock head %}
 
@@ -57,9 +57,9 @@
 
 {% block styles %}
     <link type="text/css" rel="stylesheet" 
-        href="{{ MEDIA_URL }}styles/rmvadmin/rmvbase.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/rmvbase.css" />
     <link type="text/css" rel="stylesheet" 
-        href="{{ MEDIA_URL }}styles/rmvadmin/invites.css" />
+        href="{{ STATIC_URL }}styles/rmvadmin/invites.css" />
     {{ block.super }}
 {% endblock styles %}
 

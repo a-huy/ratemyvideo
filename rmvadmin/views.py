@@ -91,8 +91,6 @@ def list_users(request):
         invites = filter(lambda x: x.fb_id == user.fb_id, inv_requests)
         user.referral = invites[0].reason if invites else 'None'
         user.tslr = base.contrib.time_since_last_rating(user.pk)
-        # CST to PST (this is really horrible, but it's a hotfix for the moment)
-        user.created_date -= datetime.timedelta(hours=2)
     users_all = sorted(users_all, key=lambda x: getattr(x, col_filter), reverse=filter_rev)
     paginator = Paginator(users_all, num_per_page)
     try:
