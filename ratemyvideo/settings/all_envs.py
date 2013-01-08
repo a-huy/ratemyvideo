@@ -117,10 +117,10 @@ CELERYBEAT_SCHEDULE = {
         'task': 'base.tasks.invalidate_charts',
         'schedule': crontab(hour=16, minute=30)
     },
-    # 'update-queues': {
-    #     'task': 'base.tasks.update_queues',
-    #     'schedule': crontab(hour=8, minute=0)
-    # }
+    'update-queues': {
+        'task': 'base.tasks.update_queues',
+        'schedule': crontab(hour=8, minute=0)
+    },
 }
 CELERY_TIMEZONE = 'UTC'
 
