@@ -22,6 +22,8 @@ DATABASES = {
     }
 }
 
+STATIC_URL = '/content/static/'
+
 # Sendgrid credentials
 EMAIL_HOST_USER = 'app8527592@heroku.com'
 EMAIL_HOST_PASSWORD = '9ywnpddt'
