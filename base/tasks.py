@@ -55,10 +55,10 @@ def check_user_balances():
 def invalidate_charts():
     yts = now() - datetime.timedelta(days=1)
     yesterday = '%s-%s-%s' % (yts.month, yts.day, yts.year)
-    cache.delete(keys.RMV_RATING_DATES % yesterday)
-    cache.delete(keys.RMV_RATING_SUMS % yesterday)
-    cache.delete(keys.RMV_USER_DATES % yesterday)
-    cache.delete(keys.RMV_USER_STATES % yesterday)
+    cache.delete(cache_keys.RMV_RATING_DATES % yesterday)
+    cache.delete(cache_keys.RMV_RATING_SUMS % yesterday)
+    cache.delete(cache_keys.RMV_USER_DATES % yesterday)
+    cache.delete(cache_keys.RMV_USER_STATES % yesterday)
 
 @task()
 def update_queues():
