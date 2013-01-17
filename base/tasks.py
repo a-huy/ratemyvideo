@@ -81,7 +81,7 @@ def update_queues():
     curr_time = now()
 
     # Clear the table of any expired videos
-    vm.Queue.active.filter(expire_date__lt=curr_time).delete()
+    vm.Queue.active.filter(expire_date__lte=curr_time).delete()
     # Then, grab all the queue items that remain
     curr_queue = vm.Queue.active.all()
 

@@ -3,9 +3,11 @@ import re
 import datetime
 
 from django.utils.timezone import now
+from django.core.cache import cache
 
 import accounts.models as accounts_models
 import videos.models as videos_models
+import base.cache_keys as keys
 
 # Determines if a particular Facebook ID is whitelisted
 def whitelisted(fb_id):
@@ -32,9 +34,12 @@ def extract_addr(request):
 
 # Calculates the amount of time that has elapsed since a user's last video rating
 def time_since_last_rating(pk):
-    tslr = datetime.timedelta(999999999)
-    user_ratings = videos_models.Rating.active.filter(user_id=pk).order_by('-created_date')
-    if len(user_ratings) != 0: tslr = now() - user_ratings[0].created_date
+    tslr = cache.get(keys.RMV_USERS_TSLR % pk)
+    if not tslr:
+        tslr = datetime.timedelta(999999999)
+        user_ratings = videos_models.Rating.active.filter(user_id=pk).order_by('-created_date')
+        if len(user_ratings) != 0: tslr = now() - user_ratings[0].created_date
+        cache.set(keys.RMV_USERS_TSLR % pk, tslr, 3600)
     return tslr
 
 # Calculates the Damerau-Levenshtein Distance (allows for transpositions)

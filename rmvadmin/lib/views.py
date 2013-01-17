@@ -11,6 +11,10 @@ from openpyxl.writer.excel import ExcelWriter
 from openpyxl.cell import get_column_letter
 from django.utils.timezone import now
 from django.http import HttpResponse
+from django.db.models import Count
+from django.core.cache import cache
+import base.cache_keys as keys
+import videos.models as videos_models
 
 # Export a list of users into a .xlsx spreadsheet
 def export_users_list_to_xlsx(users):
@@ -111,3 +115,13 @@ def process_csv(in_file):
         else: curr_line += char
 
     return po_dict if po_dict else None
+
+# gets the number of unique users that have rated a video today
+def get_daily_user_count():
+    users = cache.get(keys.RMV_USERS_DAILY_ACTIVE)
+    if not users:
+        now_dt = now() - datetime.timedelta(hours=8) # UTC to PST
+        day = datetime.datetime(year=now_dt.year, month=now_dt.month, day=now_dt.day, tzinfo=now_dt.tzinfo)
+        users = videos_models.Rating.active.filter(created_date__gte=day).aggregate(Count('user', distinct=True))
+        cache.set(keys.RMV_USERS_DAILY_ACTIVE, users, 600)
+    return users['user__count']

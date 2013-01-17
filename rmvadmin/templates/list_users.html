@@ -23,6 +23,7 @@
 <br /><br />
 
 <div id="quick-stats">
+    <span id='daily-users'>{{ daily_count }} Users have rated videos today</span><br />
     <span id="stats-active">Active Users: {{ total_active }} ({{ total_users }} Total)</span><br />
     <span id="stats-payout">{% if total_payout > 0 %}
         {{ total_payout }} User{% if total_payout > 1 %}s are{% else %} is{% endif %} eligible for a payout

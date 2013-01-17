@@ -5,13 +5,13 @@ DOMAIN = 'http://www.ratemyvideo.co/'
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS']
+os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';')
 os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
 os.environ['MEMCACHE_PASSWORD'] = os.environ['MEMCACHIER_PASSWORD']
 CACHES = {
     'default': {
         'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-        'LOCATION': os.environ['MEMCACHIER_SERVERS'],
+        'LOCATION': os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';'),
         'TIMEOUT': 500,
         'BINARY': True,
     }
