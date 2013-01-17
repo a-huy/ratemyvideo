@@ -276,7 +276,7 @@ def site_stats(request):
 
 @login_required
 def masspay_csv(request):
-    po_users = accounts_models.User.active.filter(balance__gte=10)
+    po_users = accounts_models.User.active.filter(balance__gte=settings.MINIMUM_PAYOUT_AMOUNT)
     return views_lib.export_masspay_csv(po_users)
 
 @login_required
