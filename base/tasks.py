@@ -4,6 +4,7 @@ import itertools
 import random
 import base.email_templates as emails
 import base.cache_keys as cache_keys
+import base.contrib as bc
 import accounts.models as am
 import videos.models as vm
 from accounts.lib.invite import is_inside_us
@@ -97,3 +98,9 @@ def update_queues():
         for vid in ([x for x in cores if x not in vid_ids] + pool)[:USER_LIMIT]:
             queue.append(create_entry(user, vid, curr_time, bonuses))
         if queue: vm.Queue.objects.bulk_create(queue)
+
+# Calculate time since last rating for all users (so the values will be ready in cache)
+@task()
+def calc_all_tslr():
+    users_all = am.User.active.all()
+    for user in users_all: bc.time_since_last_rating(user.pk)

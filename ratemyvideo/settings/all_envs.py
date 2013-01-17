@@ -121,6 +121,10 @@ CELERYBEAT_SCHEDULE = {
         'task': 'base.tasks.update_queues',
         'schedule': crontab(hour=8, minute=0)
     },
+    'calc-all-tslr': {
+        'task': 'base.tasks.calc_all_tslr',
+        'schedule': datetime.timedelta(minutes=10)
+    },
 }
 CELERY_TIMEZONE = 'UTC'
 
