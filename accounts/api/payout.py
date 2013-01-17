@@ -2,6 +2,7 @@ from decimal import *
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.core.cache import cache
+from django.conf import settings
 
 import base.api.base as base
 import base.cache_keys as cache_keys
@@ -30,7 +31,8 @@ class PayoutCreateApi(base.RestView):
         if user.balance < amount:
             return HttpResponseBadRequest('Submitted amount is larger than %s\'s balance' % user.real_name)
         user.balance = round(user.balance - amount, 2)
-        if not user.verified: user.verified = True
+        if not user.verified and user.balance >= settings.MINIMUM_VERIFIED_AMOUNT:
+            user.verified = True
         user.save()
 
         args = {

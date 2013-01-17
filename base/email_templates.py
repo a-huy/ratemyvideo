@@ -33,7 +33,7 @@ Next, you must download and install our Chrome extension.
 You can do so by navigating to our home page and clicking on the Install link:
 %s
 
-Once you have earned $10, we will contact you via your email address used to login with Facebook (%s) in order to request your PayPal account information so we can send you your MONEY!
+Once you have earned $5, we will contact you via your email address used to login with Facebook (%s) in order to request your PayPal account information so we can send you your MONEY!
 
 We look forward to you helping us find the next viral sensation!
 

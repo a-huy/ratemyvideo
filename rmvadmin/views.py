@@ -113,9 +113,10 @@ def list_users(request):
         'rev': filter_rev,
         'num': num_per_page,
         'total_active': len(filter(lambda x: x.rated > 0, users_all)),
-        'total_payout': len(filter(lambda x: x.balance >= 10, users_all)),
+        'total_payout': len(filter(lambda x: x.balance >= settings.MINIMUM_PAYOUT_AMOUNT, users_all)),
         'total_users': len(users_all),
         'daily_count': views_lib.get_daily_user_count(),
+        'minimum_payout': settings.MINIMUM_PAYOUT_AMOUNT
     }
     return render_to_response('list_users.html', context_vars,
         context_instance=RequestContext(request))

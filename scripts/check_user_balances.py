@@ -1,4 +1,5 @@
 import utils.djangoenv
+from django.conf import settings
 
 import accounts.models as am
 from base.tasks import backend_email
@@ -10,7 +11,7 @@ list_str = ''
 
 list_ind = 1
 for user in accounts:
-    if user.balance >= 10:
+    if user.balance >= settings.MINIMUM_PAYOUT_AMOUNT:
         list_str += '%3d. %s (%s): $%s\n' % (list_ind, user.real_name, user.email, str(user.balance))
         list_ind += 1
 

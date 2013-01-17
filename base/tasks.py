@@ -45,7 +45,7 @@ def backend_email(template_name, group_type, email_args):
 
 @task()
 def check_user_balances():
-    accounts = am.User.active.filter(balance__gte=10)
+    accounts = am.User.active.filter(balance__gte=settings.MINIMUM_PAYOUT_AMOUNT)
     payout_list = []
     list_str = ''
     for argi, user in enumerate(accounts):
