@@ -56,7 +56,7 @@ class UserUpdateApi(base.RestView):
                     user.balance = Decimal(request.POST['balance'])
             except InvalidOperation:
                 return HttpResponseBadRequest('The balance amount is not a valid number')
-        if 'pp_email' in request.POST and request.POST['pp_email']:
+        if 'pp_email' in request.POST:
             try:
                 validate_email(request.POST['pp_email'])
                 user.pp_email = request.POST['pp_email']

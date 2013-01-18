@@ -74,13 +74,14 @@ def account_is_eligible(user):
 #    if state not in states_whitelist:
 #        return (False, 'User location not in authorized area')
     if user['location'] == 'Unknown': return (False, 'User location not in authorized area')
-    seconds_in_age_limit = 60 * 60 * 24 * 180 # It's actually about 6 months
-    limit = int(round(time.time() - seconds_in_age_limit))
-    access_token['until'] = limit
-    posts = json.load(urllib.urlopen(
-        'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))
-    if 'data' not in posts or len(posts['data']) == 0:
-        return (False, 'Account is less than 6 months old')
+    # Uncomment to place Facebook profile age restriction
+    # seconds_in_age_limit = 60 * 60 * 24 * 180 # It's actually about 6 months
+    #     limit = int(round(time.time() - seconds_in_age_limit))
+    #     access_token['until'] = limit
+    # posts = json.load(urllib.urlopen(
+    #         'https://graph.facebook.com/me/feed?' + urllib.urlencode(access_token)))
+    #     if 'data' not in posts or len(posts['data']) == 0:
+    #         return (False, 'Account is less than 6 months old')
     return (True, '')
 
 def create_request(user):
