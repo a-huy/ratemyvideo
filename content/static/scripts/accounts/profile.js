@@ -65,11 +65,13 @@ $('#save-button').click(function() {
     }
     var email = $('#user-email').text().trim();
     var pp_email = $('#user-pp-email').text().trim();
-    if (email == '' || pp_email == '')
+    if (email == '')
     {
-        $('#edit-warning').text('You cannot submit an empty ' + (email == '' ? '' : 'paypal ') + 'email.');
+        $('#edit-warning').text('You cannot submit an empty email.');
         return;
     }
+    data = [{ name: 'email', value: email}];
+    if (pp_email != '' && pp_email != 'None') data.push({ name: 'pp_email', value: pp_email });
     if (confirm('Confirm Commit Edits\n\nCommit these changes?'))
     {
         $.ajax({
@@ -79,10 +81,7 @@ $('#save-button').click(function() {
             type: 'POST',
             async: false,
             url: '/api/accounts/user/' + jsonVars['fb_id'] + '/',
-            data: [
-                { name: 'email', value: email },
-                { name: 'pp_email', value: pp_email },
-            ],
+            data: data,
             contentType: 'application/json; charset=urf-8',
             error: function(err) { $('#edit-warning').text(err.responseText); },
             success: function(msg)
