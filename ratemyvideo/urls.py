@@ -5,14 +5,11 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.http import HttpResponse
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
-
 handler500 = base.views.custom_500
 
 urlpatterns = patterns('',
     url(r'^$', include('homepage.urls')),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^legal/', include('homepage.urls')),
     url(r'^videos/', include('videos.urls')),
     url(r'^login/', include('accounts.urls')),
@@ -23,15 +20,5 @@ urlpatterns = patterns('',
     url(r'^extension/', include('base.urls')),
     url(r'^robots\.txt$', 
         lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')),
-
-    # Examples:
-    # url(r'^$', 'ratemyvideo.views.home', name='home'),
-    # url(r'^ratemyvideo/', include('ratemyvideo.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
 )
 

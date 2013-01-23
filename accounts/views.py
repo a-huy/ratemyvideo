@@ -1,11 +1,15 @@
 from django.conf import settings
-from django.shortcuts import render_to_response, render, redirect
+from django.shortcuts import render_to_response, render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
-    HttpResponse
+    HttpResponse, HttpResponseForbidden
 from django.template import RequestContext
+from django.utils.timezone import now
 
 import urllib
 import accounts.lib.invite as invite_lib
+import accounts.lib.user as user_lib
+import accounts.models as accounts_models
+import videos.models as videos_models
 from base.contrib import whitelisted
 
 def login_page(request):
@@ -44,3 +48,28 @@ def invite_required(request):
     return render_to_response('invite_required.html', context_vars,
         context_instance=RequestContext(request))
 
+def profile(request, fb_id):
+    session = request.session
+    # if 'fb_id' not in session or session['fb_id'] == -1 or session['fb_id'] != fb_id:
+    #         return HttpResponseForbidden()
+    user = get_object_or_404(accounts_models.User, fb_id=fb_id)
+    po_dates = list(accounts_models.Payout.active.filter(user=user).values_list('created_date', flat=True).order_by('-created_date'))
+    po_dates += [user.created_date]
+    ratings = videos_models.Rating.active.filter(user=user).order_by('-created_date')[:40]
+    avg_po_time = user_lib.avg_payout_time(po_dates)
+    apt_str = '%dd, %dh' % (avg_po_time.days, avg_po_time.seconds / 3600) if avg_po_time else ''
+    tslp = user_lib.time_since_last_payout(po_dates)
+    tslp_str = '%dd, %dh' % (tslp.days, tslp.seconds / 3600) if tslp else ''
+    json_vars = {
+        'fb_id': str(user.fb_id),
+    }
+    context_vars = {
+        'user': user,
+        'ratings': ratings,
+        'acc_age': (now() - user.created_date).days,
+        'avg_po_time': apt_str,
+        'tslp': tslp_str,
+        'json_vars': json_vars,
+    }
+    return render_to_response('profile.html', context_vars,
+        context_instance=RequestContext(request))

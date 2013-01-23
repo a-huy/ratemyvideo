@@ -23,11 +23,10 @@ class UserUpdateApi(base.RestView):
     form = accounts_forms.UserUpdateForm
 
     def GET(self, request, fb_id, *args, **kwargs):
-
         try:
             user = accounts_models.User.objects.get(fb_id=fb_id)
         except accounts_models.User.DoesNotExist:
-            return HttpResponseForbidden('User has not been authenticated')
+            return HttpResponseForbidden('User is not registered')
         if not whitelisted(fb_id):
             return HttpResponseForbidden('User has not been authenticated')
         request.session['fb_id'] = fb_id
@@ -41,11 +40,15 @@ class UserUpdateApi(base.RestView):
         return base.APIResponse(data)
 
     def PUT(self, request, fb_id, *args, **kwargs):
-        if not request.user.is_authenticated(): redirect('/rmvadmin/')
+        session = request.session
+        if not request.user.is_authenticated():
+            if 'fb_id' not in session or session['fb_id'] == -1 or session['fb_id'] != fb_id:
+                return HttpResponseForbidden()
         try:
-            user = accounts_models.User.objects.get(fb_id=fb_id)
+            if request.user.is_authenticated(): user = accounts_models.User.objects.get(fb_id=fb_id)
+            else: user = accounts_models.User.objects.get(fb_id=session['fb_id'])
         except accounts_models.User.DoesNotExist:
-            return HttpResponseBadRequest('User with FB ID ' + fb_id + ' does not exist')
+            return HttpResponseBadRequest('The user you are looking for does not exist!')
         if 'verified' in request.POST and request.POST['verified']:
             user.verified = True if request.POST['verified'] == 'true' else False
         if 'real_name' in request.POST and request.POST['real_name']:
@@ -56,13 +59,19 @@ class UserUpdateApi(base.RestView):
                     user.balance = Decimal(request.POST['balance'])
             except InvalidOperation:
                 return HttpResponseBadRequest('The balance amount is not a valid number')
+        if 'email' in request.POST:
+            try:
+                validate_email(request.POST['email'])
+                user.email = request.POST['email']
+            except ValidationError:
+                return HttpResponseBadRequest('The email you have submitted is not a valid address.')
         if 'pp_email' in request.POST:
             try:
                 validate_email(request.POST['pp_email'])
                 user.pp_email = request.POST['pp_email']
             except ValidationError:
                 return HttpResponseBadRequest('The Paypal email you have submitted ' + \
-                    'is not a valid email')
+                    'is not a valid email address.')
         user.save()
         cache.delete(cache_keys.PAGECACHE % ('rmvadmin:edit:user:%s' % user.fb_id))
         return base.APIResponse({ })
