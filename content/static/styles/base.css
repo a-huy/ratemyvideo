@@ -47,3 +47,52 @@ a:hover
     color: #fff;
 }
 
+.clear {
+    overflow: hidden;
+    width: 100%;
+}
+
+.ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+}
+.ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 7px black;
+}
+
+/*a.button, a.big-button {
+    color: #444;
+    display: block;
+    float: left;
+    font-family: museo-sans;
+    text-decoration: none;
+}
+a.button span, a.big-button span {
+    display: block;
+}
+a.button {
+    background: transparent url('/content/static/images/bg_button_a.gif') no-repeat scroll top right;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px;
+}
+a.button span {
+    background: transparent url('/content/static/images/bg_button_span.gif') no-repeat;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+a.big-button {
+    background: transparent url('/content/static/images/slide_button_b.png') no-repeat scroll top right;
+    height: 83px;
+    margin-right: 12px;
+    padding-right: 36px;
+}
+a.big-button span {
+    background: transparent url('/content/static/images/slide_button_a.png') no-repeat;
+    line-height: 73px;
+    font-size: 30px;
+    padding: 5px 0 5px 36px;
+}*/

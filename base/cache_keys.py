@@ -1,6 +1,8 @@
 # Please keep keys in alphabetical order
 
 # Accounts
+ACC_PAYOUT_AVG = 'accounts:payout:avg:%s' # fb_id
+ACC_PAYOUT_LAST = 'accounts:payout:last:%s' # fb_id
 ACC_USER_QUEUE = 'accounts:queue:%s' # fb_id
 ACC_USER_HISTORY = 'accounts:history:%s' # fb_id
 

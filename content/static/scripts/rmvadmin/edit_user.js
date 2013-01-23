@@ -69,7 +69,6 @@ $('#balance-edit-button').click(function() {
 
 $('#verified-toggle-button').click(function() {
     var state = $('#user-verified-input').html().trim().charCodeAt(0);
-    console.log(state);
     if (state == 10007) $('#user-verified-input').html('&#x2713;');
     else $('#user-verified-input').html('&#x2717;');
     $('#user-verified-input').addClass('edited');
@@ -94,9 +93,6 @@ $('#save-button').click(function() {
             'Finish editing before saving your changes.');
         return;
     }
-    console.log(name);
-    console.log(pp_email);
-    console.log(verified);
     if (confirm('Confirm Commit Edits\n\nCommit these changes?'))
     {
         $.ajax({

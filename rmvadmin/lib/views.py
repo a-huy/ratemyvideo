@@ -113,7 +113,7 @@ def process_csv(in_file):
             po_dict[parts[3][4:]] = parts[1]
             curr_line = ''
         else: curr_line += char
-
+    in_file.close()
     return po_dict if po_dict else None
 
 # gets the number of unique users that have rated a video today
