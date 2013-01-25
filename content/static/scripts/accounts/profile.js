@@ -88,6 +88,8 @@ $('#save-button').click(function() {
             {
                 $('#edit-warning').text('');
                 $('#edit-success').text('Changes successfully commited!');
+                var orig_email = $('#user-email').text().trim();
+                var orig_pp_email = $('#user-pp-email').text().trim();
             }
         });
         $('.edited').removeClass('edited');

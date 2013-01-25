@@ -34,7 +34,7 @@ class QueueApi(base.RestView):
             vids.append({
                 'yt_id': vid.yt_id,
                 'reward': reward,
-                'title': vid.title
+                # 'title': vid.title
             })
 #        cache.set(queue_key, vids)
 
