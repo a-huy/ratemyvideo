@@ -53,6 +53,7 @@ def profile(request, fb_id):
     if 'fb_id' not in session or session['fb_id'] == -1 or session['fb_id'] != fb_id:
             return HttpResponseForbidden()
     user = get_object_or_404(accounts_models.User, fb_id=fb_id)
+    user.referral = accounts_models.InviteRequest.objects.filter(fb_id=fb_id)[0].reason
     po_dates = list(accounts_models.Payout.active.filter(user=user).values_list('created_date', flat=True).order_by('-created_date'))
     po_dates += [user.created_date]
     ratings = videos_models.Rating.active.filter(user=user).order_by('-created_date')[:40]
