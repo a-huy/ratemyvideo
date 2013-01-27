@@ -242,25 +242,25 @@ def site_stats(request):
     if not ratings:
         values = videos_models.Rating.active.values_list('created_date', flat=True)
         ratings = views_lib.count_by_date(values)
-        cache.set(rdates_key, ratings)
+        cache.set(rdates_key, ratings, 3600)
 
     users_dates = cache.get(udates_key)
     if not users_dates:
         values = accounts_models.User.active.values_list('created_date', flat=True)
         users_dates = views_lib.count_by_date(values)
-        cache.set(udates_key, users_dates)
+        cache.set(udates_key, users_dates, 3600 * 3)
 
     users_states = cache.get(ustates_key)
     if not users_states:
         values = accounts_models.User.active.values_list('location', flat=True)
         users_states = views_lib.count_by_state(values)
-        cache.set(ustates_key, users_states)
+        cache.set(ustates_key, users_states, 3600 * 3)
 
     ratings_sums = cache.get(rsums_key)
     if not ratings_sums:
         values = videos_models.Rating.active.values_list('created_date', 'video__reward')
         ratings_sums = views_lib.sum_by_date(values)
-        cache.set(rsums_key, ratings_sums)
+        cache.set(rsums_key, ratings_sums, 3600)
 
     users_counts = views_lib.users_by_date()
 
