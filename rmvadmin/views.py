@@ -262,11 +262,14 @@ def site_stats(request):
         ratings_sums = views_lib.sum_by_date(values)
         cache.set(rsums_key, ratings_sums)
 
+    users_counts = views_lib.users_by_date()
+
     json_vars = {
         'rdates': ratings,
         'udates': users_dates,
         'ustates': users_states,
-        'rsums': ratings_sums
+        'rsums': ratings_sums,
+        'ducounts': users_counts,
     }
     context_vars = {
         'json_vars': json_vars

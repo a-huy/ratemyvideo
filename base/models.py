@@ -7,7 +7,7 @@ import datetime
 class Base(models.Model):
     created_date = models.DateTimeField(default=django.utils.timezone.now, editable=False)
     modified_date = models.DateTimeField(default=django.utils.timezone.now, editable=False)
-    deleted_date = models.DateTimeField(null=True, default=None, editable=False)
+    deleted_date = models.DateTimeField(null=True, default=None, editable=False, db_index=True)
 
     objects = models.Manager()
     active = ActiveManager()

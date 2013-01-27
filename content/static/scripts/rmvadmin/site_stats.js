@@ -1,7 +1,8 @@
 google.load('visualization', '1.0', {'packages':['corechart', 'geochart']});
 google.setOnLoadCallback(drawAllTheCharts);
 
-CHARTS_LIST = [drawRatingsChart, drawRatingSumsChart, drawNewUsersChart, drawPopulationChart]
+CHARTS_LIST = [drawDailyUsersCountChart, drawRatingsChart, drawRatingSumsChart,
+    drawNewUsersChart, drawPopulationChart]
 
 function drawAllTheCharts()
 {
@@ -72,3 +73,19 @@ function drawPopulationChart()
     chart.draw(data, options);
 }
 
+function drawDailyUsersCountChart()
+{
+    var data = new google.visualization.DataTable()
+    data.addColumn('string', 'Date');
+    data.addColumn('number', 'Unique Users');
+    data.addRows(jsonVars['ducounts']);
+    var options = {
+        'title': 'Unique Raters',
+        'width': 800,
+        'height': 600,
+        'colors': ['orange'],
+        'curveType': 'function'
+    }
+    var chart = new google.visualization.LineChart(document.getElementById('ducounts-chart'));
+    chart.draw(data, options);
+}
