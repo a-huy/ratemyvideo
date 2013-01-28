@@ -129,7 +129,7 @@ def get_daily_user_count():
 
 # gets the number of unique users that have rated a video per day as a list
 def users_by_date():
-    now_ts = now()
+    now_ts = now() - datetime.timedelta(hours=8) # UTC to PST
     date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
     key = keys.RMV_USERS_DAILY_COUNTS % date_today
     users_counts = cache.get(key)
