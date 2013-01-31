@@ -95,3 +95,7 @@ $('#save-button').click(function() {
         $('.edited').removeClass('edited');
     }
 });
+
+$('#signout-button').click(function() {
+    window.location = '/accounts/logout/';
+})

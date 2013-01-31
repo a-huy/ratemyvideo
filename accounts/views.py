@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404, \
     HttpResponse, HttpResponseForbidden
 from django.template import RequestContext
 from django.utils.timezone import now
+from django.contrib.auth import logout
 
 import urllib
 import accounts.lib.invite as invite_lib
@@ -40,6 +41,10 @@ def login_page(request):
     return render_to_response('login_page.html', context_vars,
         context_instance=RequestContext(request))
 
+def logout_page(request):
+    logout(request)
+    return redirect('/')
+
 def channel(request):
     return render(request, 'channel.html', { })
 
@@ -48,7 +53,7 @@ def invite_required(request):
     return render_to_response('invite_required.html', context_vars,
         context_instance=RequestContext(request))
 
-def profile(request, fb_id):
+def user_profile(request, fb_id):
     session = request.session
     if 'fb_id' not in session or session['fb_id'] == -1 or session['fb_id'] != fb_id:
             return HttpResponseForbidden()
@@ -74,3 +79,10 @@ def profile(request, fb_id):
     }
     return render_to_response('profile.html', context_vars,
         context_instance=RequestContext(request))
+
+def profile(request):
+    session = request.session
+    if 'fb_id' not in session or session['fb_id'] == -1: return redirect('/login/')
+    user = get_object_or_404(accounts_models.User, fb_id=session['fb_id'])
+    if not whitelisted(user.fb_id): return redirect('invite_required')
+    return redirect('/accounts/profile/%s' % session['fb_id'])

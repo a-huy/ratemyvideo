@@ -18,7 +18,6 @@ ADMIN_MEDIA_PREFIX = '/admin-media/'
 
 MANAGERS = (
     ('Jessica', 'jessica@ratemyvideo.co'),
-    ('Andy', 'andy@ratemyvideo.co')
 )
 
 # Django default setting variables
