@@ -7,6 +7,7 @@ import base.cache_keys as cache_keys
 import base.contrib as bc
 import accounts.models as am
 import videos.models as vm
+import rmvadmin.lib.site_stats as site_stats_lib
 from accounts.lib.invite import is_inside_us
 from django.core.mail import send_mail, mail_admins, mail_managers, BadHeaderError
 from django.conf import settings
@@ -104,3 +105,12 @@ def update_queues():
 def calc_all_tslr():
     users_all = am.User.active.all()
     for user in users_all: bc.time_since_last_rating(user.pk)
+
+# Update graph data
+@task()
+def update_graph_data():
+    site_stats_lib.ratings_day_count(invalidate=True)
+    site_stats_lib.new_users_day_count(invalidate=True)
+    site_stats_lib.count_by_state(invalidate=True)
+    site_stats_lib.sum_by_date(invalidate=True)
+    site_stats_lib.users_by_date(invalidate=True)

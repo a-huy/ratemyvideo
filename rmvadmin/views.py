@@ -19,6 +19,7 @@ import base.contrib
 import base.cache_keys as keys
 from base.decorators import pagecache
 import rmvadmin.lib.views as views_lib
+import rmvadmin.lib.site_stats as site_stats_lib
 from rmvadmin.forms import CSVForm
 
 @login_required
@@ -231,38 +232,11 @@ def user_stats(request, fb_id):
 
 @login_required
 def site_stats(request):
-    now_ts = now()
-    date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
-    rdates_key = keys.RMV_RATING_DATES % date_today
-    rsums_key = keys.RMV_RATING_SUMS % date_today
-    udates_key = keys.RMV_USER_DATES % date_today
-    ustates_key = keys.RMV_USER_STATES % date_today
-
-    ratings = cache.get(rdates_key)
-    if not ratings:
-        values = videos_models.Rating.active.values_list('created_date', flat=True)
-        ratings = views_lib.count_by_date(values)
-        cache.set(rdates_key, ratings, 3600)
-
-    users_dates = cache.get(udates_key)
-    if not users_dates:
-        values = accounts_models.User.active.values_list('created_date', flat=True)
-        users_dates = views_lib.count_by_date(values)
-        cache.set(udates_key, users_dates, 3600 * 3)
-
-    users_states = cache.get(ustates_key)
-    if not users_states:
-        values = accounts_models.User.active.values_list('location', flat=True)
-        users_states = views_lib.count_by_state(values)
-        cache.set(ustates_key, users_states, 3600 * 3)
-
-    ratings_sums = cache.get(rsums_key)
-    if not ratings_sums:
-        values = videos_models.Rating.active.values_list('created_date', 'video__reward')
-        ratings_sums = views_lib.sum_by_date(values)
-        cache.set(rsums_key, ratings_sums, 3600)
-
-    users_counts = views_lib.users_by_date()
+    ratings = site_stats_lib.ratings_day_count()
+    users_dates = site_stats_lib.new_users_day_count()
+    users_states = site_stats_lib.count_by_state()
+    ratings_sums = site_stats_lib.sum_by_date()
+    users_counts = site_stats_lib.users_by_date()
 
     json_vars = {
         'rdates': ratings,

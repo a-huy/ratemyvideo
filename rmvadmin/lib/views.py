@@ -2,7 +2,6 @@
 import tempfile
 import os
 import re
-import collections
 import datetime
 import csv
 
@@ -71,37 +70,6 @@ def export_masspay_csv(users):
         writer.writerow([user.pp_email, user.balance, 'USD', 'rmv-%s' % (user.fb_id), 'Rate My Video Payout'])
     return response
 
-# Takes a list of datetime objects and returns a list of [date, count]
-def count_by_date(items):
-    adj_dates = []
-    for date in items: adj_dates.append(date - datetime.timedelta(hours=8)) # UTC to PST
-    dates_list = []
-    counts = collections.Counter([datetime.datetime(month=x.month, \
-        day=x.day, year=x.year) for x in adj_dates])
-    map(lambda x: dates_list.append(['%s-%s-%s' % (x.month, x.day, x.year),
-        counts[x]]), sorted(list(counts)))
-    return dates_list
-
-# takes a list of locations as strings and returns a list of [state, count]
-def count_by_state(items):
-    states_list = []
-    counts = collections.Counter([str(x.split(', ')[-1]) for x in items])
-    map(lambda x: states_list.append([x, counts[x]]), list(counts))
-    return states_list
-
-# takes a list of tuples (date, reward) and returns a list of [date, sum]
-def sum_by_date(items):
-    dates_dict = { }
-    for pair in items:
-        adj_date = pair[0] - datetime.timedelta(hours=8) # UTC to PST
-        date = datetime.datetime(month=adj_date.month, day=adj_date.day, year=adj_date.year)
-        if date not in dates_dict: dates_dict[date] = pair[1]
-        else: dates_dict[date] += pair[1]
-    sums_list = []
-    map(lambda x: sums_list.append(['%s-%s-%s' % (x.month, x.day, x.year),
-        float(dates_dict[x])]), sorted(dates_dict.keys()))
-    return sums_list
-
 # processes a user-uploaded mass payout csv file
 def process_csv(in_file):
     po_dict = {}
@@ -126,23 +94,3 @@ def get_daily_user_count():
         users = videos_models.Rating.active.filter(created_date__gte=day).aggregate(Count('user', distinct=True))
         cache.set(keys.RMV_USERS_DAILY_ACTIVE, users, 600)
     return users['user__count']
-
-# gets the number of unique users that have rated a video per day as a list
-def users_by_date():
-    now_ts = now() # UTC to PST
-    date_today = '%s-%s-%s' % (now_ts.month, now_ts.day, now_ts.year)
-    key = keys.RMV_USERS_DAILY_COUNTS % date_today
-    users_counts = cache.get(key)
-    if not users_counts:
-        ratings = videos_models.Rating.active.values_list('created_date', 'user_id')
-        dates_dict = { }
-        for date, uid in ratings:
-            cdate = datetime.datetime(month=date.month, day=date.day, year=date.year) - \
-                datetime.timedelta(hours=8)
-            if cdate not in dates_dict: dates_dict[cdate] = [uid]
-            else: dates_dict[cdate].append(uid)
-        users_counts = []
-        map(lambda x: users_counts.append(['%s-%s-%s' % (x.month, x.day, x.year),
-            len(set(dates_dict[x]))]), sorted(dates_dict.keys()))
-        cache.set(key, users_counts, 3600)
-    return users_counts

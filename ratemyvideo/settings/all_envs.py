@@ -17,7 +17,7 @@ ADMINS = (
 ADMIN_MEDIA_PREFIX = '/admin-media/'
 
 MANAGERS = (
-    ('Jessica', 'jessica@ratemyvideo.co'),
+    ('Support', 'support@ratemyvideo.co'),
 )
 
 # Django default setting variables
@@ -122,6 +122,10 @@ CELERYBEAT_SCHEDULE = {
         'task': 'base.tasks.calc_all_tslr',
         'schedule': datetime.timedelta(minutes=10)
     },
+    'update-graph-data': {
+        'task': 'base.tasks.update_graph_data',
+        'schedule': datetime.timedelta(minutes=60)
+    }
 }
 CELERY_TIMEZONE = 'UTC'
 
