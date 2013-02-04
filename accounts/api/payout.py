@@ -31,7 +31,7 @@ class PayoutCreateApi(base.RestView):
         if user.balance < amount:
             return HttpResponseBadRequest('Submitted amount is larger than %s\'s balance' % user.real_name)
         user.balance = round(user.balance - amount, 2)
-        if user.balance >= settings.MINIMUM_VERIFIED_AMOUNT: user.verified = True
+        if user.earned >= settings.MINIMUM_VERIFIED_AMOUNT: user.verified = True
         user.save()
 
         args = {
