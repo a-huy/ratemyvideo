@@ -89,15 +89,16 @@ def update_queues():
 
     for user in accounts:
         cache.delete(cache_keys.ACC_USER_QUEUE % user.fb_id)
-        USER_LIMIT = 30 if user.verified else DEFAULT_LIMIT
+        USER_LIMIT = settings.VERIFIED_VIDEO_QUEUE_LIMIT if user.verified else DEFAULT_LIMIT
         vid_ids = set(list(ratings.filter(user=user).values_list('video__id', flat=True)) + \
             list(curr_queue.filter(user=user).values_list('video__id', flat=True)))
         pool = [x for x in (rest + (verified if user.verified else [])) if x not in vid_ids]
         random.shuffle(pool)
         queue = []
         bonuses = '' if is_inside_us(user.location) else 'intl'
-        for vid in ([x for x in cores if x not in vid_ids] + pool)[:USER_LIMIT]:
-            queue.append(create_entry(user, vid, curr_time, bonuses))
+        for core_id in [x for x in cores if x not in vid_ids]:
+            if core_id not in pool[:USER_LIMIT]: pool.insert(0, core_id)
+        for vid in pool[:USER_LIMIT]: queue.append(create_entry(user, vid, curr_time, bonuses))
         if queue: vm.Queue.objects.bulk_create(queue)
 
 # Calculate time since last rating for all users (so the values will be ready in cache)
