@@ -1,5 +1,7 @@
 from django.core.cache import cache
 from django.utils.timezone import now
+from django.conf import settings
+import pytz
 import datetime
 import collections
 import accounts.models as accounts_models
@@ -91,8 +93,9 @@ def users_by_date(invalidate=False):
 
     ratings = videos_models.Rating.active.values_list('created_date', 'user_id')
     dates_dict = { }
+    local_tz = pytz.timezone(settings.TIME_ZONE)
     for date, uid in ratings:
-        adj_date = date - datetime.timedelta(hours=8) # UTC to PST
+        adj_date = local_tz.normalize(date.astimezone(local_tz))
         cdate = datetime.datetime(month=adj_date.month, day=adj_date.day, year=adj_date.year)
         if cdate not in dates_dict: dates_dict[cdate] = [uid]
         else: dates_dict[cdate].append(uid)
