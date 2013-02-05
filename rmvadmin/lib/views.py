@@ -4,6 +4,7 @@ import os
 import re
 import datetime
 import csv
+import pytz
 
 from openpyxl.workbook import Workbook
 from openpyxl.writer.excel import ExcelWriter
@@ -12,6 +13,7 @@ from django.utils.timezone import now
 from django.http import HttpResponse
 from django.db.models import Count
 from django.core.cache import cache
+from django.conf import settings
 import base.cache_keys as keys
 import videos.models as videos_models
 
@@ -88,9 +90,11 @@ def process_csv(in_file):
 def get_daily_user_count():
     users = cache.get(keys.RMV_USERS_DAILY_ACTIVE)
     if not users:
-        now_dt = now() - datetime.timedelta(hours=8) # UTC to PST
+        local_tz = pytz.timezone(settings.TIME_ZONE)
+        now_dt = local_tz.normalize(now().astimezone(local_tz))
         day = datetime.datetime(year=now_dt.year, month=now_dt.month, day=now_dt.day,
             tzinfo=now_dt.tzinfo)
+        day = pytz.utc.normalize(day.astimezone(pytz.utc))
         users = videos_models.Rating.active.filter(created_date__gte=day).aggregate(Count('user', distinct=True))
         cache.set(keys.RMV_USERS_DAILY_ACTIVE, users, 600)
     return users['user__count']
