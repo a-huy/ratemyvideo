@@ -92,8 +92,8 @@ def users_by_date(invalidate=False):
     ratings = videos_models.Rating.active.values_list('created_date', 'user_id')
     dates_dict = { }
     for date, uid in ratings:
-        cdate = datetime.datetime(month=date.month, day=date.day, year=date.year) - \
-            datetime.timedelta(hours=8)
+        adj_date = date - datetime.timedelta(hours=8) # UTC to PST
+        cdate = datetime.datetime(month=adj_date.month, day=adj_date.day, year=adj_date.year)
         if cdate not in dates_dict: dates_dict[cdate] = [uid]
         else: dates_dict[cdate].append(uid)
     users_counts = []
