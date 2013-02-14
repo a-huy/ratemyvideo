@@ -61,7 +61,12 @@ def count_by_state(invalidate=False):
 
     items = accounts_models.User.active.values_list('location', flat=True)
     states_list = []
-    counts = collections.Counter([str(x.split(', ')[-1]) for x in items])
+    items_list = []
+    for x in items:
+        try:
+            items_list.append(str(x.split(', ')[-1]))
+        except UnicodeEncodeError: continue
+    counts = collections.Counter(items_list)
     map(lambda x: states_list.append([x, counts[x]]), list(counts))
     set_graph_data(keys.RMV_USER_STATES, states_list, 3600 * 3)
     return states_list
