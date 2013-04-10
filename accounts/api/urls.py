@@ -28,3 +28,6 @@ urlpatterns += patterns('accounts.api.payout',
     url(r'^payout/$', 'PayoutCreateApi'),
 )
 
+urlpatterns += patterns('accounts.api.ban',
+    url(r'^ban/(?P<fb_id>[0-9]+)/$', 'BanApi'),
+)

@@ -24,7 +24,7 @@ class UserUpdateApi(base.RestView):
 
     def GET(self, request, fb_id, *args, **kwargs):
         try:
-            user = accounts_models.User.objects.get(fb_id=fb_id)
+            user = accounts_models.User.active.get(fb_id=fb_id)
         except accounts_models.User.DoesNotExist:
             return HttpResponseForbidden('User is not registered')
         if not whitelisted(fb_id):
