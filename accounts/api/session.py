@@ -8,6 +8,7 @@ class SessionApi(base.RestView):
         if 'fb_id' not in request.session:
             data = { 'fb_id': -1 }
         else: data = { 'fb_id': request.session['fb_id'] }
+        print request.session['fb_id']
 
         return base.APIResponse(data)
 

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" 
+            href="{{ STATIC_URL }}styles/reset.css" media="screen" />
+        <style type="text/css">
+            #header-wrapper
+            {
+                background: #333333 url({{ STATIC_URL }}images/homepage/background2.png)
+                    repeat;
+            }
+            #content2-wrapper
+            {
+                background: #f6f6f6 url({{ STATIC_URL }}images/homepage/rmv_bg_stripe.png)
+                    repeat;
+            }
+            #dl-btn-wrapper
+            {
+                background: transparent
+                    url({{ STATIC_URL }}images/homepage/rmv_install_button_bg.png)
+                    left bottom;
+            }
+            #dl-btn
+            {
+                background: transparent
+                    url({{ STATIC_URL }}images/homepage/rmv_install_button.png) left bottom;
+            }
+            #submit-link
+            {
+                background: transparent
+                    url({{ STATIC_URL }}images/homepage/rmv_button_orange_b.png) left bottom;
+            }
+            #submit-link span
+            {
+                background: transparent
+                    url({{ STATIC_URL }}images/homepage/rmv_button_orange_a.png) left bottom;
+            }
+            @font-face
+            {
+                font-family: museo-sans;
+                src: url({{ STATIC_URL }}fonts/museo_sans_500.ttf),
+                     url({{ STATIC_URL }}fonts/museo_sans_500.eot),
+                     url({{ STATIC_URL }}fonts/museo_sans_500.woff);
+            }
+            @font-face
+            {
+                font-family: museo-slab;
+                src: url({{ STATIC_URL }}fonts/museo_slab_500.ttf),
+                     url({{ STATIC_URL }}fonts/museo_slab_500.eot),
+                     url({{ STATIC_URL }}fonts/museo_slab_500.woff);
+            }
+        </style>
+        <script type="text/javascript">
+            {% if json_vars %}
+                var jsonVars = {{ json_vars|safe }};
+            {% else %}
+                var jsonVars = {};
+            {% endif %}
+        </script>
+        <link rel="stylesheet" type="text/css" 
+            href="{{ STATIC_URL }}styles/base2.css" media="screen" />
+        <link href="{{ STATIC_URL }}images/favicon.png" rel="shortcut icon" />
+        <script src="{{ STATIC_URL }}scripts/jquery-1.8.2.min.js"></script>
+        <script src="{{ STATIC_URL }}scripts/jquery-ui-1.10.0.min.js"></script>
+        <script src="{{ STATIC_URL }}scripts/base.js"></script>
+        {% block head %}
+        {% endblock head %}
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=478571788845937";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="header-wrapper">
+            <div id="header">
+                <a href="/">
+                    <img id="logo-header" 
+                        src="{{ STATIC_URL }}images/homepage/rmv_logo50.png" />
+                </a>
+                <nav id="header-nav">
+                    <ul>
+                        <li class="start"><a href="/info/about/">About</a></li>
+                        <li><a href="/info/faq/">FAQ</a></li>
+                        <li><a href="/legal/privacy-policy/">Privacy Policy</a></li>
+                        <li class="end">
+                            <a href="/legal/terms-of-service/">Terms of Service</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="header-nav2">
+                    <a href="/login/">Log In</a><br />
+                    <a href="/info/signup/">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <div id="content1-wrapper">
+            <h1>
+            {% block title %}
+            {% endblock title %}
+            </h1>
+            <div id="content1">
+                {% block body %}
+                {% endblock body %}
+            </div>
+        </div>
+        <div id="content2-wrapper">
+            <div id="content2">
+                <div id="fb-feed-col" class="info-col">
+                    <div class="info-title">RMV Twitter Feed</div>
+                    <div class="info-content">
+                        <a class="twitter-timeline" href="https://twitter.com/rmvdotco" data-widget-id="296353534574727168">Tweets by @rmvdotco</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    </div>
+                </div>
+                <div id="fb-banner-col" class="info-col">
+                    <div class="info-title">Follow Us On Facebook</div>
+                    <div class="info-content">
+                        <div class="fb-like-box" data-href="http://www.facebook.com/pages/Rate-My-Video/318739118241209" data-width="300" data-height="500" data-show-faces="true" data-stream="true" data-header="false"></div>
+                    </div>
+                </div>
+                <div id="contact-col" class="info-col">
+                    <div class="info-title">Contact Us</div>
+                    <div class="info-content">
+                        <div class="contact-field">
+                            <label for="contact-name">Name:</label><br />
+                            <input type="text" id="contact-name" />
+                        </div>
+                        <div class="contact-field">
+                            <label for="contact-email">Email:</label><br />
+                            <input type="text" id="contact-email" />
+                        </div>
+                        <div class="contact-field">
+                            <label for="contact-comment">Comment:</label><br />
+                            <textarea type="text" id="contact-comment"></textarea>
+                        </div>
+                        <div class="contact-field">
+                            <div id="contact-submit">
+                                <a id="submit-link"><span>submit</span></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-wrapper">
+            <div id="footer">
+                <a href="https://twitter.com/rmvdotco">
+                    <img src="{{ STATIC_URL }}images/homepage/icon_twitter.png" />
+                </a>
+                <a href="http://www.facebook.com/pages/Rate-My-Video/318739118241209">
+                    <img src="{{ STATIC_URL }}images/homepage/icon_fb.png" />
+                </a>
+                <a href="mailto:support@ratemyvideo.co">
+                    <img src="{{ STATIC_URL }}images/homepage/icon_email.png" />
+                </a>
+            </div>
+        </div>
+        <script src="{{ STATIC_URL }}scripts/homepage/landing_page.js"></script>
+    </body>
+    {% block styles %}
+    {% endblock styles %}
+    {% block scripts %}
+    {% endblock scripts %}
+</html>

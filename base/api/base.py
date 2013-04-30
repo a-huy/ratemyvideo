@@ -65,6 +65,7 @@ def APIResponse(data, status_code=200, response_type='json',
     }
     content = json.dumps(data, cls=DjangoJSONEncoder)
     response = HttpResponse(content, mimetype=mimetypes[response_type])
+    response.status_code = status_code
     if cookie:
         response.set_cookie(cookie['key'], value=cookie['value'])
         

@@ -29,8 +29,8 @@ EMAIL_HOST_USER = 'app8527592@heroku.com'
 EMAIL_HOST_PASSWORD = '9ywnpddt'
 
 # Facebook app info
-FACEBOOK_APP_ID = '	478571788845937'
-FACEBOOK_APP_SECRET = '	430e42ad5a5e44384a4779e6b624bd26'
+FACEBOOK_APP_ID = '478571788845937'
+FACEBOOK_APP_SECRET = '430e42ad5a5e44384a4779e6b624bd26'
 
 if os.path.abspath(os.path.dirname(__file__)) == '/home/andy/code/heroku/ratemyvideo/ratemyvideo/settings':
     pass

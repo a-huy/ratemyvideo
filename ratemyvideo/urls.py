@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^$', include('homepage.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^legal/', include('homepage.urls')),
+    url(r'^info/', include('homepage.urls')),
     url(r'^videos/', include('videos.urls')),
     url(r'^login/', include('accounts.urls')),
     url(r'^rmvadmin/', include('rmvadmin.urls')),
@@ -21,4 +22,3 @@ urlpatterns = patterns('',
     url(r'^robots\.txt$', 
         lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')),
 )
-
